@@ -12,7 +12,7 @@ import java.io.IOException;
 public class Files {
     private DataOutputStream write;
     private DataInputStream read;
-    private String path="C:\\Users\\valem\\Desktop\\archivo.txt";
+    private String path="C:\\archivo.txt";
     
      Object [][] datos= new Object[9][100];
      Object [][] eliminar= new Object[9][100];
