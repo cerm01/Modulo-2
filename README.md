@@ -110,6 +110,27 @@ REPARACIONES
         cb_R_IdVehiculo
         cb_R_IdPieza
         
+Piezas
 
+    Botones
+        btn_P_Buscar
+        btn_P_Nuevo
+        btn_P_Guardar
+        btn_P_Cancelar
+        btn_P_Editar
+        btn_P_Eliminar 
+
+    Campos de texto
+        txt_P_Id
+        txt_P_IdPieza
+        txt_P_Descricion
+        txt_P_Stock                 
+
+    Etiquetas
+        lbl_P_Id
+        lbl_P_IdPieza
+        lbl_P_Descricion
+        lbl_P_Stock
+        
 
 
