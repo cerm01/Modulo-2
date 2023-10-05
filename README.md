@@ -80,7 +80,36 @@ VEHICULOS
         cb_V_SeleccioneCliente
             
 
+REPARACIONES
 
+    Botones
+        btn_R_Buscar
+        btn_R_Nuevo
+        btn_R_Guardar
+        btn_R_Cancelar
+        btn_R_Editar
+        btn_R_Eliminar
+
+    Campos de texto
+        txt_R_Id
+        txt_R_IdReparacion
+        txt_R_Falla
+        txt_R_ControlPiezas           
+
+    Etiquetas
+        lbl_R_Id
+        lbl_R_IdVehiculo
+        lbl_R_IdPieza
+        lbl_R_IdReparacion
+        lbl_R_Falla
+        lbl_R_ControlPiezas
+        lbl_R_FechaEntrada
+        lbl_R_FechaSalida
+
+    Combo box
+        cb_R_IdVehiculo
+        cb_R_IdPieza
+        
 
 
 
