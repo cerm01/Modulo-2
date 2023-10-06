@@ -256,6 +256,13 @@ public class main extends javax.swing.JFrame {
 
         tpane.addTab("Login", pnlLogin);
 
+        txtID.setEditable(false);
+        txtID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIDActionPerformed(evt);
+            }
+        });
+
         btnNuevo.setText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -698,9 +705,6 @@ public class main extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        txt_V_Guardar.getAccessibleContext().setAccessibleName("Guardar");
-        txt_V_Cancelar.getAccessibleContext().setAccessibleName("Cancelar");
-
         tpane.addTab("Vehículos", pnlVehiculos);
 
         lbl_R_Id.setText("ID");
@@ -845,7 +849,7 @@ public class main extends javax.swing.JFrame {
 
         jButton13.setText("Eliminar");
 
-        btn_P_Buscar.setText("Editar");
+        btn_P_Buscar.setText("Buscar");
 
         javax.swing.GroupLayout pnlPiezasLayout = new javax.swing.GroupLayout(pnlPiezas);
         pnlPiezas.setLayout(pnlPiezasLayout);
@@ -1126,15 +1130,41 @@ public class main extends javax.swing.JFrame {
                         txtUsuario.setText(""); 
                         txtPassword.setText("");
                         
-                        pnlUsuarios.setEnabled(true);
-                        tpane.setSelectedIndex(1);
-                        
-                        btnSalvar.setEnabled(true);
-                        btnNuevo.setEnabled(false);
-                        btnEditar.setEnabled(false);
-                        btnRemover.setEnabled(false);
-                        btnCancelar.setEnabled(false);
-                    
+                        if(cbPerfil.getSelectedItem()=="Admin"){
+                            pnlUsuarios.setEnabled(true);
+                            pnlClientes.setEnabled(true);
+                            pnlVehiculos.setEnabled(true);
+                            pnlReparaciones.setEnabled(true);
+                            pnlPiezas.setEnabled(true);
+                           
+                            btnSalvar.setEnabled(false);
+                            btnNuevo.setEnabled(true);
+                            btnEditar.setEnabled(false);
+                            btnRemover.setEnabled(false);
+                            btnCancelar.setEnabled(false);
+                        }
+                        if(cbPerfil.getSelectedItem()=="Gerente"){
+                            pnlUsuarios.setEnabled(false);
+                            pnlClientes.setEnabled(true);
+                            pnlVehiculos.setEnabled(false);
+                            pnlReparaciones.setEnabled(true);
+                            pnlPiezas.setEnabled(false);
+                        }
+                        if(cbPerfil.getSelectedItem()=="Secretaria"){
+                            pnlUsuarios.setEnabled(false);
+                            pnlClientes.setEnabled(true);
+                            pnlVehiculos.setEnabled(true);
+                            pnlReparaciones.setEnabled(false);
+                            pnlPiezas.setEnabled(false);
+                        }
+                        if(cbPerfil.getSelectedItem()=="Mecánico"){
+                            pnlUsuarios.setEnabled(false);
+                            pnlClientes.setEnabled(false);
+                            pnlVehiculos.setEnabled(false);
+                            pnlReparaciones.setEnabled(true);
+                            pnlPiezas.setEnabled(false);
+                        }
+                       tpane.setSelectedIndex(1);
                     }
                     else{
                         JOptionPane.showMessageDialog(null, "Contraseña incorrecta");
@@ -1202,6 +1232,10 @@ public class main extends javax.swing.JFrame {
     private void txtPaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPaternoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPaternoActionPerformed
+
+    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIDActionPerformed
 
     /**
      * @param args the command line arguments
