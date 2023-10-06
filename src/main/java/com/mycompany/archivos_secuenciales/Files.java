@@ -1,4 +1,4 @@
-
+// Nada
 package com.mycompany.archivos_secuenciales;
 
 import java.io.DataInputStream;
