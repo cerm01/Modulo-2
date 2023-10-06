@@ -1457,50 +1457,45 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_C_BuscarActionPerformed
 
     private void btn_C_EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_EditarActionPerformed
-        c = new cliente();
-        // Verificar que el campo de búsqueda no esté vacío
-        if(txt_C_Id.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Ingrese el ID del cliente");
-            return;
-        }
-        c = fc.buscar(Integer.parseInt(txt_C_Id.getText()));
-        if(c != null){
-            JTextField txtId = new JTextField(String.valueOf(c.getId()));
-            JTextField txtNombre = new JTextField(c.getNombre());
-            JTextField txtApellidoPaterno = new JTextField(c.getApellidoPaterno());
-            JTextField txtApellidoMaterno = new JTextField(c.getApellidoMaterno());
-
-            // El campo de id no se puede editar
-            txtId.setEditable(false);
-
-            Object[] message = {
-                "ID:", txtId,
-                "Nombre:", txtNombre,
-                "Apellido Paterno:", txtApellidoPaterno,
-                "Apellido Materno:", txtApellidoMaterno
-            };
-
-            int option = JOptionPane.showConfirmDialog(null, message, "Editar cliente", JOptionPane.OK_CANCEL_OPTION);
-            if (option == JOptionPane.OK_OPTION){
-                //Obtener los valores de los campos de texto
-                c.setNombre(txtNombre.getText());
-                c.setApellidoPaterno(txtApellidoPaterno.getText());
-                c.setApellidoMaterno(txtApellidoMaterno.getText());
-
-                fc.eliminar(c);
-                fc.guardar(c);
-
-                txtId.setText("");
-                txtNombre.setText("");
-                txtApellidoPaterno.setText("");
-                txtApellidoMaterno.setText("");
-                JOptionPane.showMessageDialog(null, "Editado correctamente");
-            } else {
-                System.out.println("Editado cancelado");
+       //Boton para editar
+            //Verificar que el campo txt_C_IdCliente no este vacio
+            if(txt_C_IdCliente.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Ingrese el ID del cliente");
+                return;
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "No existe el cliente");
-        }  
+            //Verificar que el campo txt_C_Nombre no este vacio
+            if(txt_C_Nombre.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Ingrese el nombre del cliente");
+                return;
+            }
+            //Verificar que el campo txt_C_ApellidoPaterno no este vacio
+            if(txt_C_ApellidoPaterno.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Ingrese el apellido paterno del cliente");
+                return;
+            }
+            //Verificar que el campo txt_C_ApellidoMaterno no este vacio
+            if(txt_C_ApellidoMaterno.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Ingrese el apellido materno del cliente");
+                return;
+            }
+            //Se crea un objeto de tipo cliente
+            cliente c = new cliente();
+            //Se le asignan los valores a los atributos del objeto
+            c.setId(Integer.parseInt(txt_C_IdCliente.getText()));
+            c.setNombre(txt_C_Nombre.getText());
+            c.setApellidoPaterno(txt_C_ApellidoPaterno.getText());
+            c.setApellidoMaterno(txt_C_ApellidoMaterno.getText());
+            //Se crea un objeto de tipo archivoCliente
+            Cliente_File ac = new Cliente_File();
+            //Se llama al metodo guardarCliente y se le pasa como parametro el objeto cliente
+            ac.editar(c);
+            //Se muestra un mensaje de que se guardo correctamente
+            JOptionPane.showMessageDialog(null, "Editado correctamente");
+            //Se limpian los campos de texto
+            txt_C_IdCliente.setText("");
+            txt_C_Nombre.setText("");
+            txt_C_ApellidoPaterno.setText("");
+            txt_C_ApellidoMaterno.setText("");  
     }//GEN-LAST:event_btn_C_EditarActionPerformed
 
     private void btn_C_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_EliminarActionPerformed
