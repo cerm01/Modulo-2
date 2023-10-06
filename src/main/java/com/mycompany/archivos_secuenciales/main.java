@@ -1420,7 +1420,29 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_C_CancelarActionPerformed
 
     private void btn_C_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_BuscarActionPerformed
+        //Verificar que el campo txt_C_Id no este vacio
+        if(txt_C_Id.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Ingrese el ID del cliente");
+            return;
+        }
         
+        // Obtener el id 
+        int id = Integer.parseInt(txt_C_Id.getText());
+
+        // validar que el id si exista
+        Cliente_File clienteFile = new Cliente_File();
+        cliente c = clienteFile.buscar(id);
+        if(c == null){
+            JOptionPane.showMessageDialog(null, "No existe el cliente");
+            return;
+        }
+
+        // Mostrar los datos del cliente
+        txt_C_IdCliente.setText(String.valueOf(c.getId()));
+        txt_C_Nombre.setText(c.getNombre());
+        txt_C_ApellidoPaterno.setText(c.getApellidoPaterno());
+        txt_C_ApellidoMaterno.setText(c.getApellidoMaterno());
+
     }//GEN-LAST:event_btn_C_BuscarActionPerformed
 
     /**

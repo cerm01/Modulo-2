@@ -7,6 +7,8 @@ import java.io.EOFException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
+
 import java.io.FileInputStream;
 
 public class Cliente_File {
@@ -96,6 +98,46 @@ public class Cliente_File {
         } catch (IOException e) {
             System.out.println("Error al guardar el cliente");
         }
-    }  
+    } 
+
+    // Método para buscar un cliente recibiendo como parámetro el ID
+    public cliente buscar(int id) {
+        cliente cliente = new cliente();
+        
+        try {
+            read = new DataInputStream(new FileInputStream(path));
+            
+            while (true) {
+                int idCliente = read.readInt();
+                String nombre = read.readUTF();
+                String apellidoPaterno = read.readUTF();
+                String apellidoMaterno = read.readUTF();
+
+                // Verificar que el id del cliente leído si exista
+                
+                if (idCliente == id) {
+                    cliente.setId(idCliente);
+                    cliente.setNombre(nombre);
+                    cliente.setApellidoPaterno(apellidoPaterno);
+                    cliente.setApellidoMaterno(apellidoMaterno);
+                    break;
+                }
+            }
+        } catch (EOFException e) {
+            // Fin del archivo, no se hace nada aquí
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo de clientes");
+        } finally {
+            try {
+                if (read != null) {
+                    read.close();
+                }
+            } catch (IOException e) {
+                System.out.println("Error al cerrar el archivo de lectura");
+            }
+        }
+        
+        return cliente;
+    }   
 
 }
