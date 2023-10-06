@@ -2,7 +2,11 @@ package com.mycompany.archivos_secuenciales;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class main extends javax.swing.JFrame {
@@ -12,16 +16,19 @@ public class main extends javax.swing.JFrame {
     reparaciones rep;
     contacto cto;
     contacto admin;
+    
+    Vehiculos_Files v;
+    Vehiculos vcs;
+    
     //boolean band=false;
-    boolean ban = false;
+    boolean ban=false;
     //int contID=1;
 
     public main() {
         initComponents();
-        f = new Files();
-        rf = new reparaciones_File();
-
-        admin = new contacto();
+        f=new Files();
+      
+        admin=new contacto();
         admin.setId(0);
         admin.setNombre("Admi");
         admin.setPaterno("Nistra");
@@ -31,6 +38,13 @@ public class main extends javax.swing.JFrame {
         admin.setDireccion("plata");
         admin.setPassword("123");
         admin.setPerfil("Admin");
+        
+        btn_V_Guardar.setEnabled(false);
+        btn_V_Nuevo.setEnabled(true);
+        btn_V_Editar.setEnabled(false);
+        btn_V_Eliminar.setEnabled(false);
+        btn_V_Cancelar.setEnabled(false);
+    
         try {
             if (f.BuscarContacto(admin) == null) {
                 f.Guardar(admin);
@@ -38,15 +52,15 @@ public class main extends javax.swing.JFrame {
         } catch (FileNotFoundException ex) {
 
         }
-        tpane.setEnabledAt(1, false);
-        tpane.setEnabledAt(2, false);
-        tpane.setEnabledAt(3, false);
-        tpane.setEnabledAt(4, false);
-        tpane.setEnabledAt(5, false);
-
+            tpane.setEnabledAt(1, false);
+            tpane.setEnabledAt(2, false);
+            tpane.setEnabledAt(3, false);
+            tpane.setEnabledAt(4, false);
+            tpane.setEnabledAt(5, false);
+        
+ 
     }
-
-    public void Habilitar() {
+     public void Habilitar(){
         txtNombre.setEditable(true);
         txtPaterno.setEditable(true);
         txtMaterno.setEditable(true);
@@ -56,8 +70,7 @@ public class main extends javax.swing.JFrame {
         txtDireccion.setEditable(true);
         txtPsw.setEditable(true);
     }
-
-    public void Deshabilitar() {
+     public void Deshabilitar(){
         txtNombre.setEditable(false);
         txtPaterno.setEditable(false);
         txtMaterno.setEditable(false);
@@ -75,32 +88,6 @@ public class main extends javax.swing.JFrame {
         cbPerfil.setSelectedItem("");
         txtDireccion.setText("");
 
-    }
-    
-        public void reparaciones_Habilitar() {
-        cmb_R_IdVehiculo.setEditable(true);
-        cmb_R_IdPieza.setEditable(true);
-        txt_R_IdReparacion.setEditable(true);
-        txt_R_Falla.setEditable(true);
-        txt_R_ControlPiezas.setEditable(true);
-        jdt_E_Fecha.setEnabled(true);
-        jdt_S_Fecha.setEnabled(true);
-    }
-
-    public void reparaciones_Deshabilitar() {
-        cmb_R_IdVehiculo.setEditable(false);
-        cmb_R_IdPieza.setEditable(false);
-        txt_R_IdReparacion.setEditable(false);
-        txt_R_Falla.setEditable(false);
-        txt_R_ControlPiezas.setEditable(false);
-        jdt_E_Fecha.setEnabled(false);
-        jdt_S_Fecha.setEnabled(false);
-
-        cmb_R_IdVehiculo.setSelectedItem("");
-        cmb_R_IdPieza.setSelectedItem("");
-        txt_R_IdReparacion.setText("");
-        txt_R_Falla.setText("");
-        txt_R_ControlPiezas.setText("");
     }
 
     @SuppressWarnings("unchecked")
@@ -176,19 +163,20 @@ public class main extends javax.swing.JFrame {
         lbl_V_Modelo = new javax.swing.JLabel();
         lbl_V_Id = new javax.swing.JLabel();
         lbl_V_Fecha = new javax.swing.JLabel();
-        txt_V_Id = new javax.swing.JTextField();
+        txt_V_Buscar = new javax.swing.JTextField();
         txt_V_IdVehiculo = new javax.swing.JTextField();
         txt_V_Matricula = new javax.swing.JTextField();
         txt_V_Marca = new javax.swing.JTextField();
         txt_V_Modelo = new javax.swing.JTextField();
         cb_V_SeleccioneCliente = new javax.swing.JComboBox<>();
         btn_V_Nuevo = new javax.swing.JButton();
-        txt_V_Guardar = new javax.swing.JButton();
-        txt_V_Cancelar = new javax.swing.JButton();
-        txt_V_Editar = new javax.swing.JButton();
-        txt_V_Eliminar = new javax.swing.JButton();
+        btn_V_Guardar = new javax.swing.JButton();
+        btn_V_Cancelar = new javax.swing.JButton();
+        btn_V_Editar = new javax.swing.JButton();
+        btn_V_Eliminar = new javax.swing.JButton();
         btn_V_Buscar = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
+        jdt_V_Fecha = new com.toedter.calendar.JDateChooser();
         pnlReparaciones = new javax.swing.JPanel();
         lbl_R_Id = new javax.swing.JLabel();
         lbl_R_IdVehiculo = new javax.swing.JLabel();
@@ -270,7 +258,7 @@ public class main extends javax.swing.JFrame {
                         .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnAutentificar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(215, Short.MAX_VALUE))
+                .addContainerGap(198, Short.MAX_VALUE))
         );
         pnlLoginLayout.setVerticalGroup(
             pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -417,7 +405,7 @@ public class main extends javax.swing.JFrame {
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlUsuariosLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                         .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26))))
             .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -585,7 +573,7 @@ public class main extends javax.swing.JFrame {
                         .addComponent(txt_C_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btn_C_Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                         .addComponent(btn_C_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28))))
         );
@@ -646,17 +634,51 @@ public class main extends javax.swing.JFrame {
 
         lbl_V_Fecha.setText("Fecha");
 
+        cb_V_SeleccioneCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Provisional" }));
+
         btn_V_Nuevo.setText("Nuevo");
+        btn_V_Nuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_V_NuevoActionPerformed(evt);
+            }
+        });
 
-        txt_V_Guardar.setText("Guardar");
+        btn_V_Guardar.setText("Guardar");
+        btn_V_Guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_V_GuardarActionPerformed(evt);
+            }
+        });
 
-        txt_V_Cancelar.setText("Cancelar");
+        btn_V_Cancelar.setText("Cancelar");
+        btn_V_Cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_V_CancelarActionPerformed(evt);
+            }
+        });
 
-        txt_V_Editar.setText("Editar");
+        btn_V_Editar.setText("Editar");
+        btn_V_Editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_V_EditarActionPerformed(evt);
+            }
+        });
 
-        txt_V_Eliminar.setText("Eliminar");
+        btn_V_Eliminar.setText("Eliminar");
+        btn_V_Eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_V_EliminarActionPerformed(evt);
+            }
+        });
 
         btn_V_Buscar.setText("Buscar");
+        btn_V_Buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_V_BuscarActionPerformed(evt);
+            }
+        });
+
+        jdt_V_Fecha.setDateFormatString("dd-MM-yyyy");
 
         javax.swing.GroupLayout pnlVehiculosLayout = new javax.swing.GroupLayout(pnlVehiculos);
         pnlVehiculos.setLayout(pnlVehiculosLayout);
@@ -684,25 +706,26 @@ public class main extends javax.swing.JFrame {
                     .addGroup(pnlVehiculosLayout.createSequentialGroup()
                         .addComponent(lbl_V_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txt_V_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_V_Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btn_V_Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlVehiculosLayout.createSequentialGroup()
                         .addComponent(btn_V_Nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_V_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_V_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_V_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_V_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_V_Editar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_V_Editar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txt_V_Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlVehiculosLayout.createSequentialGroup()
-                        .addComponent(lbl_V_Modelo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txt_V_Modelo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lbl_V_Fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(96, Short.MAX_VALUE))
+                    .addGroup(pnlVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlVehiculosLayout.createSequentialGroup()
+                            .addComponent(lbl_V_Modelo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(txt_V_Modelo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lbl_V_Fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(79, Short.MAX_VALUE))
             .addComponent(jSeparator2)
         );
         pnlVehiculosLayout.setVerticalGroup(
@@ -711,7 +734,7 @@ public class main extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnlVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_V_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_V_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_V_Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_V_Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -734,16 +757,18 @@ public class main extends javax.swing.JFrame {
                     .addComponent(lbl_V_Modelo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt_V_Modelo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_V_Fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_V_Fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jdt_V_Fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(pnlVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_V_Nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_V_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_V_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_V_Editar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_V_Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_V_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_V_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_V_Editar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_V_Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -838,27 +863,14 @@ public class main extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(txt_R_Falla, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlReparacionesLayout.createSequentialGroup()
-                        .addGroup(pnlReparacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(pnlReparacionesLayout.createSequentialGroup()
-                                .addGroup(pnlReparacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbl_R_ControlPiezas, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbl_R_FechaEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbl_R_FechaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(pnlReparacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txt_R_ControlPiezas)
-                                    .addComponent(jdt_E_Fecha, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                    .addComponent(jdt_S_Fecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(0, 295, Short.MAX_VALUE))
-                            .addGroup(pnlReparacionesLayout.createSequentialGroup()
-                                .addComponent(lbl_R_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txt_R_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btn_R_Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btn_R_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnlReparacionesLayout.createSequentialGroup()
+                        .addComponent(lbl_R_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txt_R_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_R_Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                        .addComponent(btn_R_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31))))
             .addComponent(jSeparator3)
         );
@@ -958,7 +970,7 @@ public class main extends javax.swing.JFrame {
                         .addComponent(txt_P_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btn_P_Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                         .addComponent(btn_P_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31))
                     .addGroup(pnlPiezasLayout.createSequentialGroup()
@@ -1027,10 +1039,7 @@ public class main extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tpane)
-                .addContainerGap())
+            .addComponent(tpane, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1123,8 +1132,10 @@ public class main extends javax.swing.JFrame {
             cto = new contacto();
             cto.setUsername(txtUsername.getText());
             String contra;
+            
+         
 
-            if (ban != true && f.BuscarUsuario(cto) != null) {
+            if(ban!=true &&  f.BuscarUsuario(cto)!=null){
                 JOptionPane.showMessageDialog(null, "Ese Nombre de Usuario ya existe");
                 return;
             }
@@ -1356,19 +1367,19 @@ public class main extends javax.swing.JFrame {
 
     private void btn_C_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_SalirActionPerformed
         tpane.setSelectedIndex(0);
-
+        
         tpane.setEnabledAt(0, true);
         tpane.setEnabledAt(1, false);
         tpane.setEnabledAt(2, false);
         tpane.setEnabledAt(3, false);
         tpane.setEnabledAt(4, false);
         tpane.setEnabledAt(5, false);
-
+      
     }//GEN-LAST:event_btn_C_SalirActionPerformed
 
     private void btn_R_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_SalirActionPerformed
         tpane.setSelectedIndex(0);
-
+        
         tpane.setEnabledAt(0, true);
         tpane.setEnabledAt(1, false);
         tpane.setEnabledAt(2, false);
@@ -1378,8 +1389,8 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_R_SalirActionPerformed
 
     private void btn_P_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_P_SalirActionPerformed
-        tpane.setSelectedIndex(0);
-
+       tpane.setSelectedIndex(0);
+        
         tpane.setEnabledAt(0, true);
         tpane.setEnabledAt(1, false);
         tpane.setEnabledAt(2, false);
@@ -1387,71 +1398,6 @@ public class main extends javax.swing.JFrame {
         tpane.setEnabledAt(4, false);
         tpane.setEnabledAt(5, false);
     }//GEN-LAST:event_btn_P_SalirActionPerformed
-
-    private void btn_R_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_NuevoActionPerformed
-        Habilitar();
-
-        btnSalvar.setEnabled(true);
-        btnNuevo.setEnabled(false);
-        btnEditar.setEnabled(false);
-        btnRemover.setEnabled(false);
-        btnCancelar.setEnabled(false);
-
-        txtID.setText("");
-        txtNombre.setText("");
-        txtTelefono.setText("");
-        txtPaterno.setText("");
-        txtMaterno.setText("");
-        txtUsername.setText("");
-        cbPerfil.setSelectedItem("");
-        txtDireccion.setText("");
-        txtPsw.setText("");
-    }//GEN-LAST:event_btn_R_NuevoActionPerformed
-
-    private void btn_R_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_GuardarActionPerformed
-        SimpleDateFormat fecha = new SimpleDateFormat("dd-MM-yyyy");
-        String fecha_E = fecha.format(jdt_E_Fecha.getDate());
-        String fecha_S = fecha.format(jdt_S_Fecha.getDate());
-        try {
-            rep = new reparaciones();
-            rep.setId_re(Integer.parseInt(txt_R_IdReparacion.getText()));
-
-            if (ban != true && rf.BuscarReparacion(rep) != null) {
-                JOptionPane.showMessageDialog(null, "Ese Nombre de Usuario ya existe");
-                return;
-            }
-
-            rep.setId_ve(Integer.parseInt(cmb_R_IdVehiculo.getSelectedItem().toString()));
-            rep.setId_pi(Integer.parseInt(cmb_R_IdPieza.getSelectedItem().toString()));
-            rep.setFalla(txt_R_Falla.getText());
-            rep.setId_contrl(Integer.parseInt(txt_R_ControlPiezas.getText()));
-            rep.setFecha_e(fecha_E);
-            rep.setFecha_s(fecha_S);
-
-            if (ban != true) {
-                rf.Guardar(rep);
-                JOptionPane.showMessageDialog(null, "Guardado con Éxito");
-            } else {
-                ban = false;
-                try {
-                    rf.Editar(rep);
-                    JOptionPane.showMessageDialog(null, "Editado con Éxito");
-                    System.out.println("SI");
-                } catch (IOException ex) {
-
-                }
-            }
-            btnSalvar.setEnabled(false);
-            btnNuevo.setEnabled(true);
-            btnEditar.setEnabled(false);
-            btnRemover.setEnabled(false);
-            btnCancelar.setEnabled(false);
-
-            //band=true;
-        } catch (FileNotFoundException ex) {
-
-        }
-    }//GEN-LAST:event_btn_R_GuardarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1515,6 +1461,10 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JButton btn_R_Nuevo;
     private javax.swing.JButton btn_R_Salir;
     private javax.swing.JButton btn_V_Buscar;
+    private javax.swing.JButton btn_V_Cancelar;
+    private javax.swing.JButton btn_V_Editar;
+    private javax.swing.JButton btn_V_Eliminar;
+    private javax.swing.JButton btn_V_Guardar;
     private javax.swing.JButton btn_V_Nuevo;
     private javax.swing.JComboBox<String> cbPerfil;
     private javax.swing.JComboBox<String> cb_C_IdUusuario;
@@ -1543,8 +1493,6 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
-    private com.toedter.calendar.JDateChooser jdt_E_Fecha;
-    private com.toedter.calendar.JDateChooser jdt_S_Fecha;
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblPassword1;
     private javax.swing.JLabel lblUsuario;
@@ -1604,11 +1552,7 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JTextField txt_R_Falla;
     private javax.swing.JTextField txt_R_Id;
     private javax.swing.JTextField txt_R_IdReparacion;
-    private javax.swing.JButton txt_V_Cancelar;
-    private javax.swing.JButton txt_V_Editar;
-    private javax.swing.JButton txt_V_Eliminar;
-    private javax.swing.JButton txt_V_Guardar;
-    private javax.swing.JTextField txt_V_Id;
+    private javax.swing.JTextField txt_V_Buscar;
     private javax.swing.JTextField txt_V_IdVehiculo;
     private javax.swing.JTextField txt_V_Marca;
     private javax.swing.JTextField txt_V_Matricula;
