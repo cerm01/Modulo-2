@@ -10,11 +10,14 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 
 import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Cliente_File {
     private DataOutputStream write;
     private DataInputStream read;
     private String path = "C:\\Proyecto\\clientes.txt";
+    List<Integer> listaID = new ArrayList<>();
 
     public int getMaxId() {
         int maxId = -1; // Inicializar con un valor negativo para manejar el caso de archivo vacío
@@ -103,7 +106,7 @@ public class Cliente_File {
     // Método para buscar un cliente recibiendo como parámetro el ID
     public cliente buscar(int id) {
         cliente cliente = new cliente();
-        
+        cliente= null;
         try {
             read = new DataInputStream(new FileInputStream(path));
             
@@ -239,6 +242,45 @@ public class Cliente_File {
         } catch (Exception e) {
             System.out.println("Error al renombrar el archivo");
         }
+    }
+    
+    public cliente vehiculo(int id) {
+        cliente cliente = new cliente();
+        
+        try {
+            read = new DataInputStream(new FileInputStream(path));
+            
+            while (true) {
+                int idCliente = read.readInt();
+                String nombre = read.readUTF();
+                String apellidoPaterno = read.readUTF();
+                String apellidoMaterno = read.readUTF();
+
+                // Verificar que el id del cliente leído si exista
+                
+                if (idCliente == id) {
+                    cliente.setId(idCliente);
+                    cliente.setNombre(nombre);
+                    cliente.setApellidoPaterno(apellidoPaterno);
+                    cliente.setApellidoMaterno(apellidoMaterno);
+                    break;
+                }
+            }
+        } catch (EOFException e) {
+            // Fin del archivo, no se hace nada aquí
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo de clientes");
+        } finally {
+            try {
+                if (read != null) {
+                    read.close();
+                }
+            } catch (IOException e) {
+                System.out.println("Error al cerrar el archivo de lectura");
+            }
+        }
+        
+        return cliente;
     }
 
 }

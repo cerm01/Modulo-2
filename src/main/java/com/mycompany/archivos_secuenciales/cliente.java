@@ -3,10 +3,19 @@ package com.mycompany.archivos_secuenciales;
 
 public class cliente {
 
+    private int idUsuario;
     private int id;
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;    
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
 
     public int getId() {
         return id;
@@ -39,5 +48,7 @@ public class cliente {
     public void setApellidoMaterno(String apellidoMaterno) {
         this.apellidoMaterno = apellidoMaterno;
     }
+
+  
     
 }

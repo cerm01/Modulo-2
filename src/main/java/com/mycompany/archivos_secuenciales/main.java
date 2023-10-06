@@ -1,5 +1,11 @@
 package com.mycompany.archivos_secuenciales;
 
+
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.EOFException;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
@@ -18,6 +24,10 @@ public class main extends javax.swing.JFrame {
     contacto cto;
     contacto admin;
     
+    String path = "C:\\Proyecto\\IDclientes.txt";
+    DataOutputStream write;
+    DataInputStream read;
+    
     Vehiculos_Files v;
     Vehiculos vcs;
     
@@ -34,7 +44,7 @@ public class main extends javax.swing.JFrame {
         initComponents();
         f = new Files();
         rf = new reparaciones_File();
-
+        
         v=new Vehiculos_Files();
       
         admin=new contacto();
@@ -207,8 +217,8 @@ public class main extends javax.swing.JFrame {
         btn_C_Cancelar = new javax.swing.JButton();
         btn_C_Editar = new javax.swing.JButton();
         btn_C_Eliminar = new javax.swing.JButton();
-        cb_C_IdUusuario = new javax.swing.JComboBox<>();
         btn_C_Salir = new javax.swing.JButton();
+        txt_C_IdUsuario = new javax.swing.JTextField();
         pnlVehiculos = new javax.swing.JPanel();
         lbl_V_SeleccioneCliente = new javax.swing.JLabel();
         lbl_V_IdVehiculo = new javax.swing.JLabel();
@@ -485,27 +495,6 @@ public class main extends javax.swing.JFrame {
                                 .addComponent(cbPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(lblPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(pnlUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(pnlUsuariosLayout.createSequentialGroup()
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(24, 24, 24)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(pnlUsuariosLayout.createSequentialGroup()
-                            .addGroup(pnlUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(pnlUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtPsw, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cbPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(lblPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlUsuariosLayout.setVerticalGroup(
@@ -579,6 +568,12 @@ public class main extends javax.swing.JFrame {
 
         lbl_C_ApellidoMaterno.setText("Apellido Materno");
 
+        txt_C_IdCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_C_IdClienteActionPerformed(evt);
+            }
+        });
+
         btn_C_Buscar.setText("Buscar");
         btn_C_Buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -628,6 +623,8 @@ public class main extends javax.swing.JFrame {
             }
         });
 
+        txt_C_IdUsuario.setEditable(false);
+
         javax.swing.GroupLayout pnlClientesLayout = new javax.swing.GroupLayout(pnlClientes);
         pnlClientes.setLayout(pnlClientesLayout);
         pnlClientesLayout.setHorizontalGroup(
@@ -638,11 +635,12 @@ public class main extends javax.swing.JFrame {
                     .addGroup(pnlClientesLayout.createSequentialGroup()
                         .addGroup(pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlClientesLayout.createSequentialGroup()
-                                .addGroup(pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(pnlClientesLayout.createSequentialGroup()
                                         .addComponent(lbl_C_IdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(cb_C_IdUusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txt_C_IdUsuario)
+                                        .addGap(230, 230, 230))
                                     .addGroup(pnlClientesLayout.createSequentialGroup()
                                         .addComponent(lbl_C_IdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
@@ -692,9 +690,9 @@ public class main extends javax.swing.JFrame {
                     .addComponent(btn_C_Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_C_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
-                .addGroup(pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_C_IdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cb_C_IdUusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lbl_C_IdUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(txt_C_IdUsuario))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_C_IdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -739,7 +737,17 @@ public class main extends javax.swing.JFrame {
 
         lbl_V_Fecha.setText("Fecha");
 
-        cb_V_SeleccioneCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Provisional" }));
+        cb_V_SeleccioneCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "..." }));
+        cb_V_SeleccioneCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cb_V_SeleccioneClienteMouseClicked(evt);
+            }
+        });
+        cb_V_SeleccioneCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_V_SeleccioneClienteActionPerformed(evt);
+            }
+        });
 
         btn_V_Nuevo.setText("Nuevo");
         btn_V_Nuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -833,7 +841,7 @@ public class main extends javax.swing.JFrame {
                             .addComponent(lbl_V_Modelo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(txt_V_Modelo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addContainerGap(96, Short.MAX_VALUE))
             .addComponent(jSeparator2)
         );
         pnlVehiculosLayout.setVerticalGroup(
@@ -1343,7 +1351,8 @@ public class main extends javax.swing.JFrame {
     private void btnAutentificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutentificarActionPerformed
         cto = new contacto();
         cto.setUsername(txtUsuario.getText());
-
+       
+        
         String pw;
         pw = String.valueOf(txtPassword.getPassword());
 
@@ -1354,6 +1363,9 @@ public class main extends javax.swing.JFrame {
         }
         if (cto != null) {
             if (cto.getPassword().equals(pw)) {
+                String IdUs=String.valueOf(cto.getId());
+                txt_C_IdUsuario.setText(IdUs);
+        
                 txtUsuario.setText("");
                 txtPassword.setText("");
 
@@ -1486,6 +1498,13 @@ public class main extends javax.swing.JFrame {
 
     private void btn_C_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_SalirActionPerformed
     tpane.setSelectedIndex(0);
+    
+    txt_C_Id.setText("");
+    txt_C_IdCliente.setText("");
+    txt_C_Nombre.setText("");
+    txt_C_ApellidoPaterno.setText("");
+    txt_C_ApellidoMaterno.setText("");    
+    
 
     tpane.setEnabledAt(0, true);
     tpane.setEnabledAt(1, false);
@@ -1731,6 +1750,8 @@ public class main extends javax.swing.JFrame {
 
     private void btn_C_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_GuardarActionPerformed
         //Verificar que el campo txt_C_IdCliente no este vacio
+  
+        
         if(txt_C_IdCliente.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Ingrese el ID del cliente");
             return;
@@ -1775,9 +1796,8 @@ public class main extends javax.swing.JFrame {
         Cliente_File clienteFile = new Cliente_File();
         int maxId = clienteFile.getMaxId();
         
-        txt_C_IdCliente.setText(String.valueOf(maxId));
-         
         txt_C_Id.setText("");
+        txt_C_IdCliente.setText(String.valueOf(maxId));
         txt_C_Nombre.setText("");
         txt_C_ApellidoPaterno.setText("");
         txt_C_ApellidoMaterno.setText("");
@@ -1785,6 +1805,7 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_C_NuevoActionPerformed
 
     private void btn_C_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_CancelarActionPerformed
+   
         txt_C_Id.setText("");
         txt_C_IdCliente.setText("");
         txt_C_Nombre.setText("");
@@ -1807,6 +1828,7 @@ public class main extends javax.swing.JFrame {
         cliente c = clienteFile.buscar(id);
         if(c == null){
             JOptionPane.showMessageDialog(null, "No existe el cliente");
+            txt_C_Id.setText("");
             return;
         }
 
@@ -1821,6 +1843,7 @@ public class main extends javax.swing.JFrame {
     private void btn_C_EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_EditarActionPerformed
        //Boton para editar
             //Verificar que el campo txt_C_IdCliente no este vacio
+            
             if(txt_C_IdCliente.getText().equals("")){
                 JOptionPane.showMessageDialog(null, "Ingrese el ID del cliente");
                 return;
@@ -1887,6 +1910,18 @@ public class main extends javax.swing.JFrame {
         txt_C_ApellidoPaterno.setText("");
         txt_C_ApellidoMaterno.setText("");    
     }//GEN-LAST:event_btn_C_EliminarActionPerformed
+
+    private void cb_V_SeleccioneClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_V_SeleccioneClienteActionPerformed
+       
+    }//GEN-LAST:event_cb_V_SeleccioneClienteActionPerformed
+
+    private void cb_V_SeleccioneClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cb_V_SeleccioneClienteMouseClicked
+        
+    }//GEN-LAST:event_cb_V_SeleccioneClienteMouseClicked
+
+    private void txt_C_IdClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_C_IdClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_C_IdClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1956,7 +1991,6 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JButton btn_V_Guardar;
     private javax.swing.JButton btn_V_Nuevo;
     private javax.swing.JComboBox<String> cbPerfil;
-    private javax.swing.JComboBox<String> cb_C_IdUusuario;
     private javax.swing.JComboBox<String> cb_V_SeleccioneCliente;
     private javax.swing.JComboBox<String> cmb_R_IdPieza;
     private javax.swing.JComboBox<String> cmb_R_IdVehiculo;
@@ -2035,6 +2069,7 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JTextField txt_C_ApellidoPaterno;
     private javax.swing.JTextField txt_C_Id;
     private javax.swing.JTextField txt_C_IdCliente;
+    private javax.swing.JTextField txt_C_IdUsuario;
     private javax.swing.JTextField txt_C_Nombre;
     private javax.swing.JTextField txt_P_Descripcion;
     private javax.swing.JTextField txt_P_Id;

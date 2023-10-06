@@ -467,11 +467,12 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Component id="lbl_C_IdUsuario" min="-2" pref="100" max="-2" attributes="0"/>
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Component id="cb_C_IdUusuario" min="-2" pref="200" max="-2" attributes="0"/>
+                                              <Component id="txt_C_IdUsuario" max="32767" attributes="0"/>
+                                              <EmptySpace min="-2" pref="230" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="lbl_C_IdCliente" min="-2" pref="100" max="-2" attributes="0"/>
@@ -536,9 +537,9 @@
                           <Component id="btn_C_Salir" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lbl_C_IdUsuario" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="cb_C_IdUusuario" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="lbl_C_IdUsuario" pref="30" max="32767" attributes="0"/>
+                          <Component id="txt_C_IdUsuario" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -609,6 +610,9 @@
             <Component class="javax.swing.JTextField" name="txt_C_Id">
             </Component>
             <Component class="javax.swing.JTextField" name="txt_C_IdCliente">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_C_IdClienteActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="txt_C_Nombre">
             </Component>
@@ -666,16 +670,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_C_EliminarActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JComboBox" name="cb_C_IdUusuario">
-              <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="0"/>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-              </AuxValues>
-            </Component>
             <Component class="javax.swing.JButton" name="btn_C_Salir">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Salir"/>
@@ -683,6 +677,11 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_C_SalirActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txt_C_IdUsuario">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
@@ -751,7 +750,6 @@
                                   <Component id="txt_V_Modelo" min="-2" pref="200" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="lbl_V_Fecha" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="96" max="32767" attributes="0"/>
                   </Group>
@@ -862,10 +860,14 @@
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="1">
-                    <StringItem index="0" value="Provisional"/>
+                    <StringItem index="0" value="..."/>
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cb_V_SeleccioneClienteMouseClicked"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cb_V_SeleccioneClienteActionPerformed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>

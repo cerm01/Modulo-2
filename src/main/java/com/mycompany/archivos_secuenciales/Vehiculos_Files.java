@@ -49,25 +49,6 @@ public class Vehiculos_Files {
                 modelo=read.readUTF();
                 fecha=read.readUTF();
                 
-                /*System.out.print("cliente");
-                System.out.println(cliente); 
-                
-                System.out.print("ID");
-                System.out.println(id); 
-                
-                System.out.print("matricula");
-                System.out.println(matricula); 
-                                
-                System.out.print("marca");
-                System.out.println(marca); 
-                
-                                
-                System.out.print("modelo");
-                System.out.println(modelo); 
-                
-                System.out.print("fecha");
-                System.out.println(fecha);*/ 
-                
                 if(vcs.getId_vehiculo()==id){
                     aux=new Vehiculos();
                     
