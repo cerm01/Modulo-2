@@ -30,16 +30,16 @@ public class main extends javax.swing.JFrame {
     
     Vehiculos_Files v;
     Vehiculos vcs;
-    
+
     //boolean band=false;
-    boolean ban=false;
-    boolean ban_vehiculos=false;
+    boolean ban = false;
+    boolean ban_vehiculos = false;
+    boolean ban_reparaciones = false;
     //int contID=1;
-    
+
     Cliente_File fc;
     cliente c;
-    
-    
+
     public main() {
         initComponents();
         f = new Files();
@@ -57,13 +57,13 @@ public class main extends javax.swing.JFrame {
         admin.setDireccion("plata");
         admin.setPassword("123");
         admin.setPerfil("Admin");
-        
+
         btn_V_Guardar.setEnabled(false);
         btn_V_Nuevo.setEnabled(true);
         btn_V_Editar.setEnabled(false);
         btn_V_Eliminar.setEnabled(false);
         btn_V_Cancelar.setEnabled(false);
-    
+
         try {
             if (f.BuscarContacto(admin) == null) {
                 f.Guardar(admin);
@@ -71,14 +71,15 @@ public class main extends javax.swing.JFrame {
         } catch (FileNotFoundException ex) {
 
         }
-            tpane.setEnabledAt(1, false);
-            tpane.setEnabledAt(2, false);
-            tpane.setEnabledAt(3, false);
-            tpane.setEnabledAt(4, false);
-            tpane.setEnabledAt(5, false);
-       
+        tpane.setEnabledAt(1, false);
+        tpane.setEnabledAt(2, false);
+        tpane.setEnabledAt(3, false);
+        tpane.setEnabledAt(4, false);
+        tpane.setEnabledAt(5, false);
+
     }
-    public void Habilitar(){
+
+    public void Habilitar() {
         txtNombre.setEditable(true);
         txtPaterno.setEditable(true);
         txtMaterno.setEditable(true);
@@ -88,7 +89,8 @@ public class main extends javax.swing.JFrame {
         txtDireccion.setEditable(true);
         txtPsw.setEditable(true);
     }
-    public void Deshabilitar(){
+
+    public void Deshabilitar() {
         txtNombre.setEditable(false);
         txtPaterno.setEditable(false);
         txtMaterno.setEditable(false);
@@ -107,16 +109,16 @@ public class main extends javax.swing.JFrame {
         txtDireccion.setText("");
 
     }
-     
-    public void Vehiculos_Habilitar(){
+
+    public void Vehiculos_Habilitar() {
         txt_V_IdVehiculo.setEditable(true);
         txt_V_Matricula.setEditable(true);
         txt_V_Marca.setEditable(true);
         txt_V_Modelo.setEditable(true);
         jdt_V_Fecha.setEnabled(true);
     }
-    
-        public void reparaciones_Habilitar() {
+
+    public void reparaciones_Habilitar() {
         cmb_R_IdVehiculo.setEditable(true);
         cmb_R_IdPieza.setEditable(true);
         txt_R_IdReparacion.setEditable(true);
@@ -126,18 +128,19 @@ public class main extends javax.swing.JFrame {
         jdt_S_Fecha.setEnabled(true);
     }
 
-    public void Vehiculos_Deshabilitar(){
+    public void Vehiculos_Deshabilitar() {
         txt_V_IdVehiculo.setEditable(false);
         txt_V_Matricula.setEditable(false);
         txt_V_Marca.setEditable(false);
         txt_V_Modelo.setEditable(false);
         jdt_V_Fecha.setEnabled(false);
-        
+
         txt_V_IdVehiculo.setText("");
         txt_V_Matricula.setText("");
         txt_V_Marca.setText("");
         txt_V_Modelo.setText("");
     }
+
     public void reparaciones_Deshabilitar() {
         cmb_R_IdVehiculo.setEditable(false);
         cmb_R_IdPieza.setEditable(false);
@@ -917,6 +920,12 @@ public class main extends javax.swing.JFrame {
             }
         });
 
+        txt_R_Falla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_R_FallaActionPerformed(evt);
+            }
+        });
+
         btn_R_Guardar.setText("Guardar");
         btn_R_Guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -925,12 +934,32 @@ public class main extends javax.swing.JFrame {
         });
 
         btn_R_Cancelar.setText("Cancelar");
+        btn_R_Cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_R_CancelarActionPerformed(evt);
+            }
+        });
 
         btn_R_Editar.setText("Editar");
+        btn_R_Editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_R_EditarActionPerformed(evt);
+            }
+        });
 
         btn_R_Eliminar.setText("Eliminar");
+        btn_R_Eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_R_EliminarActionPerformed(evt);
+            }
+        });
 
         btn_R_Buscar.setText("Buscar");
+        btn_R_Buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_R_BuscarActionPerformed(evt);
+            }
+        });
 
         btn_R_Salir.setText("Salir");
         btn_R_Salir.addActionListener(new java.awt.event.ActionListener() {
@@ -1261,8 +1290,8 @@ public class main extends javax.swing.JFrame {
             cto = new contacto();
             cto.setUsername(txtUsername.getText());
             String contra;
-            
-            if(ban!=true &&  f.BuscarUsuario(cto)!=null){
+
+            if (ban != true && f.BuscarUsuario(cto) != null) {
                 JOptionPane.showMessageDialog(null, "Ese Nombre de Usuario ya existe");
                 return;
             }
@@ -1506,55 +1535,52 @@ public class main extends javax.swing.JFrame {
     txt_C_ApellidoMaterno.setText("");    
     
 
-    tpane.setEnabledAt(0, true);
-    tpane.setEnabledAt(1, false);
-    tpane.setEnabledAt(2, false);
-    tpane.setEnabledAt(3, false);
-    tpane.setEnabledAt(4, false);
-    tpane.setEnabledAt(5, false);
-      
+        tpane.setEnabledAt(0, true);
+        tpane.setEnabledAt(1, false);
+        tpane.setEnabledAt(2, false);
+        tpane.setEnabledAt(3, false);
+        tpane.setEnabledAt(4, false);
+        tpane.setEnabledAt(5, false);
+
     }//GEN-LAST:event_btn_C_SalirActionPerformed
 
     private void btn_R_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_SalirActionPerformed
-    tpane.setSelectedIndex(0);
+        tpane.setSelectedIndex(0);
 
-    tpane.setEnabledAt(0, true);
-    tpane.setEnabledAt(1, false);
-    tpane.setEnabledAt(2, false);
-    tpane.setEnabledAt(3, false);
-    tpane.setEnabledAt(4, false);
-    tpane.setEnabledAt(5, false);
+        tpane.setEnabledAt(0, true);
+        tpane.setEnabledAt(1, false);
+        tpane.setEnabledAt(2, false);
+        tpane.setEnabledAt(3, false);
+        tpane.setEnabledAt(4, false);
+        tpane.setEnabledAt(5, false);
     }//GEN-LAST:event_btn_R_SalirActionPerformed
 
     private void btn_P_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_P_SalirActionPerformed
-    tpane.setSelectedIndex(0);
+        tpane.setSelectedIndex(0);
 
-    tpane.setEnabledAt(0, true);
-    tpane.setEnabledAt(1, false);
-    tpane.setEnabledAt(2, false);
-    tpane.setEnabledAt(3, false);
-    tpane.setEnabledAt(4, false);
-    tpane.setEnabledAt(5, false);
+        tpane.setEnabledAt(0, true);
+        tpane.setEnabledAt(1, false);
+        tpane.setEnabledAt(2, false);
+        tpane.setEnabledAt(3, false);
+        tpane.setEnabledAt(4, false);
+        tpane.setEnabledAt(5, false);
     }//GEN-LAST:event_btn_P_SalirActionPerformed
 
     private void btn_R_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_NuevoActionPerformed
-        Habilitar();
+        reparaciones_Habilitar();
 
-        btnSalvar.setEnabled(true);
-        btnNuevo.setEnabled(false);
-        btnEditar.setEnabled(false);
-        btnRemover.setEnabled(false);
-        btnCancelar.setEnabled(false);
+        btn_R_Guardar.setEnabled(true);
+        btn_R_Nuevo.setEnabled(false);
+        btn_R_Editar.setEnabled(false);
+        btn_R_Eliminar.setEnabled(false);
+        btn_R_Cancelar.setEnabled(false);
 
-        txtID.setText("");
-        txtNombre.setText("");
-        txtTelefono.setText("");
-        txtPaterno.setText("");
-        txtMaterno.setText("");
-        txtUsername.setText("");
-        cbPerfil.setSelectedItem("");
-        txtDireccion.setText("");
-        txtPsw.setText("");
+        cmb_R_IdVehiculo.setSelectedItem("");
+        cmb_R_IdPieza.setSelectedItem("");
+        txt_R_IdReparacion.setText("");
+        txt_R_Falla.setText("");
+        txt_R_ControlPiezas.setText("");
+
     }//GEN-LAST:event_btn_R_NuevoActionPerformed
 
     private void btn_R_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_GuardarActionPerformed
@@ -1565,8 +1591,8 @@ public class main extends javax.swing.JFrame {
             rep = new reparaciones();
             rep.setId_re(Integer.parseInt(txt_R_IdReparacion.getText()));
 
-            if (ban != true && rf.BuscarReparacion(rep) != null) {
-                JOptionPane.showMessageDialog(null, "Ese Nombre de Usuario ya existe");
+            if (ban_reparaciones != true && rf.BuscarReparacion(rep) != null) {
+                JOptionPane.showMessageDialog(null, "Ese Id de reparacion ya existe");
                 return;
             }
 
@@ -1577,11 +1603,11 @@ public class main extends javax.swing.JFrame {
             rep.setFecha_e(fecha_E);
             rep.setFecha_s(fecha_S);
 
-            if (ban != true) {
+            if (ban_reparaciones != true) {
                 rf.Guardar(rep);
                 JOptionPane.showMessageDialog(null, "Guardado con Éxito");
             } else {
-                ban = false;
+                ban_reparaciones = false;
                 try {
                     rf.Editar(rep);
                     JOptionPane.showMessageDialog(null, "Editado con Éxito");
@@ -1590,11 +1616,11 @@ public class main extends javax.swing.JFrame {
 
                 }
             }
-            btnSalvar.setEnabled(false);
-            btnNuevo.setEnabled(true);
-            btnEditar.setEnabled(false);
-            btnRemover.setEnabled(false);
-            btnCancelar.setEnabled(false);
+            btn_R_Guardar.setEnabled(false);
+            btn_R_Nuevo.setEnabled(true);
+            btn_R_Editar.setEnabled(false);
+            btn_R_Eliminar.setEnabled(false);
+            btn_R_Cancelar.setEnabled(false);
 
             //band=true;
         } catch (FileNotFoundException ex) {
@@ -1603,148 +1629,147 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_R_GuardarActionPerformed
 
     private void btn_V_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_V_NuevoActionPerformed
-    Vehiculos_Habilitar();
+        Vehiculos_Habilitar();
 
-    btn_V_Guardar.setEnabled(true);
-    btn_V_Nuevo.setEnabled(false);
-    btn_V_Editar.setEnabled(false);
-    btn_V_Eliminar.setEnabled(false);
-    btn_V_Cancelar.setEnabled(true);
+        btn_V_Guardar.setEnabled(true);
+        btn_V_Nuevo.setEnabled(false);
+        btn_V_Editar.setEnabled(false);
+        btn_V_Eliminar.setEnabled(false);
+        btn_V_Cancelar.setEnabled(true);
 
-    txt_V_IdVehiculo.setText("");
-    txt_V_Matricula.setText("");
-    txt_V_Marca.setText("");
-    txt_V_Modelo.setText("");
-       
+        txt_V_IdVehiculo.setText("");
+        txt_V_Matricula.setText("");
+        txt_V_Marca.setText("");
+        txt_V_Modelo.setText("");
+
     }//GEN-LAST:event_btn_V_NuevoActionPerformed
 
     private void btn_V_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_V_GuardarActionPerformed
-    vcs=new Vehiculos();
-    
-    vcs.setCliente(cb_V_SeleccioneCliente.getSelectedItem().toString());
-    vcs.setId_vehiculo(Integer.parseInt(txt_V_IdVehiculo.getText()));
-    vcs.setMatricula(txt_V_Matricula.getText());
-    vcs.setMarca(txt_V_Marca.getText());
-    vcs.setModelo(txt_V_Modelo.getText());
-    
-    SimpleDateFormat dformat=new SimpleDateFormat("dd-MM-YYYY");
-    String date=dformat.format(jdt_V_Fecha.getDate());
-    vcs.setFecha(date);
-    
-    System.out.println( "FECHA");
-    System.out.println( vcs.getFecha());
-    
-    if(ban_vehiculos==false){
-         try {
-            v.Guardar(vcs);
-        }catch (FileNotFoundException ex) {
-        
-        }
-    }else{
-        try {
-            v.Editar_Vehiculo(vcs);
-            ban_vehiculos=false;
-        } catch (IOException ex) {
-        }
-    }
-    
-    Vehiculos_Deshabilitar();    
+        vcs = new Vehiculos();
 
-    btn_V_Guardar.setEnabled(false);
-    btn_V_Nuevo.setEnabled(true);
-    btn_V_Editar.setEnabled(false);
-    btn_V_Eliminar.setEnabled(false);
-    btn_V_Cancelar.setEnabled(false);
+        vcs.setCliente(cb_V_SeleccioneCliente.getSelectedItem().toString());
+        vcs.setId_vehiculo(Integer.parseInt(txt_V_IdVehiculo.getText()));
+        vcs.setMatricula(txt_V_Matricula.getText());
+        vcs.setMarca(txt_V_Marca.getText());
+        vcs.setModelo(txt_V_Modelo.getText());
+
+        SimpleDateFormat dformat = new SimpleDateFormat("dd-MM-YYYY");
+        String date = dformat.format(jdt_V_Fecha.getDate());
+        vcs.setFecha(date);
+
+        System.out.println("FECHA");
+        System.out.println(vcs.getFecha());
+
+        if (ban_vehiculos == false) {
+            try {
+                v.Guardar(vcs);
+            } catch (FileNotFoundException ex) {
+
+            }
+        } else {
+            try {
+                v.Editar_Vehiculo(vcs);
+                ban_vehiculos = false;
+            } catch (IOException ex) {
+            }
+        }
+
+        Vehiculos_Deshabilitar();
+
+        btn_V_Guardar.setEnabled(false);
+        btn_V_Nuevo.setEnabled(true);
+        btn_V_Editar.setEnabled(false);
+        btn_V_Eliminar.setEnabled(false);
+        btn_V_Cancelar.setEnabled(false);
     }//GEN-LAST:event_btn_V_GuardarActionPerformed
 
     private void btn_V_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_V_CancelarActionPerformed
-    Vehiculos_Deshabilitar();    
+        Vehiculos_Deshabilitar();
 
-    btn_V_Guardar.setEnabled(false);
-    btn_V_Nuevo.setEnabled(true);
-    btn_V_Editar.setEnabled(false);
-    btn_V_Eliminar.setEnabled(false);
-    btn_V_Cancelar.setEnabled(false);
+        btn_V_Guardar.setEnabled(false);
+        btn_V_Nuevo.setEnabled(true);
+        btn_V_Editar.setEnabled(false);
+        btn_V_Eliminar.setEnabled(false);
+        btn_V_Cancelar.setEnabled(false);
     }//GEN-LAST:event_btn_V_CancelarActionPerformed
 
     private void btn_V_EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_V_EditarActionPerformed
-    Vehiculos_Habilitar(); 
+        Vehiculos_Habilitar();
 
-    btn_V_Guardar.setEnabled(true);
-    btn_V_Nuevo.setEnabled(false);
-    btn_V_Editar.setEnabled(false);
-    btn_V_Eliminar.setEnabled(false);
-    btn_V_Cancelar.setEnabled(true);
-    
-    ban_vehiculos=true;
+        btn_V_Guardar.setEnabled(true);
+        btn_V_Nuevo.setEnabled(false);
+        btn_V_Editar.setEnabled(false);
+        btn_V_Eliminar.setEnabled(false);
+        btn_V_Cancelar.setEnabled(true);
+
+        ban_vehiculos = true;
     }//GEN-LAST:event_btn_V_EditarActionPerformed
 
     private void btn_V_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_V_EliminarActionPerformed
-    vcs.setCliente(cb_V_SeleccioneCliente.getSelectedItem().toString());
-    vcs.setId_vehiculo(Integer.parseInt(txt_V_IdVehiculo.getText()));
-    vcs.setMatricula(txt_V_Matricula.getText());
-    vcs.setMarca(txt_V_Marca.getText());
-    vcs.setModelo(txt_V_Modelo.getText());
-    
-    SimpleDateFormat dformat=new SimpleDateFormat("dd-MM-YYYY");
-    String date=dformat.format(jdt_V_Fecha.getDate());
-    vcs.setFecha(date);
-    
-    try {
-        v.Eliminar_Vehiculos(vcs);
-    } catch (IOException ex) {
+        vcs.setCliente(cb_V_SeleccioneCliente.getSelectedItem().toString());
+        vcs.setId_vehiculo(Integer.parseInt(txt_V_IdVehiculo.getText()));
+        vcs.setMatricula(txt_V_Matricula.getText());
+        vcs.setMarca(txt_V_Marca.getText());
+        vcs.setModelo(txt_V_Modelo.getText());
 
-    }
-        
-    Vehiculos_Habilitar(); 
-    
-    txt_V_IdVehiculo.setText("");
-    txt_V_Matricula.setText("");
-    txt_V_Marca.setText("");
-    txt_V_Modelo.setText("");
-    
-    btn_V_Guardar.setEnabled(false);
-    btn_V_Nuevo.setEnabled(true);
-    btn_V_Editar.setEnabled(false);
-    btn_V_Eliminar.setEnabled(false);
-    btn_V_Cancelar.setEnabled(false);
+        SimpleDateFormat dformat = new SimpleDateFormat("dd-MM-YYYY");
+        String date = dformat.format(jdt_V_Fecha.getDate());
+        vcs.setFecha(date);
+
+        try {
+            v.Eliminar_Vehiculos(vcs);
+        } catch (IOException ex) {
+
+        }
+
+        Vehiculos_Habilitar();
+
+        txt_V_IdVehiculo.setText("");
+        txt_V_Matricula.setText("");
+        txt_V_Marca.setText("");
+        txt_V_Modelo.setText("");
+
+        btn_V_Guardar.setEnabled(false);
+        btn_V_Nuevo.setEnabled(true);
+        btn_V_Editar.setEnabled(false);
+        btn_V_Eliminar.setEnabled(false);
+        btn_V_Cancelar.setEnabled(false);
     }//GEN-LAST:event_btn_V_EliminarActionPerformed
 
     private void btn_V_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_V_BuscarActionPerformed
-   
+
         try {
-            vcs=new Vehiculos();
+            vcs = new Vehiculos();
             vcs.setId_vehiculo(Integer.parseInt(txt_V_Buscar.getText()));
-            vcs=v.BuscarIdVehiculo(vcs);
-            
-            if(vcs!=null){
+            vcs = v.BuscarIdVehiculo(vcs);
+
+            if (vcs != null) {
                 cb_V_SeleccioneCliente.setSelectedItem(vcs.getCliente());
                 txt_V_IdVehiculo.setText(String.valueOf(vcs.getId_vehiculo()));
                 txt_V_Matricula.setText(vcs.getMatricula());
                 txt_V_Marca.setText(vcs.getMarca());
                 txt_V_Modelo.setText(vcs.getModelo());
-                
-                SimpleDateFormat fecha=new SimpleDateFormat("dd-MM-yyyy");
-                Date formato=null;
+
+                SimpleDateFormat fecha = new SimpleDateFormat("dd-MM-yyyy");
+                Date formato = null;
                 try {
-                    formato=fecha.parse(vcs.getFecha());
+                    formato = fecha.parse(vcs.getFecha());
                 } catch (ParseException ex) {
                 }
                 jdt_V_Fecha.setDate(formato);
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "No existe ese ID");
             }
-            
+
             btn_V_Guardar.setEnabled(false);
             btn_V_Nuevo.setEnabled(true);
             btn_V_Editar.setEnabled(true);
             btn_V_Eliminar.setEnabled(true);
             btn_V_Cancelar.setEnabled(false);
         } catch (FileNotFoundException ex) {
-            
+
         }
-        
+
         txt_V_Buscar.setText("");
     }//GEN-LAST:event_btn_V_BuscarActionPerformed
 
@@ -1757,17 +1782,17 @@ public class main extends javax.swing.JFrame {
             return;
         }
         //Verificar que el campo txt_C_Nombre no este vacio
-        if(txt_C_Nombre.getText().equals("")){
+        if (txt_C_Nombre.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese el nombre del cliente");
             return;
         }
         //Verificar que el campo txt_C_ApellidoPaterno no este vacio
-        if(txt_C_ApellidoPaterno.getText().equals("")){
+        if (txt_C_ApellidoPaterno.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese el apellido paterno del cliente");
             return;
         }
         //Verificar que el campo txt_C_ApellidoMaterno no este vacio
-        if(txt_C_ApellidoMaterno.getText().equals("")){
+        if (txt_C_ApellidoMaterno.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese el apellido materno del cliente");
             return;
         }
@@ -1810,23 +1835,23 @@ public class main extends javax.swing.JFrame {
         txt_C_IdCliente.setText("");
         txt_C_Nombre.setText("");
         txt_C_ApellidoPaterno.setText("");
-        txt_C_ApellidoMaterno.setText("");    
+        txt_C_ApellidoMaterno.setText("");
     }//GEN-LAST:event_btn_C_CancelarActionPerformed
 
     private void btn_C_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_BuscarActionPerformed
         //Verificar que el campo txt_C_Id no este vacio
-        if(txt_C_Id.getText().equals("")){
+        if (txt_C_Id.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese el ID del cliente");
             return;
         }
-        
+
         // Obtener el id 
         int id = Integer.parseInt(txt_C_Id.getText());
 
         // validar que el id si exista
         Cliente_File clienteFile = new Cliente_File();
         cliente c = clienteFile.buscar(id);
-        if(c == null){
+        if (c == null) {
             JOptionPane.showMessageDialog(null, "No existe el cliente");
             txt_C_Id.setText("");
             return;
@@ -1885,18 +1910,18 @@ public class main extends javax.swing.JFrame {
 
     private void btn_C_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_EliminarActionPerformed
         //Verificar que el campo txt_C_Id no este vacio
-        if(txt_C_Id.getText().equals("")){
+        if (txt_C_Id.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese el ID del cliente");
             return;
         }
-        
+
         // Obtener el id 
         int id = Integer.parseInt(txt_C_Id.getText());
 
         // validar que el id si exista
         Cliente_File clienteFile = new Cliente_File();
         cliente c = clienteFile.buscar(id);
-        if(c == null){
+        if (c == null) {
             JOptionPane.showMessageDialog(null, "No existe el cliente");
             return;
         }
@@ -1908,7 +1933,7 @@ public class main extends javax.swing.JFrame {
         txt_C_IdCliente.setText("");
         txt_C_Nombre.setText("");
         txt_C_ApellidoPaterno.setText("");
-        txt_C_ApellidoMaterno.setText("");    
+        txt_C_ApellidoMaterno.setText("");
     }//GEN-LAST:event_btn_C_EliminarActionPerformed
 
     private void cb_V_SeleccioneClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_V_SeleccioneClienteActionPerformed
@@ -1922,6 +1947,111 @@ public class main extends javax.swing.JFrame {
     private void txt_C_IdClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_C_IdClienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_C_IdClienteActionPerformed
+
+    private void btn_R_EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_EditarActionPerformed
+        reparaciones_Habilitar();
+        btn_R_Guardar.setEnabled(true);
+        btn_R_Nuevo.setEnabled(false);
+        btn_R_Editar.setEnabled(false);
+        btn_R_Eliminar.setEnabled(false);
+        btn_R_Cancelar.setEnabled(true);
+
+        ban_reparaciones = true;
+    }//GEN-LAST:event_btn_R_EditarActionPerformed
+
+    private void btn_R_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_CancelarActionPerformed
+        reparaciones_Deshabilitar();
+        btn_R_Guardar.setEnabled(false);
+        btn_R_Nuevo.setEnabled(true);
+        btn_R_Editar.setEnabled(false);
+        btn_R_Eliminar.setEnabled(false);
+        btn_R_Cancelar.setEnabled(false);
+
+        jdt_E_Fecha.setEnabled(false);
+        jdt_S_Fecha.setEnabled(false);
+
+        ban_reparaciones = false;
+
+    }//GEN-LAST:event_btn_R_CancelarActionPerformed
+
+    private void btn_R_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_EliminarActionPerformed
+        vcs.setCliente(cb_V_SeleccioneCliente.getSelectedItem().toString());
+        vcs.setId_vehiculo(Integer.parseInt(txt_V_IdVehiculo.getText()));
+        vcs.setMatricula(txt_V_Matricula.getText());
+        vcs.setMarca(txt_V_Marca.getText());
+        vcs.setModelo(txt_V_Modelo.getText());
+
+        SimpleDateFormat dformat = new SimpleDateFormat("dd-MM-YYYY");
+        String date = dformat.format(jdt_V_Fecha.getDate());
+        vcs.setFecha(date);
+
+        try {
+            v.Eliminar_Vehiculos(vcs);
+        } catch (IOException ex) {
+
+        }
+
+        Vehiculos_Habilitar();
+
+        txt_V_IdVehiculo.setText("");
+        txt_V_Matricula.setText("");
+        txt_V_Marca.setText("");
+        txt_V_Modelo.setText("");
+
+        btn_V_Guardar.setEnabled(false);
+        btn_V_Nuevo.setEnabled(true);
+        btn_V_Editar.setEnabled(false);
+        btn_V_Eliminar.setEnabled(false);
+        btn_V_Cancelar.setEnabled(false);
+    }//GEN-LAST:event_btn_R_EliminarActionPerformed
+
+    private void btn_R_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_BuscarActionPerformed
+        try {
+            rep = new reparaciones();
+            rep.setId_re(Integer.parseInt((txt_R_Id.getText())));
+            rep = rf.BuscarReparacion(rep);
+
+            if (rep != null) {
+                cmb_R_IdVehiculo.setSelectedItem(rep.getId_ve());
+                cmb_R_IdPieza.setSelectedItem(rep.getId_pi());
+                txt_R_IdReparacion.setText(String.valueOf(rep.getId_re()));
+                txt_R_Falla.setText(rep.getFalla());
+                txt_R_ControlPiezas.setText(String.valueOf(rep.getId_contrl()));
+
+                SimpleDateFormat fecha = new SimpleDateFormat("dd-MM-yyyy");
+                Date formato = null;
+                try {
+                    formato = fecha.parse(rep.getFecha_e());
+                } catch (ParseException ex) {
+                }
+
+                jdt_E_Fecha.setDate(formato);
+
+                try {
+                    formato = fecha.parse(rep.getFecha_s());
+                } catch (ParseException ex) {
+                }
+
+                jdt_S_Fecha.setDate(formato);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe ese ID");
+            }
+            btn_R_Guardar.setEnabled(false);
+            btn_R_Nuevo.setEnabled(true);
+            btn_R_Editar.setEnabled(true);
+            btn_R_Eliminar.setEnabled(true);
+            btn_R_Cancelar.setEnabled(false);
+        } catch (FileNotFoundException ex) {
+
+        }
+
+        txt_R_Id.setText("");
+    }//GEN-LAST:event_btn_R_BuscarActionPerformed
+
+    private void txt_R_FallaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_R_FallaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_R_FallaActionPerformed
 
     /**
      * @param args the command line arguments
