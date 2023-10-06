@@ -1022,8 +1022,7 @@ public class main extends javax.swing.JFrame {
             cto.setUsername(txtUsername.getText());
             String contra;
             
-            contra=f.BuscarContacto(cto).getPassword();
-            System.out.println( contra);
+         
 
             if(ban!=true &&  f.BuscarUsuario(cto)!=null){
                 JOptionPane.showMessageDialog(null, "Ese Nombre de Usuario ya existe");
@@ -1046,6 +1045,8 @@ public class main extends javax.swing.JFrame {
             else{
              ban=false;
              try {
+                contra=f.BuscarUsuario(cto).getPassword();
+                System.out.println( contra);
                 cto.setPassword(contra);
                 f.Editar(cto);
                 JOptionPane.showMessageDialog(null, "Editado con Éxito");

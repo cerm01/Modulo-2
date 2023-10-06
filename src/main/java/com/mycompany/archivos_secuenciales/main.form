@@ -840,17 +840,11 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Guardar"/>
               </Properties>
-              <AccessibilityProperties>
-                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Guardar"/>
-              </AccessibilityProperties>
             </Component>
             <Component class="javax.swing.JButton" name="txt_V_Cancelar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cancelar"/>
               </Properties>
-              <AccessibilityProperties>
-                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Cancelar"/>
-              </AccessibilityProperties>
             </Component>
             <Component class="javax.swing.JButton" name="txt_V_Editar">
               <Properties>
