@@ -1,97 +1,74 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.archivos_secuenciales;
 
 /**
  *
  * @author brand
  */
+
 public class reparaciones {
 
-    private int id_v;
-    private int id_p;
-    private int id_r;
+    private int id_ve;
+    private int id_pi;
+    private int id_re;
     private int contrl;
     private String falla;
-    private String telefono;
-    private String paterno;
-    private String materno;
-    private String username;
-    private String perfil;
-    private String direccion;
-    private String password;
+    private String fecha_e;
+    private String fecha_s;
 
-    public int getId() {
-        return id;
+    public int getId_ve() {
+        return id_ve;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId_ve(int v) {
+        this.id_ve = v;
     }
 
-    public String getNombre() {
-        return nombre;
+    public int getId_pi() {
+        return id_pi;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setId_pi(int p) {
+        this.id_pi = p;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public int getId_re() {
+        return id_re;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setId_re(int r) {
+        this.id_re = r;
     }
 
-    public String getPaterno() {
-        return paterno;
+    public int getId_contrl() {
+        return contrl;
     }
 
-    public void setPaterno(String paterno) {
-        this.paterno = paterno;
+    public void setId_contrl(int c) {
+        this.contrl = c;
     }
 
-    public String getMaterno() {
-        return materno;
+    public String getFalla() {
+        return falla;
     }
 
-    public void setMaterno(String materno) {
-        this.materno = materno;
+    public void setFalla(String fa) {
+        this.falla = fa;
     }
 
-    public String getUsername() {
-        return username;
+    public String getFecha_e() {
+        return fecha_e;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setFecha_e(String fe) {
+        this.fecha_e = fe;
     }
 
-    public String getPerfil() {
-        return perfil;
+    public String getFecha_s() {
+        return fecha_s;
     }
 
-    public void setPerfil(String perfil) {
-        this.perfil = perfil;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setFecha_s(String fs) {
+        this.fecha_s = fs;
     }
 }

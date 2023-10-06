@@ -1,24 +1,27 @@
-
 package com.mycompany.archivos_secuenciales;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
-
 public class main extends javax.swing.JFrame {
+
     Files f;
+    reparaciones_File rf;
+    reparaciones rep;
     contacto cto;
     contacto admin;
     //boolean band=false;
-    boolean ban=false;
+    boolean ban = false;
     //int contID=1;
 
     public main() {
         initComponents();
-        f=new Files();
-      
-        admin=new contacto();
+        f = new Files();
+        rf = new reparaciones_File();
+
+        admin = new contacto();
         admin.setId(0);
         admin.setNombre("Admi");
         admin.setPaterno("Nistra");
@@ -29,21 +32,21 @@ public class main extends javax.swing.JFrame {
         admin.setPassword("123");
         admin.setPerfil("Admin");
         try {
-            if(f.BuscarContacto(admin)==null){
-                 f.Guardar(admin);
+            if (f.BuscarContacto(admin) == null) {
+                f.Guardar(admin);
             }
         } catch (FileNotFoundException ex) {
-            
+
         }
-            tpane.setEnabledAt(1, false);
-            tpane.setEnabledAt(2, false);
-            tpane.setEnabledAt(3, false);
-            tpane.setEnabledAt(4, false);
-            tpane.setEnabledAt(5, false);
-        
- 
+        tpane.setEnabledAt(1, false);
+        tpane.setEnabledAt(2, false);
+        tpane.setEnabledAt(3, false);
+        tpane.setEnabledAt(4, false);
+        tpane.setEnabledAt(5, false);
+
     }
-     public void Habilitar(){
+
+    public void Habilitar() {
         txtNombre.setEditable(true);
         txtPaterno.setEditable(true);
         txtMaterno.setEditable(true);
@@ -53,7 +56,8 @@ public class main extends javax.swing.JFrame {
         txtDireccion.setEditable(true);
         txtPsw.setEditable(true);
     }
-     public void Deshabilitar(){
+
+    public void Deshabilitar() {
         txtNombre.setEditable(false);
         txtPaterno.setEditable(false);
         txtMaterno.setEditable(false);
@@ -62,7 +66,7 @@ public class main extends javax.swing.JFrame {
         cbPerfil.setEditable(false);
         txtDireccion.setEditable(false);
         txtPsw.setEditable(false);
-        
+
         txtNombre.setText("");
         txtTelefono.setText("");
         txtPaterno.setText("");
@@ -70,8 +74,33 @@ public class main extends javax.swing.JFrame {
         txtUsername.setText("");
         cbPerfil.setSelectedItem("");
         txtDireccion.setText("");
-       
-        
+
+    }
+    
+        public void reparaciones_Habilitar() {
+        cmb_R_IdVehiculo.setEditable(true);
+        cmb_R_IdPieza.setEditable(true);
+        txt_R_IdReparacion.setEditable(true);
+        txt_R_Falla.setEditable(true);
+        txt_R_ControlPiezas.setEditable(true);
+        jdt_E_Fecha.setEnabled(true);
+        jdt_S_Fecha.setEnabled(true);
+    }
+
+    public void reparaciones_Deshabilitar() {
+        cmb_R_IdVehiculo.setEditable(false);
+        cmb_R_IdPieza.setEditable(false);
+        txt_R_IdReparacion.setEditable(false);
+        txt_R_Falla.setEditable(false);
+        txt_R_ControlPiezas.setEditable(false);
+        jdt_E_Fecha.setEnabled(false);
+        jdt_S_Fecha.setEnabled(false);
+
+        cmb_R_IdVehiculo.setSelectedItem("");
+        cmb_R_IdPieza.setSelectedItem("");
+        txt_R_IdReparacion.setText("");
+        txt_R_Falla.setText("");
+        txt_R_ControlPiezas.setText("");
     }
 
     @SuppressWarnings("unchecked")
@@ -170,7 +199,7 @@ public class main extends javax.swing.JFrame {
         lbl_R_FechaEntrada = new javax.swing.JLabel();
         lbl_R_FechaSalida = new javax.swing.JLabel();
         cmb_R_IdVehiculo = new javax.swing.JComboBox<>();
-        txt_R_IdPieza = new javax.swing.JComboBox<>();
+        cmb_R_IdPieza = new javax.swing.JComboBox<>();
         btn_R_Nuevo = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
         txt_R_Id = new javax.swing.JTextField();
@@ -260,12 +289,6 @@ public class main extends javax.swing.JFrame {
         );
 
         tpane.addTab("Login", pnlLogin);
-
-        txtID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIDActionPerformed(evt);
-            }
-        });
 
         txtID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -399,31 +422,27 @@ public class main extends javax.swing.JFrame {
                         .addGap(26, 26, 26))))
             .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(pnlUsuariosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cbPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(pnlUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlUsuariosLayout.createSequentialGroup()
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlUsuariosLayout.createSequentialGroup()
-                                .addGroup(pnlUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(pnlUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtPsw, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(pnlUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(pnlUsuariosLayout.createSequentialGroup()
-                            .addComponent(lblPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(txtID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(24, 24, 24)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(pnlUsuariosLayout.createSequentialGroup()
+                            .addGroup(pnlUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(pnlUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtPsw, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(lblPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlUsuariosLayout.setVerticalGroup(
@@ -748,7 +767,7 @@ public class main extends javax.swing.JFrame {
 
         cmb_R_IdVehiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
 
-        txt_R_IdPieza.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05" }));
+        cmb_R_IdPieza.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05" }));
 
         btn_R_Nuevo.setText("Nuevo");
         btn_R_Nuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -758,6 +777,11 @@ public class main extends javax.swing.JFrame {
         });
 
         btn_R_Guardar.setText("Guardar");
+        btn_R_Guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_R_GuardarActionPerformed(evt);
+            }
+        });
 
         btn_R_Cancelar.setText("Cancelar");
 
@@ -776,7 +800,7 @@ public class main extends javax.swing.JFrame {
 
         jdt_E_Fecha.setDateFormatString("dd-MM-yyyy");
 
-        jdt_S_Fecha.setDateFormatString("yyyy-MM-dd");
+        jdt_S_Fecha.setDateFormatString("dd-MM-yyyy");
 
         javax.swing.GroupLayout pnlReparacionesLayout = new javax.swing.GroupLayout(pnlReparaciones);
         pnlReparaciones.setLayout(pnlReparacionesLayout);
@@ -798,7 +822,7 @@ public class main extends javax.swing.JFrame {
                             .addGroup(pnlReparacionesLayout.createSequentialGroup()
                                 .addComponent(lbl_R_IdPieza, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(txt_R_IdPieza, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cmb_R_IdPieza, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnlReparacionesLayout.createSequentialGroup()
                                 .addComponent(btn_R_Nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -856,7 +880,7 @@ public class main extends javax.swing.JFrame {
                         .addGap(12, 12, 12)
                         .addGroup(pnlReparacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbl_R_IdPieza, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_R_IdPieza, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cmb_R_IdPieza, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(pnlReparacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbl_R_Id_Reparacion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1023,22 +1047,20 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-       try {
-            cto=new contacto();
+        try {
+            cto = new contacto();
             cto.setId(Integer.parseInt(txtBuscar.getText()));
-            
-            cto=f.BuscarContacto(cto);
-            
 
-            if(cto!=null){
-                if(cto.getId()==0){
-                btnSalvar.setEnabled(false);
-                btnNuevo.setEnabled(true);
-                btnEditar.setEnabled(false);
-                btnRemover.setEnabled(false);
-                btnCancelar.setEnabled(false);
-                }
-                else{
+            cto = f.BuscarContacto(cto);
+
+            if (cto != null) {
+                if (cto.getId() == 0) {
+                    btnSalvar.setEnabled(false);
+                    btnNuevo.setEnabled(true);
+                    btnEditar.setEnabled(false);
+                    btnRemover.setEnabled(false);
+                    btnCancelar.setEnabled(false);
+                } else {
                     btnSalvar.setEnabled(false);
                     btnNuevo.setEnabled(true);
                     btnEditar.setEnabled(true);
@@ -1048,7 +1070,7 @@ public class main extends javax.swing.JFrame {
                 Deshabilitar();
                 txtPsw.setVisible(false);
                 lblPassword.setVisible(false);
-                
+
                 txtBuscar.setText("");
                 txtID.setText(String.valueOf(cto.getId()));
                 txtNombre.setText(cto.getNombre());
@@ -1058,79 +1080,76 @@ public class main extends javax.swing.JFrame {
                 txtUsername.setText(cto.getUsername());
                 cbPerfil.setSelectedItem(cto.getPerfil());
                 txtDireccion.setText(cto.getDireccion());
-               
-                
-            }else{
-            JOptionPane.showMessageDialog(null, "No existe ese ID");
-            txtBuscar.setText("");}
-            
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe ese ID");
+                txtBuscar.setText("");
+            }
+
         } catch (FileNotFoundException ex) {
 
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-      /* if(band){
+        /* if(band){
            contID++;
            band=false;
        }*/
-    Habilitar();
-    txtPsw.setVisible(true);
-    lblPassword.setVisible(true);
-                
-    btnSalvar.setEnabled(true);
-    btnNuevo.setEnabled(false);
-    btnEditar.setEnabled(false);
-    btnRemover.setEnabled(false);
-    btnCancelar.setEnabled(false);
+        Habilitar();
+        txtPsw.setVisible(true);
+        lblPassword.setVisible(true);
 
-    txtID.setText("");
-    txtNombre.setText("");
-    txtTelefono.setText("");
-    txtPaterno.setText("");
-    txtMaterno.setText("");
-    txtUsername.setText("");
-    cbPerfil.setSelectedItem("");
-    txtDireccion.setText("");
-    txtPsw.setText("");
-       
+        btnSalvar.setEnabled(true);
+        btnNuevo.setEnabled(false);
+        btnEditar.setEnabled(false);
+        btnRemover.setEnabled(false);
+        btnCancelar.setEnabled(false);
+
+        txtID.setText("");
+        txtNombre.setText("");
+        txtTelefono.setText("");
+        txtPaterno.setText("");
+        txtMaterno.setText("");
+        txtUsername.setText("");
+        cbPerfil.setSelectedItem("");
+        txtDireccion.setText("");
+        txtPsw.setText("");
+
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         try {
-            cto=new contacto();
+            cto = new contacto();
             cto.setUsername(txtUsername.getText());
             String contra;
-            
-         
 
-            if(ban!=true &&  f.BuscarUsuario(cto)!=null){
+            if (ban != true && f.BuscarUsuario(cto) != null) {
                 JOptionPane.showMessageDialog(null, "Ese Nombre de Usuario ya existe");
                 return;
             }
-            
-            cto.setId(Integer.parseInt(txtID.getText()));           
+
+            cto.setId(Integer.parseInt(txtID.getText()));
             cto.setNombre(txtNombre.getText());
             cto.setTelefono(txtTelefono.getText());
             cto.setPaterno(txtPaterno.getText());
             cto.setMaterno(txtMaterno.getText());
             cto.setPerfil(cbPerfil.getSelectedItem().toString());
             cto.setDireccion(txtDireccion.getText());
-            
-            if(ban!=true){
-            cto.setPassword(txtPsw.getText());
-            f.Guardar(cto);
-            JOptionPane.showMessageDialog(null, "Guardado con Éxito");
-            }
-            else{
-             ban=false;
-             try {
-                contra=f.BuscarUsuario(cto).getPassword();
-                System.out.println( contra);
-                cto.setPassword(contra);
-                f.Editar(cto);
-                JOptionPane.showMessageDialog(null, "Editado con Éxito");
-                System.out.println( "SI");
+
+            if (ban != true) {
+                cto.setPassword(txtPsw.getText());
+                f.Guardar(cto);
+                JOptionPane.showMessageDialog(null, "Guardado con Éxito");
+            } else {
+                ban = false;
+                try {
+                    contra = f.BuscarUsuario(cto).getPassword();
+                    System.out.println(contra);
+                    cto.setPassword(contra);
+                    f.Editar(cto);
+                    JOptionPane.showMessageDialog(null, "Editado con Éxito");
+                    System.out.println("SI");
                 } catch (IOException ex) {
 
                 }
@@ -1140,12 +1159,12 @@ public class main extends javax.swing.JFrame {
             btnEditar.setEnabled(false);
             btnRemover.setEnabled(false);
             btnCancelar.setEnabled(false);
-            
+
             //band=true;
         } catch (FileNotFoundException ex) {
 
         }
-    
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void txtMaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaternoActionPerformed
@@ -1154,20 +1173,20 @@ public class main extends javax.swing.JFrame {
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
         try {
-            cto=new contacto();
+            cto = new contacto();
             cto.setId(Integer.parseInt(txtID.getText()));
-            cto=f.BuscarContacto(cto);
-            
-            if(cto!=null){
-                try { 
-                        if(cto!=null){
+            cto = f.BuscarContacto(cto);
+
+            if (cto != null) {
+                try {
+                    if (cto != null) {
                         f.Eliminar(cto);
                         btnSalvar.setEnabled(false);
                         btnNuevo.setEnabled(true);
                         btnEditar.setEnabled(false);
                         btnRemover.setEnabled(false);
                         btnCancelar.setEnabled(true);
-                        
+
                         txtID.setText("");
                         txtNombre.setText("");
                         txtTelefono.setText("");
@@ -1176,123 +1195,123 @@ public class main extends javax.swing.JFrame {
                         txtUsername.setText("");
                         cbPerfil.setSelectedItem("");
                         txtDireccion.setText("");
-                        
-                    }else
-                    JOptionPane.showMessageDialog(null, "No existe el registro");
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No existe el registro");
+                    }
                 } catch (IOException ex) {
-                    
+
                 }
-            }else
-            JOptionPane.showMessageDialog(null, "No existe el registro");
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe el registro");
+            }
         } catch (FileNotFoundException ex) {
-            
+
         }
     }//GEN-LAST:event_btnRemoverActionPerformed
 
     private void btnAutentificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutentificarActionPerformed
-                cto=new contacto();
-                cto.setUsername(txtUsuario.getText());
-                
-                String pw;
-                pw=String.valueOf(txtPassword.getPassword());
-                
-                try {
-                    cto=f.BuscarUsuario(cto);
-                } catch (FileNotFoundException ex) {
+        cto = new contacto();
+        cto.setUsername(txtUsuario.getText());
 
+        String pw;
+        pw = String.valueOf(txtPassword.getPassword());
+
+        try {
+            cto = f.BuscarUsuario(cto);
+        } catch (FileNotFoundException ex) {
+
+        }
+        if (cto != null) {
+            if (cto.getPassword().equals(pw)) {
+                txtUsuario.setText("");
+                txtPassword.setText("");
+
+                if ("Admin".equals(cto.getPerfil())) {
+                    tpane.setEnabledAt(0, false);
+                    tpane.setEnabledAt(1, true);
+                    tpane.setEnabledAt(2, true);
+                    tpane.setEnabledAt(3, true);
+                    tpane.setEnabledAt(4, true);
+                    tpane.setEnabledAt(5, true);
+
+                    tpane.setSelectedIndex(1);
+
+                    btnSalvar.setEnabled(false);
+                    btnNuevo.setEnabled(true);
+                    btnEditar.setEnabled(false);
+                    btnRemover.setEnabled(false);
+                    btnCancelar.setEnabled(false);
                 }
-                if(cto!=null){
-                    if(cto.getPassword().equals(pw)){
-                        txtUsuario.setText(""); 
-                        txtPassword.setText("");
-                        
-                        if("Admin".equals(cto.getPerfil())){
-                            tpane.setEnabledAt(0, false);
-                            tpane.setEnabledAt(1, true);
-                            tpane.setEnabledAt(2, true);
-                            tpane.setEnabledAt(3, true);
-                            tpane.setEnabledAt(4, true);
-                            tpane.setEnabledAt(5, true);
-                            
-                            tpane.setSelectedIndex(1);
-                           
-                            btnSalvar.setEnabled(false);
-                            btnNuevo.setEnabled(true);
-                            btnEditar.setEnabled(false);
-                            btnRemover.setEnabled(false);
-                            btnCancelar.setEnabled(false);
-                        }
-                        if("Gerente".equals(cto.getPerfil())){
-                            
-                            tpane.setEnabledAt(0, false);
-                            tpane.setEnabledAt(1, false);
-                            tpane.setEnabledAt(2, true);
-                            tpane.setEnabledAt(3, false);
-                            tpane.setEnabledAt(4, true);
-                            tpane.setEnabledAt(5, false);
-                            
-                            tpane.setSelectedIndex(2);
-                        }
-                        if("Secretaria".equals(cto.getPerfil())){
-                            
-                            tpane.setEnabledAt(0, false);
-                            tpane.setEnabledAt(1, false);
-                            tpane.setEnabledAt(2, true);
-                            tpane.setEnabledAt(3, true);
-                            tpane.setEnabledAt(4, false);
-                            tpane.setEnabledAt(5, false);
-                            
-                            tpane.setSelectedIndex(2);
-                        }
-                        if("Mecánico".equals(cto.getPerfil())){
-                            
-                            tpane.setEnabledAt(0, false);
-                            tpane.setEnabledAt(1, false);
-                            tpane.setEnabledAt(2, false);
-                            tpane.setEnabledAt(3, false);
-                            tpane.setEnabledAt(4, true);
-                            tpane.setEnabledAt(5, false);
-                            
-                            tpane.setSelectedIndex(4);
-                        }
-                       
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(null, "Contraseña incorrecta");
-                        txtPassword.setText("");
-                    }
-                    
+                if ("Gerente".equals(cto.getPerfil())) {
+
+                    tpane.setEnabledAt(0, false);
+                    tpane.setEnabledAt(1, false);
+                    tpane.setEnabledAt(2, true);
+                    tpane.setEnabledAt(3, false);
+                    tpane.setEnabledAt(4, true);
+                    tpane.setEnabledAt(5, false);
+
+                    tpane.setSelectedIndex(2);
                 }
-                else{
-                    JOptionPane.showMessageDialog(null, "No existe ese Usuario");
-                    txtPassword.setText("");
+                if ("Secretaria".equals(cto.getPerfil())) {
+
+                    tpane.setEnabledAt(0, false);
+                    tpane.setEnabledAt(1, false);
+                    tpane.setEnabledAt(2, true);
+                    tpane.setEnabledAt(3, true);
+                    tpane.setEnabledAt(4, false);
+                    tpane.setEnabledAt(5, false);
+
+                    tpane.setSelectedIndex(2);
                 }
-        
-                
+                if ("Mecánico".equals(cto.getPerfil())) {
+
+                    tpane.setEnabledAt(0, false);
+                    tpane.setEnabledAt(1, false);
+                    tpane.setEnabledAt(2, false);
+                    tpane.setEnabledAt(3, false);
+                    tpane.setEnabledAt(4, true);
+                    tpane.setEnabledAt(5, false);
+
+                    tpane.setSelectedIndex(4);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Contraseña incorrecta");
+                txtPassword.setText("");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "No existe ese Usuario");
+            txtPassword.setText("");
+        }
+
+
     }//GEN-LAST:event_btnAutentificarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-            Habilitar();
-            btnSalvar.setEnabled(true);
-            btnNuevo.setEnabled(false);
-            btnEditar.setEnabled(false);
-            btnRemover.setEnabled(false);
-            btnCancelar.setEnabled(true);
-            ban=true;
+        Habilitar();
+        btnSalvar.setEnabled(true);
+        btnNuevo.setEnabled(false);
+        btnEditar.setEnabled(false);
+        btnRemover.setEnabled(false);
+        btnCancelar.setEnabled(true);
+        ban = true;
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         tpane.setSelectedIndex(0);
-        
+
         tpane.setEnabledAt(0, true);
         tpane.setEnabledAt(1, false);
         tpane.setEnabledAt(2, false);
         tpane.setEnabledAt(3, false);
         tpane.setEnabledAt(4, false);
         tpane.setEnabledAt(5, false);
-        
+
         txtBuscar.setText("");
-        
+
         txtID.setText("");
         txtNombre.setText("");
         txtTelefono.setText("");
@@ -1301,30 +1320,30 @@ public class main extends javax.swing.JFrame {
         txtUsername.setText("");
         cbPerfil.setSelectedItem("");
         txtDireccion.setText("");
-        
+
         Deshabilitar();
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-    Habilitar();
-    btnSalvar.setEnabled(false);
-    btnNuevo.setEnabled(true);
-    btnEditar.setEnabled(false);
-    btnRemover.setEnabled(false);
-    btnCancelar.setEnabled(false);
-    
-    txtBuscar.setText("");
-        
-    txtID.setText("");
-    txtNombre.setText("");
-    txtTelefono.setText("");
-    txtPaterno.setText("");
-    txtMaterno.setText("");
-    txtUsername.setText("");
-    cbPerfil.setSelectedItem("");
-    txtDireccion.setText("");
-    
-    ban=false;
+        Habilitar();
+        btnSalvar.setEnabled(false);
+        btnNuevo.setEnabled(true);
+        btnEditar.setEnabled(false);
+        btnRemover.setEnabled(false);
+        btnCancelar.setEnabled(false);
+
+        txtBuscar.setText("");
+
+        txtID.setText("");
+        txtNombre.setText("");
+        txtTelefono.setText("");
+        txtPaterno.setText("");
+        txtMaterno.setText("");
+        txtUsername.setText("");
+        cbPerfil.setSelectedItem("");
+        txtDireccion.setText("");
+
+        ban = false;
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void txtPaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPaternoActionPerformed
@@ -1337,19 +1356,19 @@ public class main extends javax.swing.JFrame {
 
     private void btn_C_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_SalirActionPerformed
         tpane.setSelectedIndex(0);
-        
+
         tpane.setEnabledAt(0, true);
         tpane.setEnabledAt(1, false);
         tpane.setEnabledAt(2, false);
         tpane.setEnabledAt(3, false);
         tpane.setEnabledAt(4, false);
         tpane.setEnabledAt(5, false);
-      
+
     }//GEN-LAST:event_btn_C_SalirActionPerformed
 
     private void btn_R_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_SalirActionPerformed
         tpane.setSelectedIndex(0);
-        
+
         tpane.setEnabledAt(0, true);
         tpane.setEnabledAt(1, false);
         tpane.setEnabledAt(2, false);
@@ -1359,8 +1378,8 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_R_SalirActionPerformed
 
     private void btn_P_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_P_SalirActionPerformed
-       tpane.setSelectedIndex(0);
-        
+        tpane.setSelectedIndex(0);
+
         tpane.setEnabledAt(0, true);
         tpane.setEnabledAt(1, false);
         tpane.setEnabledAt(2, false);
@@ -1370,8 +1389,69 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_P_SalirActionPerformed
 
     private void btn_R_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_NuevoActionPerformed
-        
+        Habilitar();
+
+        btnSalvar.setEnabled(true);
+        btnNuevo.setEnabled(false);
+        btnEditar.setEnabled(false);
+        btnRemover.setEnabled(false);
+        btnCancelar.setEnabled(false);
+
+        txtID.setText("");
+        txtNombre.setText("");
+        txtTelefono.setText("");
+        txtPaterno.setText("");
+        txtMaterno.setText("");
+        txtUsername.setText("");
+        cbPerfil.setSelectedItem("");
+        txtDireccion.setText("");
+        txtPsw.setText("");
     }//GEN-LAST:event_btn_R_NuevoActionPerformed
+
+    private void btn_R_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_GuardarActionPerformed
+        SimpleDateFormat fecha = new SimpleDateFormat("dd-MM-yyyy");
+        String fecha_E = fecha.format(jdt_E_Fecha.getDate());
+        String fecha_S = fecha.format(jdt_S_Fecha.getDate());
+        try {
+            rep = new reparaciones();
+            rep.setId_re(Integer.parseInt(txt_R_IdReparacion.getText()));
+
+            if (ban != true && rf.BuscarReparacion(rep) != null) {
+                JOptionPane.showMessageDialog(null, "Ese Nombre de Usuario ya existe");
+                return;
+            }
+
+            rep.setId_ve(Integer.parseInt(cmb_R_IdVehiculo.getSelectedItem().toString()));
+            rep.setId_pi(Integer.parseInt(cmb_R_IdPieza.getSelectedItem().toString()));
+            rep.setFalla(txt_R_Falla.getText());
+            rep.setId_contrl(Integer.parseInt(txt_R_ControlPiezas.getText()));
+            rep.setFecha_e(fecha_E);
+            rep.setFecha_s(fecha_S);
+
+            if (ban != true) {
+                rf.Guardar(rep);
+                JOptionPane.showMessageDialog(null, "Guardado con Éxito");
+            } else {
+                ban = false;
+                try {
+                    rf.Editar(rep);
+                    JOptionPane.showMessageDialog(null, "Editado con Éxito");
+                    System.out.println("SI");
+                } catch (IOException ex) {
+
+                }
+            }
+            btnSalvar.setEnabled(false);
+            btnNuevo.setEnabled(true);
+            btnEditar.setEnabled(false);
+            btnRemover.setEnabled(false);
+            btnCancelar.setEnabled(false);
+
+            //band=true;
+        } catch (FileNotFoundException ex) {
+
+        }
+    }//GEN-LAST:event_btn_R_GuardarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1439,6 +1519,7 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbPerfil;
     private javax.swing.JComboBox<String> cb_C_IdUusuario;
     private javax.swing.JComboBox<String> cb_V_SeleccioneCliente;
+    private javax.swing.JComboBox<String> cmb_R_IdPieza;
     private javax.swing.JComboBox<String> cmb_R_IdVehiculo;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -1522,7 +1603,6 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JTextField txt_R_ControlPiezas;
     private javax.swing.JTextField txt_R_Falla;
     private javax.swing.JTextField txt_R_Id;
-    private javax.swing.JComboBox<String> txt_R_IdPieza;
     private javax.swing.JTextField txt_R_IdReparacion;
     private javax.swing.JButton txt_V_Cancelar;
     private javax.swing.JButton txt_V_Editar;
