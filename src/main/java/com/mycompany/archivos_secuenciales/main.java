@@ -256,6 +256,12 @@ public class main extends javax.swing.JFrame {
 
         tpane.addTab("Login", pnlLogin);
 
+        txtID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIDActionPerformed(evt);
+            }
+        });
+
         btnNuevo.setText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -629,16 +635,11 @@ public class main extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(txt_V_Marca, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlVehiculosLayout.createSequentialGroup()
-                        .addComponent(lbl_V_Modelo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txt_V_Modelo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlVehiculosLayout.createSequentialGroup()
                         .addComponent(lbl_V_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(txt_V_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btn_V_Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lbl_V_Fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlVehiculosLayout.createSequentialGroup()
                         .addComponent(btn_V_Nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -648,7 +649,13 @@ public class main extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txt_V_Editar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_V_Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txt_V_Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlVehiculosLayout.createSequentialGroup()
+                            .addComponent(lbl_V_Modelo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(txt_V_Modelo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lbl_V_Fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(46, Short.MAX_VALUE))
             .addComponent(jSeparator2)
         );
@@ -838,7 +845,7 @@ public class main extends javax.swing.JFrame {
 
         jButton13.setText("Eliminar");
 
-        btn_P_Buscar.setText("Editar");
+        btn_P_Buscar.setText("Buscar");
 
         javax.swing.GroupLayout pnlPiezasLayout = new javax.swing.GroupLayout(pnlPiezas);
         pnlPiezas.setLayout(pnlPiezasLayout);
@@ -1015,8 +1022,7 @@ public class main extends javax.swing.JFrame {
             cto.setUsername(txtUsername.getText());
             String contra;
             
-            contra=f.BuscarContacto(cto).getPassword();
-            System.out.println( contra);
+         
 
             if(ban!=true &&  f.BuscarUsuario(cto)!=null){
                 JOptionPane.showMessageDialog(null, "Ese Nombre de Usuario ya existe");
@@ -1039,6 +1045,8 @@ public class main extends javax.swing.JFrame {
             else{
              ban=false;
              try {
+                contra=f.BuscarUsuario(cto).getPassword();
+                System.out.println( contra);
                 cto.setPassword(contra);
                 f.Editar(cto);
                 JOptionPane.showMessageDialog(null, "Editado con Éxito");
@@ -1118,15 +1126,41 @@ public class main extends javax.swing.JFrame {
                         txtUsuario.setText(""); 
                         txtPassword.setText("");
                         
-                        pnlUsuarios.setEnabled(true);
-                        tpane.setSelectedIndex(1);
-                        
-                        btnSalvar.setEnabled(true);
-                        btnNuevo.setEnabled(false);
-                        btnEditar.setEnabled(false);
-                        btnRemover.setEnabled(false);
-                        btnCancelar.setEnabled(false);
-                    
+                        if(cbPerfil.getSelectedItem()=="Admin"){
+                            pnlUsuarios.setEnabled(true);
+                            pnlClientes.setEnabled(true);
+                            pnlVehiculos.setEnabled(true);
+                            pnlReparaciones.setEnabled(true);
+                            pnlPiezas.setEnabled(true);
+                           
+                            btnSalvar.setEnabled(false);
+                            btnNuevo.setEnabled(true);
+                            btnEditar.setEnabled(false);
+                            btnRemover.setEnabled(false);
+                            btnCancelar.setEnabled(false);
+                        }
+                        if(cbPerfil.getSelectedItem()=="Gerente"){
+                            pnlUsuarios.setEnabled(false);
+                            pnlClientes.setEnabled(true);
+                            pnlVehiculos.setEnabled(false);
+                            pnlReparaciones.setEnabled(true);
+                            pnlPiezas.setEnabled(false);
+                        }
+                        if(cbPerfil.getSelectedItem()=="Secretaria"){
+                            pnlUsuarios.setEnabled(false);
+                            pnlClientes.setEnabled(true);
+                            pnlVehiculos.setEnabled(true);
+                            pnlReparaciones.setEnabled(false);
+                            pnlPiezas.setEnabled(false);
+                        }
+                        if(cbPerfil.getSelectedItem()=="Mecánico"){
+                            pnlUsuarios.setEnabled(false);
+                            pnlClientes.setEnabled(false);
+                            pnlVehiculos.setEnabled(false);
+                            pnlReparaciones.setEnabled(true);
+                            pnlPiezas.setEnabled(false);
+                        }
+                       tpane.setSelectedIndex(1);
                     }
                     else{
                         JOptionPane.showMessageDialog(null, "Contraseña incorrecta");
@@ -1194,6 +1228,10 @@ public class main extends javax.swing.JFrame {
     private void txtPaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPaternoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPaternoActionPerformed
+
+    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIDActionPerformed
 
     /**
      * @param args the command line arguments
