@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 public class main extends javax.swing.JFrame {
 
@@ -24,7 +25,11 @@ public class main extends javax.swing.JFrame {
     boolean ban=false;
     boolean ban_vehiculos=false;
     //int contID=1;
-
+    
+    Cliente_File fc;
+    cliente c;
+    
+    
     public main() {
         initComponents();
         f = new Files();
@@ -480,6 +485,27 @@ public class main extends javax.swing.JFrame {
                                 .addComponent(cbPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(lblPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(pnlUsuariosLayout.createSequentialGroup()
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(24, 24, 24)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(pnlUsuariosLayout.createSequentialGroup()
+                            .addGroup(pnlUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(pnlUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtPsw, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(lblPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlUsuariosLayout.setVerticalGroup(
@@ -554,16 +580,46 @@ public class main extends javax.swing.JFrame {
         lbl_C_ApellidoMaterno.setText("Apellido Materno");
 
         btn_C_Buscar.setText("Buscar");
+        btn_C_Buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_C_BuscarActionPerformed(evt);
+            }
+        });
 
         btn_C_Nuevo.setText("Nuevo");
+        btn_C_Nuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_C_NuevoActionPerformed(evt);
+            }
+        });
 
         btn_C_Guardar.setText("Guardar");
+        btn_C_Guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_C_GuardarActionPerformed(evt);
+            }
+        });
 
         btn_C_Cancelar.setText("Cancelar");
+        btn_C_Cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_C_CancelarActionPerformed(evt);
+            }
+        });
 
         btn_C_Editar.setText("Editar");
+        btn_C_Editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_C_EditarActionPerformed(evt);
+            }
+        });
 
         btn_C_Eliminar.setText("Eliminar");
+        btn_C_Eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_C_EliminarActionPerformed(evt);
+            }
+        });
 
         btn_C_Salir.setText("Salir");
         btn_C_Salir.addActionListener(new java.awt.event.ActionListener() {
@@ -1672,6 +1728,165 @@ public class main extends javax.swing.JFrame {
         
         txt_V_Buscar.setText("");
     }//GEN-LAST:event_btn_V_BuscarActionPerformed
+
+    private void btn_C_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_GuardarActionPerformed
+        //Verificar que el campo txt_C_IdCliente no este vacio
+        if(txt_C_IdCliente.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Ingrese el ID del cliente");
+            return;
+        }
+        //Verificar que el campo txt_C_Nombre no este vacio
+        if(txt_C_Nombre.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Ingrese el nombre del cliente");
+            return;
+        }
+        //Verificar que el campo txt_C_ApellidoPaterno no este vacio
+        if(txt_C_ApellidoPaterno.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Ingrese el apellido paterno del cliente");
+            return;
+        }
+        //Verificar que el campo txt_C_ApellidoMaterno no este vacio
+        if(txt_C_ApellidoMaterno.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Ingrese el apellido materno del cliente");
+            return;
+        }
+        //Se crea un objeto de tipo cliente
+        cliente c = new cliente();
+        //Se le asignan los valores a los atributos del objeto
+        c.setId(Integer.parseInt(txt_C_IdCliente.getText()));
+        c.setNombre(txt_C_Nombre.getText());
+        c.setApellidoPaterno(txt_C_ApellidoPaterno.getText());
+        c.setApellidoMaterno(txt_C_ApellidoMaterno.getText());
+        //Se crea un objeto de tipo archivoCliente
+        Cliente_File ac = new Cliente_File();
+        //Se llama al metodo guardarCliente y se le pasa como parametro el objeto cliente
+        ac.guardar(c);
+        //Se muestra un mensaje de que se guardo correctamente
+        JOptionPane.showMessageDialog(null, "Guardado correctamente");
+        //Se limpian los campos de texto
+        txt_C_IdCliente.setText("");
+        txt_C_Nombre.setText("");
+        txt_C_ApellidoPaterno.setText("");
+        txt_C_ApellidoMaterno.setText("");
+
+    }//GEN-LAST:event_btn_C_GuardarActionPerformed
+
+    private void btn_C_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_NuevoActionPerformed
+        Cliente_File clienteFile = new Cliente_File();
+        int maxId = clienteFile.getMaxId();
+        
+        txt_C_IdCliente.setText(String.valueOf(maxId));
+         
+        txt_C_Id.setText("");
+        txt_C_Nombre.setText("");
+        txt_C_ApellidoPaterno.setText("");
+        txt_C_ApellidoMaterno.setText("");
+
+    }//GEN-LAST:event_btn_C_NuevoActionPerformed
+
+    private void btn_C_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_CancelarActionPerformed
+        txt_C_Id.setText("");
+        txt_C_IdCliente.setText("");
+        txt_C_Nombre.setText("");
+        txt_C_ApellidoPaterno.setText("");
+        txt_C_ApellidoMaterno.setText("");    
+    }//GEN-LAST:event_btn_C_CancelarActionPerformed
+
+    private void btn_C_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_BuscarActionPerformed
+        //Verificar que el campo txt_C_Id no este vacio
+        if(txt_C_Id.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Ingrese el ID del cliente");
+            return;
+        }
+        
+        // Obtener el id 
+        int id = Integer.parseInt(txt_C_Id.getText());
+
+        // validar que el id si exista
+        Cliente_File clienteFile = new Cliente_File();
+        cliente c = clienteFile.buscar(id);
+        if(c == null){
+            JOptionPane.showMessageDialog(null, "No existe el cliente");
+            return;
+        }
+
+        // Mostrar los datos del cliente
+        txt_C_IdCliente.setText(String.valueOf(c.getId()));
+        txt_C_Nombre.setText(c.getNombre());
+        txt_C_ApellidoPaterno.setText(c.getApellidoPaterno());
+        txt_C_ApellidoMaterno.setText(c.getApellidoMaterno());
+
+    }//GEN-LAST:event_btn_C_BuscarActionPerformed
+
+    private void btn_C_EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_EditarActionPerformed
+       //Boton para editar
+            //Verificar que el campo txt_C_IdCliente no este vacio
+            if(txt_C_IdCliente.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Ingrese el ID del cliente");
+                return;
+            }
+            //Verificar que el campo txt_C_Nombre no este vacio
+            if(txt_C_Nombre.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Ingrese el nombre del cliente");
+                return;
+            }
+            //Verificar que el campo txt_C_ApellidoPaterno no este vacio
+            if(txt_C_ApellidoPaterno.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Ingrese el apellido paterno del cliente");
+                return;
+            }
+            //Verificar que el campo txt_C_ApellidoMaterno no este vacio
+            if(txt_C_ApellidoMaterno.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Ingrese el apellido materno del cliente");
+                return;
+            }
+            //Se crea un objeto de tipo cliente
+            cliente c = new cliente();
+            //Se le asignan los valores a los atributos del objeto
+            c.setId(Integer.parseInt(txt_C_IdCliente.getText()));
+            c.setNombre(txt_C_Nombre.getText());
+            c.setApellidoPaterno(txt_C_ApellidoPaterno.getText());
+            c.setApellidoMaterno(txt_C_ApellidoMaterno.getText());
+            //Se crea un objeto de tipo archivoCliente
+            Cliente_File ac = new Cliente_File();
+            //Se llama al metodo guardarCliente y se le pasa como parametro el objeto cliente
+            ac.editar(c);
+            //Se muestra un mensaje de que se guardo correctamente
+            JOptionPane.showMessageDialog(null, "Editado correctamente");
+            //Se limpian los campos de texto
+            txt_C_IdCliente.setText("");
+            txt_C_Nombre.setText("");
+            txt_C_ApellidoPaterno.setText("");
+            txt_C_ApellidoMaterno.setText("");  
+    }//GEN-LAST:event_btn_C_EditarActionPerformed
+
+    private void btn_C_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_EliminarActionPerformed
+        //Verificar que el campo txt_C_Id no este vacio
+        if(txt_C_Id.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Ingrese el ID del cliente");
+            return;
+        }
+        
+        // Obtener el id 
+        int id = Integer.parseInt(txt_C_Id.getText());
+
+        // validar que el id si exista
+        Cliente_File clienteFile = new Cliente_File();
+        cliente c = clienteFile.buscar(id);
+        if(c == null){
+            JOptionPane.showMessageDialog(null, "No existe el cliente");
+            return;
+        }
+
+        // Eliminar el cliente
+        clienteFile.eliminar(c);
+        JOptionPane.showMessageDialog(null, "Eliminado correctamente");
+        txt_C_Id.setText("");
+        txt_C_IdCliente.setText("");
+        txt_C_Nombre.setText("");
+        txt_C_ApellidoPaterno.setText("");
+        txt_C_ApellidoMaterno.setText("");    
+    }//GEN-LAST:event_btn_C_EliminarActionPerformed
 
     /**
      * @param args the command line arguments
