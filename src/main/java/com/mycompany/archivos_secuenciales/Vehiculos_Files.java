@@ -163,5 +163,96 @@ public class Vehiculos_Files {
             }
         }
     }
+       public void Eliminar_Vehiculos(Vehiculos vcs) throws IOException{
+        int i=0;
+        int z=0;
+        int id=0;
+        int j;
+        
+        datos[0][0]="";
+        datos[1][0]="";
+        datos[2][0]="";   
+        datos[3][0]="";
+        datos[4][0]="";
+        datos[5][0]="";
+        
+        
+        try {
+        read = new DataInputStream(new FileInputStream(path));
+        
+        while(true){
+                 eliminar[0][i]=read.readUTF();
+                 eliminar[1][i]=read.readInt();
+                 eliminar[2][i]=read.readUTF();
+                 eliminar[3][i]=read.readUTF();
+                 eliminar[4][i]=read.readUTF();
+                 eliminar[5][i]=read.readUTF();
+                
+                System.out.println("ELIMINAR");
+                System.out.println(eliminar[0][i]);
+                System.out.println(eliminar[1][i]);
+                System.out.println(eliminar[2][i]);
+                System.out.println(eliminar[5][i]);
+                
+                i++;
+            }
+        } catch (IOException ex) {
+       }
+        try {
+            read.close();
+            
+        } catch (IOException ex) {
+            
+        }
+        
+        j=0;
+        while(z<i){
+            if((int)eliminar[1][z]!=vcs.getId_vehiculo()){
+                datos[0][j]=eliminar[0][z];
+                datos[1][j]=eliminar[1][z];
+                datos[2][j]=eliminar[2][z];
+                datos[3][j]=eliminar[3][z];
+                datos[4][j]=eliminar[4][z];
+                datos[5][j]=eliminar[5][z];
+                
+                System.out.println("ELIMINAR SEGUNDA ETAPA");
+                System.out.println(eliminar[0][z]);
+                System.out.println(eliminar[1][z]);
+                System.out.println(eliminar[2][z]);
+                System.out.println(eliminar[5][z]);
+                
+                j++;
+            }
+            z++;
+        }
+        i=0;
+
+        try {
+            write= new DataOutputStream(new FileOutputStream(path));
+            while(i<j){
+                write.writeUTF(datos[0][i].toString());
+                write.writeInt((int)datos[1][i]);
+                write.writeUTF(datos[2][i].toString());
+                write.writeUTF(datos[3][i].toString());
+                write.writeUTF(datos[4][i].toString());
+                write.writeUTF(datos[5][i].toString());
+                i++;
+         }
+           
+        } catch (FileNotFoundException ex) {
+      
+        }catch(IOException ex){
+            
+        }finally{
+            if(write!=null){
+                try{
+                      write.close();
+                }catch(IOException ex){
+                    
+                }
+            }
+        }
+    }
+      
      
 }

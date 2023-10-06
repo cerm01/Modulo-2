@@ -236,6 +236,8 @@ public class Files {
                  eliminar[6][i]=read.readUTF();
                  eliminar[7][i]=read.readUTF();
                  eliminar[8][i]=read.readUTF();
+                 
+                 i++;
             }
         } catch (IOException ex) {
        }

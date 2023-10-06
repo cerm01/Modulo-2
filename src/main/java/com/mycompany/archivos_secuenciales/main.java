@@ -1454,10 +1454,10 @@ public class main extends javax.swing.JFrame {
     }else{
         try {
             v.Editar_Vehiculo(vcs);
+            ban_vehiculos=false;
         } catch (IOException ex) {
         }
     }
-    
     
     Vehiculos_Deshabilitar();    
 
@@ -1491,8 +1491,29 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_V_EditarActionPerformed
 
     private void btn_V_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_V_EliminarActionPerformed
-    Vehiculos_Deshabilitar(); 
+    vcs.setCliente(cb_V_SeleccioneCliente.getSelectedItem().toString());
+    vcs.setId_vehiculo(Integer.parseInt(txt_V_IdVehiculo.getText()));
+    vcs.setMatricula(txt_V_Matricula.getText());
+    vcs.setMarca(txt_V_Marca.getText());
+    vcs.setModelo(txt_V_Modelo.getText());
+    
+    SimpleDateFormat dformat=new SimpleDateFormat("dd-MM-YYYY");
+    String date=dformat.format(jdt_V_Fecha.getDate());
+    vcs.setFecha(date);
+    
+    try {
+        v.Eliminar_Vehiculos(vcs);
+    } catch (IOException ex) {
 
+    }
+        
+    Vehiculos_Habilitar(); 
+    
+    txt_V_IdVehiculo.setText("");
+    txt_V_Matricula.setText("");
+    txt_V_Marca.setText("");
+    txt_V_Modelo.setText("");
+    
     btn_V_Guardar.setEnabled(false);
     btn_V_Nuevo.setEnabled(true);
     btn_V_Editar.setEnabled(false);
@@ -1507,7 +1528,7 @@ public class main extends javax.swing.JFrame {
             vcs.setId_vehiculo(Integer.parseInt(txt_V_Buscar.getText()));
             vcs=v.BuscarIdVehiculo(vcs);
             
-            if(v!=null){
+            if(vcs!=null){
                 cb_V_SeleccioneCliente.setSelectedItem(vcs.getCliente());
                 txt_V_IdVehiculo.setText(String.valueOf(vcs.getId_vehiculo()));
                 txt_V_Matricula.setText(vcs.getMatricula());
