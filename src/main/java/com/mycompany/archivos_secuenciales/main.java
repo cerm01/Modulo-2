@@ -20,11 +20,11 @@ public class main extends javax.swing.JFrame {
       
         admin=new contacto();
         admin.setId(0);
-        admin.setNombre("Vale");
-        admin.setPaterno("Miranda");
-        admin.setMaterno("Mercado");
-        admin.setUsername("valem");
-        admin.setTelefono("3322241466");
+        admin.setNombre("Admi");
+        admin.setPaterno("Nistra");
+        admin.setMaterno("Dor");
+        admin.setUsername("super");
+        admin.setTelefono("3359525148");
         admin.setDireccion("plata");
         admin.setPassword("123");
         admin.setPerfil("Admin");
