@@ -138,6 +138,54 @@ public class Cliente_File {
         }
         
         return cliente;
-    }   
+    }
+    
+    // Metodo para eliminar recibiendo el objeto cliente
+    public void eliminar(cliente cliente) {
+        try {
+            read = new DataInputStream(new FileInputStream(path));
+            write = new DataOutputStream(new FileOutputStream("C:\\Proyecto\\temp.txt"));
+            
+            while (true) {
+                int id = read.readInt();
+                String nombre = read.readUTF();
+                String apellidoPaterno = read.readUTF();
+                String apellidoMaterno = read.readUTF();
+                
+                if (id != cliente.getId()) {
+                    write.writeInt(id);
+                    write.writeUTF(nombre);
+                    write.writeUTF(apellidoPaterno);
+                    write.writeUTF(apellidoMaterno);
+                }
+            }
+        } catch (EOFException e) {
+            // Fin del archivo, no se hace nada aquí
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo de clientes");
+        } finally {
+            try {
+                if (read != null) {
+                    read.close();
+                }
+                
+                if (write != null) {
+                    write.close();
+                }
+            } catch (IOException e) {
+                System.out.println("Error al cerrar el archivo");
+            }
+        }
+        
+        // Renombrar el archivo temporal al archivo original
+        try {
+            java.io.File temp = new java.io.File("C:\\Proyecto\\temp.txt");
+            java.io.File original = new java.io.File(path);
+            original.delete();
+            temp.renameTo(original);
+        } catch (Exception e) {
+            System.out.println("Error al renombrar el archivo");
+        }
+    }
 
 }

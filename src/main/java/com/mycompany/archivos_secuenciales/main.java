@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 
 public class main extends javax.swing.JFrame {
@@ -520,8 +521,18 @@ public class main extends javax.swing.JFrame {
         });
 
         btn_C_Editar.setText("Editar");
+        btn_C_Editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_C_EditarActionPerformed(evt);
+            }
+        });
 
         btn_C_Eliminar.setText("Eliminar");
+        btn_C_Eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_C_EliminarActionPerformed(evt);
+            }
+        });
 
         btn_C_Salir.setText("Salir");
         btn_C_Salir.addActionListener(new java.awt.event.ActionListener() {
@@ -1444,6 +1455,81 @@ public class main extends javax.swing.JFrame {
         txt_C_ApellidoMaterno.setText(c.getApellidoMaterno());
 
     }//GEN-LAST:event_btn_C_BuscarActionPerformed
+
+    private void btn_C_EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_EditarActionPerformed
+        c = new cliente();
+        // Verificar que el campo de búsqueda no esté vacío
+        if(txt_C_Id.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Ingrese el ID del cliente");
+            return;
+        }
+        c = fc.buscar(Integer.parseInt(txt_C_Id.getText()));
+        if(c != null){
+            JTextField txtId = new JTextField(String.valueOf(c.getId()));
+            JTextField txtNombre = new JTextField(c.getNombre());
+            JTextField txtApellidoPaterno = new JTextField(c.getApellidoPaterno());
+            JTextField txtApellidoMaterno = new JTextField(c.getApellidoMaterno());
+
+            // El campo de id no se puede editar
+            txtId.setEditable(false);
+
+            Object[] message = {
+                "ID:", txtId,
+                "Nombre:", txtNombre,
+                "Apellido Paterno:", txtApellidoPaterno,
+                "Apellido Materno:", txtApellidoMaterno
+            };
+
+            int option = JOptionPane.showConfirmDialog(null, message, "Editar cliente", JOptionPane.OK_CANCEL_OPTION);
+            if (option == JOptionPane.OK_OPTION){
+                //Obtener los valores de los campos de texto
+                c.setNombre(txtNombre.getText());
+                c.setApellidoPaterno(txtApellidoPaterno.getText());
+                c.setApellidoMaterno(txtApellidoMaterno.getText());
+
+                fc.eliminar(c);
+                fc.guardar(c);
+
+                txtId.setText("");
+                txtNombre.setText("");
+                txtApellidoPaterno.setText("");
+                txtApellidoMaterno.setText("");
+                JOptionPane.showMessageDialog(null, "Editado correctamente");
+            } else {
+                System.out.println("Editado cancelado");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No existe el cliente");
+        }  
+    }//GEN-LAST:event_btn_C_EditarActionPerformed
+
+    private void btn_C_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_EliminarActionPerformed
+        //Verificar que el campo txt_C_Id no este vacio
+        if(txt_C_Id.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Ingrese el ID del cliente");
+            return;
+        }
+        
+        // Obtener el id 
+        int id = Integer.parseInt(txt_C_Id.getText());
+
+        // validar que el id si exista
+        Cliente_File clienteFile = new Cliente_File();
+        cliente c = clienteFile.buscar(id);
+        if(c == null){
+            JOptionPane.showMessageDialog(null, "No existe el cliente");
+            return;
+        }
+
+        // Eliminar el cliente
+        clienteFile.eliminar(c);
+        JOptionPane.showMessageDialog(null, "Eliminado correctamente");
+        txt_C_Id.setText("");
+        txt_C_IdCliente.setText("");
+        txt_C_Nombre.setText("");
+        txt_C_ApellidoPaterno.setText("");
+        txt_C_ApellidoMaterno.setText("");    
+    }//GEN-LAST:event_btn_C_EliminarActionPerformed
 
     /**
      * @param args the command line arguments
