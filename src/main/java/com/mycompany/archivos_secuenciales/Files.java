@@ -3,10 +3,12 @@ package com.mycompany.archivos_secuenciales;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.invoke.StringConcatException;
 
 
 public class Files {
@@ -17,6 +19,69 @@ public class Files {
      Object [][] datos= new Object[9][100];
      Object [][] eliminar= new Object[9][100];
     //private String path="archivo.txt";
+     
+     
+    public int getMaxId(){
+        int maxId = -1;
+        try{
+            read = new DataInputStream(new FileInputStream(path));
+
+            while(true){
+                int id = read.readInt();
+
+                if (id > maxId){
+                    maxId = id;
+                }
+            }
+        } catch (EOFException e){
+            // fin del archivo
+        } catch (IOException e){
+            System.out.println("Error al leer el archivo");
+        } finally {
+            try {
+                if (read != null){
+                    read.close();
+                }
+            } catch (IOException e){
+                System.out.println("Error al cerrar el archivo");
+            }
+        }
+
+        // Verificar si hay IDs sin asignar desde 0 al maximo encontrado
+        for (int i = 0; i <= maxId; i++){
+            boolean idEncontrado = false;
+
+            try{
+                read = new DataInputStream(new FileInputStream(path));
+
+                while(true){
+                    int id = read.readInt();
+
+                    if (id == i){
+                        idEncontrado = true;
+                        break;
+                    }
+                }    
+            }catch(EOFException e){
+                // fin del archivo
+            } catch (IOException e){
+                System.out.println("Error al leer el archivo");
+            } finally {
+                try {
+                    if (read != null){
+                        read.close();
+                    }
+                } catch (IOException e){
+                    System.out.println("Error al cerrar el archivo");
+                }
+            }
+
+            if (!idEncontrado){
+                return i;
+            }
+        }
+        return maxId + 1;
+    }
             
             
     public void Guardar(contacto cto) throws FileNotFoundException{
