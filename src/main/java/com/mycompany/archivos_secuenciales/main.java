@@ -1985,34 +1985,39 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_R_CancelarActionPerformed
 
     private void btn_R_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_EliminarActionPerformed
-        vcs.setCliente(cb_V_SeleccioneCliente.getSelectedItem().toString());
-        vcs.setId_vehiculo(Integer.parseInt(txt_V_IdVehiculo.getText()));
-        vcs.setMatricula(txt_V_Matricula.getText());
-        vcs.setMarca(txt_V_Marca.getText());
-        vcs.setModelo(txt_V_Modelo.getText());
+        
+        rep.setId_ve(Integer.parseInt(cmb_R_IdVehiculo.getSelectedItem().toString()));
+        rep.setId_pi(Integer.parseInt(cmb_R_IdPieza.getSelectedItem().toString()));
+        rep.setId_re(Integer.parseInt(txt_R_IdReparacion.getText()));
+        rep.setFalla(txt_R_Falla.getText());
+        rep.setId_contrl(Integer.parseInt(txt_R_ControlPiezas.getText())); 
 
-        SimpleDateFormat dformat = new SimpleDateFormat("dd-MM-YYYY");
-        String date = dformat.format(jdt_V_Fecha.getDate());
-        vcs.setFecha(date);
+        SimpleDateFormat dformat = new SimpleDateFormat("dd-MM-yyyy");
+        String date = dformat.format(jdt_E_Fecha.getDate());
+        rep.setFecha_e(date);
+        
+        date = dformat.format(jdt_S_Fecha.getDate());
+        rep.setFecha_s(date);
 
         try {
-            v.Eliminar_Vehiculos(vcs);
+            rf.Eliminar_Reparacion(rep);
         } catch (IOException ex) {
 
         }
 
-        Vehiculos_Habilitar();
+        reparaciones_Habilitar();
 
-        txt_V_IdVehiculo.setText("");
-        txt_V_Matricula.setText("");
-        txt_V_Marca.setText("");
-        txt_V_Modelo.setText("");
+        cmb_R_IdVehiculo.setSelectedItem("");
+        cmb_R_IdPieza.setSelectedItem("");
+        txt_R_IdReparacion.setText("");
+        txt_R_Falla.setText("");
+        txt_R_ControlPiezas.setText("");
 
-        btn_V_Guardar.setEnabled(false);
-        btn_V_Nuevo.setEnabled(true);
-        btn_V_Editar.setEnabled(false);
-        btn_V_Eliminar.setEnabled(false);
-        btn_V_Cancelar.setEnabled(false);
+        btn_R_Guardar.setEnabled(false);
+        btn_R_Nuevo.setEnabled(true);
+        btn_R_Editar.setEnabled(false);
+        btn_R_Eliminar.setEnabled(false);
+        btn_R_Cancelar.setEnabled(false);
     }//GEN-LAST:event_btn_R_EliminarActionPerformed
 
     private void btn_R_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_BuscarActionPerformed
