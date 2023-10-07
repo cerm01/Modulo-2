@@ -87,6 +87,7 @@ public class main extends javax.swing.JFrame {
     
     public void cb_vehiculos(){
         cb_V_SeleccioneCliente.removeAllItems();
+        cb_V_SeleccioneCliente.addItem("Seleccione");
         String us = "", cl = "";
         try {
             read = new DataInputStream(new FileInputStream(path));
@@ -94,7 +95,7 @@ public class main extends javax.swing.JFrame {
             while (true) {
                 us = read.readUTF();
                 cl = read.readUTF();
-                if (us.equals(IdUs)) {
+                if (us.equals(IdUs) || "0".equals(IdUs)) {
                     cb_V_SeleccioneCliente.addItem(cl);
                 }
             }
@@ -601,6 +602,7 @@ public class main extends javax.swing.JFrame {
 
         lbl_C_ApellidoMaterno.setText("Apellido Materno");
 
+        txt_C_IdCliente.setEditable(false);
         txt_C_IdCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_C_IdClienteActionPerformed(evt);
@@ -756,7 +758,7 @@ public class main extends javax.swing.JFrame {
 
         tpane.addTab("Clientes", pnlClientes);
 
-        lbl_V_SeleccioneCliente.setText("Seleccione cliente");
+        lbl_V_SeleccioneCliente.setText("Cliente");
 
         lbl_V_IdVehiculo.setText("ID Vehiculo");
 
@@ -770,6 +772,14 @@ public class main extends javax.swing.JFrame {
 
         lbl_V_Fecha.setText("Fecha");
 
+        txt_V_IdVehiculo.setEditable(false);
+        txt_V_IdVehiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_V_IdVehiculoActionPerformed(evt);
+            }
+        });
+
+        cb_V_SeleccioneCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
         cb_V_SeleccioneCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cb_V_SeleccioneClienteMouseClicked(evt);
@@ -1873,7 +1883,6 @@ public class main extends javax.swing.JFrame {
 
     private void btn_C_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_CancelarActionPerformed
 
-
         txt_C_Buscar.setText("");
         txt_C_IdUsuario.setText(IdUs);
         txt_C_IdCliente.setText("");
@@ -1941,10 +1950,15 @@ public class main extends javax.swing.JFrame {
             c.setNombre(txt_C_Nombre.getText());
             c.setApellidoPaterno(txt_C_ApellidoPaterno.getText());
             c.setApellidoMaterno(txt_C_ApellidoMaterno.getText());
+       
+            vc=new vehiculo_cliente();
+            vc.setIdUsuario(txt_C_IdUsuario.getText());
+            vc.setIdCliente(txt_C_IdCliente.getText());
             //Se crea un objeto de tipo archivoCliente
             //Cliente_File ac = new Cliente_File();
             //Se llama al metodo guardarCliente y se le pasa como parametro el objeto cliente
             fc.editar(c);
+            vcf.editar(vc);
             //Se muestra un mensaje de que se guardo correctamente
             JOptionPane.showMessageDialog(null, "Editado correctamente");
             //Se limpian los campos de texto
@@ -1957,27 +1971,27 @@ public class main extends javax.swing.JFrame {
 
     private void btn_C_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_EliminarActionPerformed
         //Verificar que el campo txt_C_Id no este vacio
-        if(txt_C_Buscar.getText().equals("")){
+        /*if(txt_C_Buscar.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Ingrese el ID del cliente");
             return;
-        }
+        }*/
 
         // Obtener el id 
-        int id = Integer.parseInt(txt_C_Buscar.getText());
+        int id = Integer.parseInt(txt_C_IdCliente.getText());
 
         // validar que el id si exista
         c = fc.buscar(id);
-        if(c == null){
-       // Cliente_File clienteFile = new Cliente_File();
-            JOptionPane.showMessageDialog(null, "No existe el cliente");
-            return;
-        }
 
         // Eliminar el cliente
         fc.eliminar(c);
         JOptionPane.showMessageDialog(null, "Eliminado correctamente");
-       
-        txt_C_Buscar.setText("");
+        
+        vc=new vehiculo_cliente();
+        vc.setIdUsuario(txt_C_IdUsuario.getText());
+        vc.setIdCliente(txt_C_IdCliente.getText());
+        
+        vcf.eliminar(vc);
+        cb_vehiculos();
         
         txt_C_IdUsuario.setText(IdUs);
         txt_C_IdCliente.setText("");
@@ -2107,6 +2121,10 @@ public class main extends javax.swing.JFrame {
     private void txt_R_FallaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_R_FallaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_R_FallaActionPerformed
+
+    private void txt_V_IdVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_V_IdVehiculoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_V_IdVehiculoActionPerformed
 
     /**
      * @param args the command line arguments
