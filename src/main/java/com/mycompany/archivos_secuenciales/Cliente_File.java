@@ -26,6 +26,7 @@ public class Cliente_File {
             read = new DataInputStream(new FileInputStream(path));
             
             while (true) {
+                int us=read.readInt();
                 int id = read.readInt();
                 String nombre = read.readUTF();
                 String apellidoPaterno = read.readUTF();
@@ -57,6 +58,7 @@ public class Cliente_File {
                 read = new DataInputStream(new FileInputStream(path));
                 
                 while (true) {
+                    int us = read.readInt();
                     int id = read.readInt();
                     String nombre = read.readUTF();
                     String apellidoPaterno = read.readUTF();
@@ -93,6 +95,7 @@ public class Cliente_File {
     public void guardar(cliente cliente) {
         try {
             write = new DataOutputStream(new FileOutputStream(path, true));
+            write.writeInt(cliente.getIdUsuario());
             write.writeInt(cliente.getId());
             write.writeUTF(cliente.getNombre());
             write.writeUTF(cliente.getApellidoPaterno());
@@ -105,20 +108,41 @@ public class Cliente_File {
 
     // Método para buscar un cliente recibiendo como parámetro el ID
     public cliente buscar(int id) {
-        cliente cliente = new cliente();
-        cliente= null;
+        
+        cliente cliente= null;
         try {
             read = new DataInputStream(new FileInputStream(path));
             
             while (true) {
+                int us =read.readInt();
                 int idCliente = read.readInt();
                 String nombre = read.readUTF();
                 String apellidoPaterno = read.readUTF();
                 String apellidoMaterno = read.readUTF();
+                
+                System.out.println("ID Cliente");
+                System.out.println(idCliente);
+                
+                System.out.println("ID PASADO");
+                System.out.println(id);
+                
+                System.out.println("nombre");
+                System.out.println(nombre);
+                
+                System.out.println("apellido paterno");
+                System.out.println(apellidoPaterno);
+                
+                System.out.println("apellido materno");
+                System.out.println(apellidoMaterno);
+                
+                
 
                 // Verificar que el id del cliente leído si exista
                 
                 if (idCliente == id) {
+                    cliente = new cliente();
+                    
+                    cliente.setIdUsuario(us);
                     cliente.setId(idCliente);
                     cliente.setNombre(nombre);
                     cliente.setApellidoPaterno(apellidoPaterno);
@@ -139,7 +163,14 @@ public class Cliente_File {
                 System.out.println("Error al cerrar el archivo de lectura");
             }
         }
-        
+        if(cliente!=null){
+            System.out.println("CLIENTE");
+            System.out.println(cliente.getId());
+        }
+        else{
+            System.out.println("NULO");
+        }
+                   
         return cliente;
     }
     
@@ -150,12 +181,14 @@ public class Cliente_File {
             write = new DataOutputStream(new FileOutputStream("C:\\Proyecto\\temp.txt"));
             
             while (true) {
+                int us=read.readInt();
                 int id = read.readInt();
                 String nombre = read.readUTF();
                 String apellidoPaterno = read.readUTF();
                 String apellidoMaterno = read.readUTF();
                 
                 if (id != cliente.getId()) {
+                    write.writeInt(us);
                     write.writeInt(id);
                     write.writeUTF(nombre);
                     write.writeUTF(apellidoPaterno);
@@ -198,17 +231,20 @@ public class Cliente_File {
             write = new DataOutputStream(new FileOutputStream("C:\\Proyecto\\temp.txt"));
             
             while (true) {
+                int us =read.readInt();
                 int id = read.readInt();
                 String nombre = read.readUTF();
                 String apellidoPaterno = read.readUTF();
                 String apellidoMaterno = read.readUTF();
                 
                 if (id == cliente.getId()) {
+                    write.writeInt(cliente.getIdUsuario());
                     write.writeInt(cliente.getId());
                     write.writeUTF(cliente.getNombre());
                     write.writeUTF(cliente.getApellidoPaterno());
                     write.writeUTF(cliente.getApellidoMaterno());
                 } else {
+                    write.writeInt(us);
                     write.writeInt(id);
                     write.writeUTF(nombre);
                     write.writeUTF(apellidoPaterno);
@@ -251,6 +287,7 @@ public class Cliente_File {
             read = new DataInputStream(new FileInputStream(path));
             
             while (true) {
+                int us = read.readInt();
                 int idCliente = read.readInt();
                 String nombre = read.readUTF();
                 String apellidoPaterno = read.readUTF();
@@ -259,6 +296,7 @@ public class Cliente_File {
                 // Verificar que el id del cliente leído si exista
                 
                 if (idCliente == id) {
+                    cliente.setIdUsuario(us);
                     cliente.setId(idCliente);
                     cliente.setNombre(nombre);
                     cliente.setApellidoPaterno(apellidoPaterno);

@@ -515,7 +515,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="lbl_C_Id" min="-2" pref="100" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="txt_C_Id" min="-2" pref="200" max="-2" attributes="0"/>
+                              <Component id="txt_C_Buscar" min="-2" pref="200" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="btn_C_Buscar" min="-2" pref="100" max="-2" attributes="0"/>
                               <EmptySpace pref="80" max="32767" attributes="0"/>
@@ -532,7 +532,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lbl_C_Id" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="txt_C_Id" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="txt_C_Buscar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="btn_C_Buscar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="btn_C_Salir" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
@@ -607,7 +607,7 @@
                 <Property name="text" type="java.lang.String" value="Apellido Materno"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txt_C_Id">
+            <Component class="javax.swing.JTextField" name="txt_C_Buscar">
             </Component>
             <Component class="javax.swing.JTextField" name="txt_C_IdCliente">
               <Events>
