@@ -152,7 +152,7 @@ public class reparaciones_File {
         }
     }
 
-    public void Eliminar(contacto cto) throws IOException {
+    public void Eliminar(reparaciones rep) throws IOException {
         int i = 0;
         int z = 0;
         int id = 0;
@@ -164,23 +164,26 @@ public class reparaciones_File {
         eliminar[4][0] = "";
         eliminar[5][0] = "";
         eliminar[6][0] = "";
-        eliminar[7][0] = "";
-        eliminar[8][0] = "";
 
         try {
             read = new DataInputStream(new FileInputStream(path));
 
             while (true) {
-
                 eliminar[0][i] = read.readInt();
-                eliminar[1][i] = read.readUTF();
-                eliminar[2][i] = read.readUTF();
+                eliminar[1][i] = read.readInt();
+                eliminar[2][i] = read.readInt();
                 eliminar[3][i] = read.readUTF();
-                eliminar[4][i] = read.readUTF();
+                eliminar[4][i] = read.readInt();
                 eliminar[5][i] = read.readUTF();
                 eliminar[6][i] = read.readUTF();
-                eliminar[7][i] = read.readUTF();
-                eliminar[8][i] = read.readUTF();
+                               
+                System.out.println("ELIMINAR");
+                System.out.println(eliminar[0][i]);
+                System.out.println(eliminar[1][i]);
+                System.out.println(eliminar[2][i]);
+                System.out.println(eliminar[5][i]);
+                
+                i++;
             }
         } catch (IOException ex) {
         }
@@ -192,7 +195,7 @@ public class reparaciones_File {
         }
         j = 0;
         while (z < i) {
-            if ((int) eliminar[0][z] != cto.getId()) {
+            if ((int) eliminar[3][z] != rep.getId_re()) {
                 datos[0][j] = eliminar[0][z];
                 datos[1][j] = eliminar[1][z];
                 datos[2][j] = eliminar[2][z];
@@ -200,9 +203,6 @@ public class reparaciones_File {
                 datos[4][j] = eliminar[4][z];
                 datos[5][j] = eliminar[5][z];
                 datos[6][j] = eliminar[6][z];
-                datos[7][j] = eliminar[7][z];
-                datos[8][j] = eliminar[8][z];
-
                 j++;
             }
             z++;
@@ -213,14 +213,12 @@ public class reparaciones_File {
             write = new DataOutputStream(new FileOutputStream(path));
             while (i < j) {
                 write.writeInt((int) datos[0][i]);
-                write.writeUTF(datos[1][i].toString());
-                write.writeUTF(datos[2][i].toString());
+                write.writeInt((int)datos[1][i]);
+                write.writeInt((int)datos[2][i]);
                 write.writeUTF(datos[3][i].toString());
-                write.writeUTF(datos[4][i].toString());
+                write.writeInt((int)datos[4][i]);
                 write.writeUTF(datos[5][i].toString());
                 write.writeUTF(datos[6][i].toString());
-                write.writeUTF(datos[7][i].toString());
-                write.writeUTF(datos[8][i].toString());
                 i++;
             }
         } catch (FileNotFoundException ex) {
