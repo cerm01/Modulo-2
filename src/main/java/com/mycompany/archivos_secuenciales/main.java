@@ -11,41 +11,46 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class main extends javax.swing.JFrame {
+    DataOutputStream write;
+    DataInputStream read;
+    String path = "C:\\Proyecto\\vc.txt";
 
     Files f;
-    reparaciones_File rf;
-    reparaciones rep;
     contacto cto;
     contacto admin;
     
-    String path = "C:\\Proyecto\\IDclientes.txt";
-    DataOutputStream write;
-    DataInputStream read;
+    reparaciones_File rf;
+    reparaciones rep;
     
     Vehiculos_Files v;
     Vehiculos vcs;
-    String IdUs;
-    //boolean band=false;
-    boolean ban = false;
-    boolean ban_vehiculos = false;
-    boolean ban_reparaciones = false;
-    //int contID=1;
-
+    
+    VC_File vcf;
+    vehiculo_cliente vc;
+    
     Cliente_File fc;
     cliente c;
 
-    public main() {
+    String IdUs;
+    
+    boolean ban = false;
+    boolean ban_vehiculos = false;
+    boolean ban_reparaciones = false;
+
+    public main() throws IOException {
         initComponents();
         f = new Files();
         rf = new reparaciones_File();
         fc= new Cliente_File();
         v=new Vehiculos_Files();
+        vcf=new VC_File();
         
       
         admin=new contacto();
@@ -78,6 +83,30 @@ public class main extends javax.swing.JFrame {
         tpane.setEnabledAt(4, false);
         tpane.setEnabledAt(5, false);
 
+    }
+    
+    public void cb_vehiculos(){
+        
+        String us = "", cl = "";
+        try {
+            read = new DataInputStream(new FileInputStream(path));
+
+            while (true) {
+                us = read.readUTF();
+                cl = read.readUTF();
+                if (us.equals(IdUs)) {
+                    cb_V_SeleccioneCliente.addItem(cl);
+                }
+            }
+        } catch (FileNotFoundException ex) {
+
+        } catch (IOException ex) {
+        }
+        try {
+            read.close();
+        } catch (IOException ex) {
+
+        }
     }
 
     public void Habilitar() {
@@ -741,7 +770,6 @@ public class main extends javax.swing.JFrame {
 
         lbl_V_Fecha.setText("Fecha");
 
-        cb_V_SeleccioneCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "..." }));
         cb_V_SeleccioneCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cb_V_SeleccioneClienteMouseClicked(evt);
@@ -1393,8 +1421,11 @@ public class main extends javax.swing.JFrame {
         }
         if (cto != null) {
             if (cto.getPassword().equals(pw)) {
+                
                 IdUs=String.valueOf(cto.getId());
                 txt_C_IdUsuario.setText(IdUs);
+                
+                cb_vehiculos();
         
                 txtUsuario.setText("");
                 txtPassword.setText("");
@@ -1805,10 +1836,16 @@ public class main extends javax.swing.JFrame {
         c.setNombre(txt_C_Nombre.getText());
         c.setApellidoPaterno(txt_C_ApellidoPaterno.getText());
         c.setApellidoMaterno(txt_C_ApellidoMaterno.getText());
+        
+        vc=new vehiculo_cliente();
+        vc.setIdUsuario(txt_C_IdUsuario.getText());
+        vc.setIdCliente(txt_C_IdCliente.getText());
         //Se crea un objeto de tipo archivoCliente
         //Cliente_File ac = new Cliente_File();
         //Se llama al metodo guardarCliente y se le pasa como parametro el objeto cliente
         fc.guardar(c);
+        vcf.guardar(vc);
+        cb_vehiculos();
         //Se muestra un mensaje de que se guardo correctamente
         JOptionPane.showMessageDialog(null, "Guardado correctamente");
         //Se limpian los campos de texto
@@ -2098,7 +2135,10 @@ public class main extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new main().setVisible(true);
+                try {
+                    new main().setVisible(true);
+                } catch (IOException ex) {
+                }
             }
         });
     }
