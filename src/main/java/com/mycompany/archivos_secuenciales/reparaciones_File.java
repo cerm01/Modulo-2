@@ -152,10 +152,9 @@ public class reparaciones_File {
         }
     }
 
-    public void Eliminar(reparaciones rep) throws IOException {
+    public void Eliminar_Reparacion(reparaciones rep) throws IOException {
         int i = 0;
         int z = 0;
-        int id = 0;
         int j;
         eliminar[0][0] = "";
         eliminar[1][0] = "";
@@ -195,7 +194,7 @@ public class reparaciones_File {
         }
         j = 0;
         while (z < i) {
-            if ((int) eliminar[3][z] != rep.getId_re()) {
+            if ((int) eliminar[2][z] != rep.getId_re()) {
                 datos[0][j] = eliminar[0][z];
                 datos[1][j] = eliminar[1][z];
                 datos[2][j] = eliminar[2][z];
