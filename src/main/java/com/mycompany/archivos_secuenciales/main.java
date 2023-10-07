@@ -86,7 +86,7 @@ public class main extends javax.swing.JFrame {
     }
     
     public void cb_vehiculos(){
-        
+        cb_V_SeleccioneCliente.removeAllItems();
         String us = "", cl = "";
         try {
             read = new DataInputStream(new FileInputStream(path));
@@ -1560,6 +1560,8 @@ public class main extends javax.swing.JFrame {
     private void btn_C_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_SalirActionPerformed
     tpane.setSelectedIndex(0);
     
+    cb_V_SeleccioneCliente.removeAllItems();
+    
     txt_C_Buscar.setText("");
     txt_C_IdCliente.setText("");
     txt_C_Nombre.setText("");
@@ -1870,7 +1872,8 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_C_NuevoActionPerformed
 
     private void btn_C_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_CancelarActionPerformed
-   
+
+
         txt_C_Buscar.setText("");
         txt_C_IdUsuario.setText(IdUs);
         txt_C_IdCliente.setText("");
