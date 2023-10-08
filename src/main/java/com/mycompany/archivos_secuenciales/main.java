@@ -1262,7 +1262,7 @@ public class main extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tpane, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE)
+            .addComponent(tpane)
         );
 
         pack();
@@ -1477,6 +1477,24 @@ public class main extends javax.swing.JFrame {
                     btnEditar.setEnabled(false);
                     btnRemover.setEnabled(false);
                     btnCancelar.setEnabled(false);
+                    
+                    btn_C_Nuevo.setVisible(true);
+                    btn_C_Guardar.setVisible(true);
+                    btn_C_Cancelar.setVisible(true);
+                    btn_C_Editar.setVisible(true);
+                    btn_C_Eliminar.setVisible(true);
+                    
+                    btn_V_Nuevo.setVisible(true);
+                    btn_V_Guardar.setVisible(true);
+                    btn_V_Cancelar.setVisible(true);
+                    btn_V_Editar.setVisible(true);
+                    btn_V_Eliminar.setVisible(true);
+                    
+                    btn_R_Nuevo.setVisible(true);
+                    btn_R_Guardar.setVisible(true);
+                    btn_R_Cancelar.setVisible(true);
+                    btn_R_Editar.setVisible(true);
+                    btn_R_Eliminar.setVisible(true);
                 }
                 if ("Gerente".equals(cto.getPerfil())) {
 
@@ -1486,6 +1504,18 @@ public class main extends javax.swing.JFrame {
                     tpane.setEnabledAt(3, false);
                     tpane.setEnabledAt(4, true);
                     tpane.setEnabledAt(5, false);
+                   
+                    btn_C_Nuevo.setVisible(true);
+                    btn_C_Guardar.setVisible(true);
+                    btn_C_Cancelar.setVisible(true);
+                    btn_C_Editar.setVisible(false);
+                    btn_C_Eliminar.setVisible(false);
+                    
+                    btn_R_Nuevo.setVisible(false);
+                    btn_R_Guardar.setVisible(true);
+                    btn_R_Cancelar.setVisible(true);
+                    btn_R_Editar.setVisible(true);
+                    btn_R_Eliminar.setVisible(false);
 
                     tpane.setSelectedIndex(2);
                 }
@@ -1497,6 +1527,18 @@ public class main extends javax.swing.JFrame {
                     tpane.setEnabledAt(3, true);
                     tpane.setEnabledAt(4, false);
                     tpane.setEnabledAt(5, false);
+                    
+                    btn_C_Nuevo.setVisible(true);
+                    btn_C_Guardar.setVisible(true);
+                    btn_C_Cancelar.setVisible(true);
+                    btn_C_Editar.setVisible(false);
+                    btn_C_Eliminar.setVisible(false);
+                    
+                    btn_V_Nuevo.setVisible(true);
+                    btn_V_Guardar.setVisible(true);
+                    btn_V_Cancelar.setVisible(true);
+                    btn_V_Editar.setVisible(false);
+                    btn_V_Eliminar.setVisible(false);
 
                     tpane.setSelectedIndex(2);
                 }
@@ -1508,6 +1550,12 @@ public class main extends javax.swing.JFrame {
                     tpane.setEnabledAt(3, false);
                     tpane.setEnabledAt(4, true);
                     tpane.setEnabledAt(5, false);
+                    
+                    btn_R_Nuevo.setVisible(true);
+                    btn_R_Guardar.setVisible(true);
+                    btn_R_Cancelar.setVisible(true);
+                    btn_R_Editar.setVisible(false);
+                    btn_R_Eliminar.setVisible(false);
 
                     tpane.setSelectedIndex(4);
                 }
