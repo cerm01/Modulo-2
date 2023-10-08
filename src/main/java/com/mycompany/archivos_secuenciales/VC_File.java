@@ -14,6 +14,8 @@ public class VC_File {
     private DataInputStream read;
     private String path = "C:\\Proyecto\\vc.txt";
     
+    
+    
     public void guardar(vehiculo_cliente vc) {
         try {
             write = new DataOutputStream(new FileOutputStream(path, true));
@@ -113,5 +115,6 @@ public class VC_File {
             System.out.println("Error al renombrar el archivo");
         }
     }
+      
     
 }

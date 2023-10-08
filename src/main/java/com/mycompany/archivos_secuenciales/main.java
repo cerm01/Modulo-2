@@ -142,7 +142,6 @@ public class main extends javax.swing.JFrame {
     }
 
     public void Vehiculos_Habilitar() {
-        txt_V_IdVehiculo.setEditable(true);
         txt_V_Matricula.setEditable(true);
         txt_V_Marca.setEditable(true);
         txt_V_Modelo.setEditable(true);
@@ -160,7 +159,6 @@ public class main extends javax.swing.JFrame {
     }
 
     public void Vehiculos_Deshabilitar() {
-        txt_V_IdVehiculo.setEditable(false);
         txt_V_Matricula.setEditable(false);
         txt_V_Marca.setEditable(false);
         txt_V_Modelo.setEditable(false);
@@ -1674,14 +1672,17 @@ public class main extends javax.swing.JFrame {
 
     private void btn_V_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_V_NuevoActionPerformed
         Vehiculos_Habilitar();
-
+        
+        System.out.println("HOLA");
+        int maxID=v.getMax();
+        
         btn_V_Guardar.setEnabled(true);
         btn_V_Nuevo.setEnabled(false);
         btn_V_Editar.setEnabled(false);
         btn_V_Eliminar.setEnabled(false);
         btn_V_Cancelar.setEnabled(true);
 
-        txt_V_IdVehiculo.setText("");
+        txt_V_IdVehiculo.setText(String.valueOf(maxID));
         txt_V_Matricula.setText("");
         txt_V_Marca.setText("");
         txt_V_Modelo.setText("");
