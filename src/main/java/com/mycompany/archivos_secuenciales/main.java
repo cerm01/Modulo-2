@@ -69,7 +69,13 @@ public class main extends javax.swing.JFrame {
         btn_V_Editar.setEnabled(false);
         btn_V_Eliminar.setEnabled(false);
         btn_V_Cancelar.setEnabled(false);
-
+        
+        btn_C_Guardar.setEnabled(false);
+        btn_C_Nuevo.setEnabled(true);
+        btn_C_Editar.setEnabled(false);
+        btn_C_Eliminar.setEnabled(false);
+        btn_C_Cancelar.setEnabled(false);
+        
         try {
             if (f.BuscarContacto(admin) == null) {
                 f.Guardar(admin);
@@ -146,6 +152,7 @@ public class main extends javax.swing.JFrame {
         txt_V_Marca.setEditable(true);
         txt_V_Modelo.setEditable(true);
         jdt_V_Fecha.setEnabled(true);
+        
     }
 
     public void reparaciones_Habilitar() {
@@ -163,8 +170,11 @@ public class main extends javax.swing.JFrame {
         txt_V_Marca.setEditable(false);
         txt_V_Modelo.setEditable(false);
         jdt_V_Fecha.setEnabled(false);
-
-        txt_V_IdVehiculo.setText("");
+        
+        jdt_V_Fecha.setDate(null);
+        jdt_V_Fecha.cleanup();
+        int maxID=v.getMax();
+        txt_V_IdVehiculo.setText(String.valueOf(maxID));
         txt_V_Matricula.setText("");
         txt_V_Marca.setText("");
         txt_V_Modelo.setText("");
@@ -607,6 +617,12 @@ public class main extends javax.swing.JFrame {
             }
         });
 
+        txt_C_Nombre.setEditable(false);
+
+        txt_C_ApellidoPaterno.setEditable(false);
+
+        txt_C_ApellidoMaterno.setEditable(false);
+
         btn_C_Buscar.setText("Buscar");
         btn_C_Buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -777,6 +793,12 @@ public class main extends javax.swing.JFrame {
             }
         });
 
+        txt_V_Matricula.setEditable(false);
+
+        txt_V_Marca.setEditable(false);
+
+        txt_V_Modelo.setEditable(false);
+
         cb_V_SeleccioneCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
         cb_V_SeleccioneCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -832,6 +854,7 @@ public class main extends javax.swing.JFrame {
         });
 
         jdt_V_Fecha.setDateFormatString("dd-MM-yyyy");
+        jdt_V_Fecha.setEnabled(false);
 
         javax.swing.GroupLayout pnlVehiculosLayout = new javax.swing.GroupLayout(pnlVehiculos);
         pnlVehiculos.setLayout(pnlVehiculosLayout);
@@ -916,16 +939,17 @@ public class main extends javax.swing.JFrame {
                 .addGroup(pnlVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbl_V_Fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jdt_V_Fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(pnlVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_V_Nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_V_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_V_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_V_Editar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_V_Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGroup(pnlVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(pnlVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btn_V_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_V_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_V_Editar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_V_Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_V_Nuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(16, 16, 16))
         );
 
         tpane.addTab("Vehículos", pnlVehiculos);
@@ -1433,6 +1457,8 @@ public class main extends javax.swing.JFrame {
                 IdUs=String.valueOf(cto.getId());
                 txt_C_IdUsuario.setText(IdUs);
                 
+                int maxID=v.getMax();
+                txt_V_IdVehiculo.setText(String.valueOf(maxID));
                 cb_vehiculos();
         
                 txtUsuario.setText("");
@@ -1533,6 +1559,36 @@ public class main extends javax.swing.JFrame {
         txtDireccion.setText("");
 
         Deshabilitar();
+        
+        Vehiculos_Deshabilitar();
+    
+        txt_C_IdUsuario.setEditable(false);
+        txt_C_IdCliente.setEditable(false);
+        txt_C_Nombre.setEditable(false);
+        txt_C_ApellidoPaterno.setEditable(false);
+        txt_C_ApellidoMaterno.setEditable(false);
+
+        cb_V_SeleccioneCliente.removeAllItems();
+
+        int maxId = fc.getMaxId();
+
+        txt_C_Buscar.setText("");
+        txt_C_IdUsuario.setText(IdUs);
+        txt_C_IdCliente.setText(String.valueOf(maxId));
+        txt_C_Nombre.setText("");
+        txt_C_ApellidoPaterno.setText("");
+        txt_C_ApellidoMaterno.setText("");   
+         btn_V_Guardar.setEnabled(false);
+        btn_V_Nuevo.setEnabled(true);
+        btn_V_Editar.setEnabled(false);
+        btn_V_Eliminar.setEnabled(false);
+        btn_V_Cancelar.setEnabled(false);
+
+        btn_C_Guardar.setEnabled(false);
+        btn_C_Nuevo.setEnabled(true);
+        btn_C_Editar.setEnabled(false);
+        btn_C_Eliminar.setEnabled(false);
+        btn_C_Cancelar.setEnabled(false);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -1568,22 +1624,44 @@ public class main extends javax.swing.JFrame {
     private void btn_C_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_SalirActionPerformed
     tpane.setSelectedIndex(0);
     
+    Vehiculos_Deshabilitar();
+    
+    txt_C_IdUsuario.setEditable(false);
+    txt_C_IdCliente.setEditable(false);
+    txt_C_Nombre.setEditable(false);
+    txt_C_ApellidoPaterno.setEditable(false);
+    txt_C_ApellidoMaterno.setEditable(false);
+    
     cb_V_SeleccioneCliente.removeAllItems();
     
+    int maxId = fc.getMaxId();
+        
     txt_C_Buscar.setText("");
-    txt_C_IdCliente.setText("");
+    txt_C_IdUsuario.setText(IdUs);
+    txt_C_IdCliente.setText(String.valueOf(maxId));
     txt_C_Nombre.setText("");
     txt_C_ApellidoPaterno.setText("");
-    txt_C_ApellidoMaterno.setText("");    
+    txt_C_ApellidoMaterno.setText("");   
     
 
-        tpane.setEnabledAt(0, true);
-        tpane.setEnabledAt(1, false);
-        tpane.setEnabledAt(2, false);
-        tpane.setEnabledAt(3, false);
-        tpane.setEnabledAt(4, false);
-        tpane.setEnabledAt(5, false);
+    tpane.setEnabledAt(0, true);
+    tpane.setEnabledAt(1, false);
+    tpane.setEnabledAt(2, false);
+    tpane.setEnabledAt(3, false);
+    tpane.setEnabledAt(4, false);
+    tpane.setEnabledAt(5, false);
 
+    btn_V_Guardar.setEnabled(false);
+    btn_V_Nuevo.setEnabled(true);
+    btn_V_Editar.setEnabled(false);
+    btn_V_Eliminar.setEnabled(false);
+    btn_V_Cancelar.setEnabled(false);
+    
+    btn_C_Guardar.setEnabled(false);
+    btn_C_Nuevo.setEnabled(true);
+    btn_C_Editar.setEnabled(false);
+    btn_C_Eliminar.setEnabled(false);
+    btn_C_Cancelar.setEnabled(false);
     }//GEN-LAST:event_btn_C_SalirActionPerformed
 
     private void btn_R_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_SalirActionPerformed
@@ -1672,8 +1750,9 @@ public class main extends javax.swing.JFrame {
 
     private void btn_V_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_V_NuevoActionPerformed
         Vehiculos_Habilitar();
+        jdt_V_Fecha.setDate(null);
+        cb_vehiculos();
         
-        System.out.println("HOLA");
         int maxID=v.getMax();
         
         btn_V_Guardar.setEnabled(true);
@@ -1701,13 +1780,13 @@ public class main extends javax.swing.JFrame {
         SimpleDateFormat dformat = new SimpleDateFormat("dd-MM-YYYY");
         String date = dformat.format(jdt_V_Fecha.getDate());
         vcs.setFecha(date);
-
-        System.out.println("FECHA");
+        
         System.out.println(vcs.getFecha());
 
         if (ban_vehiculos == false) {
             try {
                 v.Guardar(vcs);
+                JOptionPane.showMessageDialog(null, "Guardado correctamente");
             } catch (FileNotFoundException ex) {
 
             }
@@ -1715,12 +1794,13 @@ public class main extends javax.swing.JFrame {
             try {
                 v.Editar_Vehiculo(vcs);
                 ban_vehiculos = false;
+                JOptionPane.showMessageDialog(null, "Editado correctamente");
             } catch (IOException ex) {
             }
         }
 
         Vehiculos_Deshabilitar();
-
+        cb_vehiculos();
         btn_V_Guardar.setEnabled(false);
         btn_V_Nuevo.setEnabled(true);
         btn_V_Editar.setEnabled(false);
@@ -1730,7 +1810,7 @@ public class main extends javax.swing.JFrame {
 
     private void btn_V_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_V_CancelarActionPerformed
         Vehiculos_Deshabilitar();
-
+        cb_vehiculos();
         btn_V_Guardar.setEnabled(false);
         btn_V_Nuevo.setEnabled(true);
         btn_V_Editar.setEnabled(false);
@@ -1763,17 +1843,14 @@ public class main extends javax.swing.JFrame {
 
         try {
             v.Eliminar_Vehiculos(vcs);
+            JOptionPane.showMessageDialog(null, "Eliminado correctamente");
         } catch (IOException ex) {
 
         }
 
-        Vehiculos_Habilitar();
-
-        txt_V_IdVehiculo.setText("");
-        txt_V_Matricula.setText("");
-        txt_V_Marca.setText("");
-        txt_V_Modelo.setText("");
-
+        Vehiculos_Deshabilitar();
+        cb_vehiculos();
+        
         btn_V_Guardar.setEnabled(false);
         btn_V_Nuevo.setEnabled(true);
         btn_V_Editar.setEnabled(false);
@@ -1782,13 +1859,14 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_V_EliminarActionPerformed
 
     private void btn_V_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_V_BuscarActionPerformed
-
+        Vehiculos_Deshabilitar();
         try {
             vcs = new Vehiculos();
             vcs.setId_vehiculo(Integer.parseInt(txt_V_Buscar.getText()));
             vcs = v.BuscarIdVehiculo(vcs);
 
             if (vcs != null) {
+                
                 cb_V_SeleccioneCliente.setSelectedItem(vcs.getCliente());
                 txt_V_IdVehiculo.setText(String.valueOf(vcs.getId_vehiculo()));
                 txt_V_Matricula.setText(vcs.getMatricula());
@@ -1802,15 +1880,23 @@ public class main extends javax.swing.JFrame {
                 } catch (ParseException ex) {
                 }
                 jdt_V_Fecha.setDate(formato);
+                
+                btn_V_Guardar.setEnabled(false);
+                btn_V_Nuevo.setEnabled(true);
+                btn_V_Editar.setEnabled(true);
+                btn_V_Eliminar.setEnabled(true);
+                btn_V_Cancelar.setEnabled(false);
             } else {
                 JOptionPane.showMessageDialog(null, "No existe ese ID");
+                
+                btn_V_Guardar.setEnabled(false);
+                btn_V_Nuevo.setEnabled(true);
+                btn_V_Editar.setEnabled(false);
+                btn_V_Eliminar.setEnabled(false);
+                btn_V_Cancelar.setEnabled(false);
             }
 
-            btn_V_Guardar.setEnabled(false);
-            btn_V_Nuevo.setEnabled(true);
-            btn_V_Editar.setEnabled(true);
-            btn_V_Eliminar.setEnabled(true);
-            btn_V_Cancelar.setEnabled(false);
+            
         } catch (FileNotFoundException ex) {
 
         }
@@ -1867,6 +1953,11 @@ public class main extends javax.swing.JFrame {
         txt_C_ApellidoPaterno.setText("");
         txt_C_ApellidoMaterno.setText("");
 
+        btn_C_Guardar.setEnabled(false);
+        btn_C_Nuevo.setEnabled(true);
+        btn_C_Editar.setEnabled(false);
+        btn_C_Eliminar.setEnabled(false);
+        btn_C_Cancelar.setEnabled(false);
     }//GEN-LAST:event_btn_C_GuardarActionPerformed
 
     private void btn_C_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_NuevoActionPerformed
@@ -1879,7 +1970,18 @@ public class main extends javax.swing.JFrame {
         txt_C_Nombre.setText("");
         txt_C_ApellidoPaterno.setText("");
         txt_C_ApellidoMaterno.setText("");
+        
+        txt_C_IdUsuario.setEditable(true);
+        txt_C_IdCliente.setEditable(true);
+        txt_C_Nombre.setEditable(true);
+        txt_C_ApellidoPaterno.setEditable(true);
+        txt_C_ApellidoMaterno.setEditable(true);
 
+        btn_C_Guardar.setEnabled(true);
+        btn_C_Nuevo.setEnabled(false);
+        btn_C_Editar.setEnabled(false);
+        btn_C_Eliminar.setEnabled(false);
+        btn_C_Cancelar.setEnabled(true);
     }//GEN-LAST:event_btn_C_NuevoActionPerformed
 
     private void btn_C_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_CancelarActionPerformed
@@ -1890,6 +1992,12 @@ public class main extends javax.swing.JFrame {
         txt_C_Nombre.setText("");
         txt_C_ApellidoPaterno.setText("");
         txt_C_ApellidoMaterno.setText("");
+        
+        btn_C_Guardar.setEnabled(false);
+        btn_C_Nuevo.setEnabled(true);
+        btn_C_Editar.setEnabled(false);
+        btn_C_Eliminar.setEnabled(false);
+        btn_C_Cancelar.setEnabled(false);
     }//GEN-LAST:event_btn_C_CancelarActionPerformed
 
     private void btn_C_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_BuscarActionPerformed
@@ -1918,6 +2026,18 @@ public class main extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No existe el cliente");
             txt_C_Buscar.setText("");
         }
+        
+        btn_C_Guardar.setEnabled(false);
+        btn_C_Nuevo.setEnabled(false);
+        btn_C_Editar.setEnabled(true);
+        btn_C_Eliminar.setEnabled(true);
+        btn_C_Cancelar.setEnabled(true);
+        
+        txt_C_IdUsuario.setEditable(true);
+        txt_C_IdCliente.setEditable(true);
+        txt_C_Nombre.setEditable(true);
+        txt_C_ApellidoPaterno.setEditable(true);
+        txt_C_ApellidoMaterno.setEditable(true);
         
     }//GEN-LAST:event_btn_C_BuscarActionPerformed
 
@@ -1968,6 +2088,12 @@ public class main extends javax.swing.JFrame {
             txt_C_Nombre.setText("");
             txt_C_ApellidoPaterno.setText("");
             txt_C_ApellidoMaterno.setText("");  
+            
+            btn_C_Guardar.setEnabled(false);
+            btn_C_Nuevo.setEnabled(true);
+            btn_C_Editar.setEnabled(false);
+            btn_C_Eliminar.setEnabled(false);
+            btn_C_Cancelar.setEnabled(false);
     }//GEN-LAST:event_btn_C_EditarActionPerformed
 
     private void btn_C_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_EliminarActionPerformed
@@ -1999,6 +2125,12 @@ public class main extends javax.swing.JFrame {
         txt_C_Nombre.setText("");
         txt_C_ApellidoPaterno.setText("");
         txt_C_ApellidoMaterno.setText("");
+        
+        btn_C_Guardar.setEnabled(false);
+        btn_C_Nuevo.setEnabled(true);
+        btn_C_Editar.setEnabled(false);
+        btn_C_Eliminar.setEnabled(false);
+        btn_C_Cancelar.setEnabled(false);
     }//GEN-LAST:event_btn_C_EliminarActionPerformed
 
     private void cb_V_SeleccioneClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_V_SeleccioneClienteActionPerformed
