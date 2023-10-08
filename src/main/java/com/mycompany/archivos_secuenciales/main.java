@@ -1705,45 +1705,57 @@ public class main extends javax.swing.JFrame {
         SimpleDateFormat fecha = new SimpleDateFormat("dd-MM-yyyy");
         String fecha_E = fecha.format(jdt_E_Fecha.getDate());
         String fecha_S = fecha.format(jdt_S_Fecha.getDate());
-        try {
-            rep = new reparaciones();
-            rep.setId_re(Integer.parseInt(txt_R_IdReparacion.getText()));
+        
+        Date actual = new Date();
+        Date fentrada=jdt_E_Fecha.getDate();
+        Date fsalida=jdt_S_Fecha.getDate();
 
-            if (ban_reparaciones != true && rf.BuscarReparacion(rep) != null) {
-                JOptionPane.showMessageDialog(null, "Ese Id de reparacion ya existe");
-                return;
-            }
-
-            rep.setId_ve(Integer.parseInt(cmb_R_IdVehiculo.getSelectedItem().toString()));
-            rep.setId_pi(Integer.parseInt(cmb_R_IdPieza.getSelectedItem().toString()));
-            rep.setFalla(txt_R_Falla.getText());
-            rep.setId_contrl(Integer.parseInt(txt_R_ControlPiezas.getText()));
-            rep.setFecha_e(fecha_E);
-            rep.setFecha_s(fecha_S);
-
-            if (ban_reparaciones != true) {
-                rf.Guardar(rep);
-                JOptionPane.showMessageDialog(null, "Guardado con Éxito");
-            } else {
-                ban_reparaciones = false;
+        if(fentrada.before(actual) || fentrada.equals(actual) && fsalida.before(actual) || fsalida.equals(actual)){
                 try {
-                    rf.Editar(rep);
-                    JOptionPane.showMessageDialog(null, "Editado con Éxito");
-                    System.out.println("SI");
-                } catch (IOException ex) {
+                rep = new reparaciones();
+                rep.setId_re(Integer.parseInt(txt_R_IdReparacion.getText()));
 
+                if (ban_reparaciones != true && rf.BuscarReparacion(rep) != null) {
+                    JOptionPane.showMessageDialog(null, "Ese Id de reparacion ya existe");
+                    return;
                 }
+
+                rep.setId_ve(Integer.parseInt(cmb_R_IdVehiculo.getSelectedItem().toString()));
+                rep.setId_pi(Integer.parseInt(cmb_R_IdPieza.getSelectedItem().toString()));
+                rep.setFalla(txt_R_Falla.getText());
+                rep.setId_contrl(Integer.parseInt(txt_R_ControlPiezas.getText()));
+                rep.setFecha_e(fecha_E);
+                rep.setFecha_s(fecha_S);
+
+                if (ban_reparaciones != true) {
+                    rf.Guardar(rep);
+                    JOptionPane.showMessageDialog(null, "Guardado con Éxito");
+                } else {
+                    ban_reparaciones = false;
+                    try {
+                        rf.Editar(rep);
+                        JOptionPane.showMessageDialog(null, "Editado con Éxito");
+                        System.out.println("SI");
+                    } catch (IOException ex) {
+
+                    }
+                }
+                btn_R_Guardar.setEnabled(false);
+                btn_R_Nuevo.setEnabled(true);
+                btn_R_Editar.setEnabled(false);
+                btn_R_Eliminar.setEnabled(false);
+                btn_R_Cancelar.setEnabled(false);
+
+                //band=true;
+            } catch (FileNotFoundException ex) {
+
             }
-            btn_R_Guardar.setEnabled(false);
-            btn_R_Nuevo.setEnabled(true);
-            btn_R_Editar.setEnabled(false);
-            btn_R_Eliminar.setEnabled(false);
-            btn_R_Cancelar.setEnabled(false);
-
-            //band=true;
-        } catch (FileNotFoundException ex) {
-
         }
+          else{
+            JOptionPane.showMessageDialog(null, "Elija una fecha posible");
+        }
+
+        
     }//GEN-LAST:event_btn_R_GuardarActionPerformed
 
     private void btn_V_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_V_NuevoActionPerformed
