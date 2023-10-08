@@ -4,7 +4,6 @@ package com.mycompany.archivos_secuenciales;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
 
 public class main extends javax.swing.JFrame {
     DataOutputStream write;
@@ -75,6 +75,12 @@ public class main extends javax.swing.JFrame {
         btn_C_Editar.setEnabled(false);
         btn_C_Eliminar.setEnabled(false);
         btn_C_Cancelar.setEnabled(false);
+        
+        btn_R_Guardar.setEnabled(false);
+        btn_R_Nuevo.setEnabled(true);
+        btn_R_Editar.setEnabled(false);
+        btn_R_Eliminar.setEnabled(false);
+        btn_R_Cancelar.setEnabled(false);
         
         try {
             if (f.BuscarContacto(admin) == null) {
@@ -1734,18 +1740,22 @@ public class main extends javax.swing.JFrame {
 
     private void btn_R_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_NuevoActionPerformed
         reparaciones_Habilitar();
+        jdt_V_Fecha.setDate(null);
 
         btn_R_Guardar.setEnabled(true);
         btn_R_Nuevo.setEnabled(false);
         btn_R_Editar.setEnabled(false);
         btn_R_Eliminar.setEnabled(false);
-        btn_R_Cancelar.setEnabled(false);
+        btn_R_Cancelar.setEnabled(true);
 
         cmb_R_IdVehiculo.setSelectedItem("");
         cmb_R_IdPieza.setSelectedItem("");
         txt_R_IdReparacion.setText("");
         txt_R_Falla.setText("");
         txt_R_ControlPiezas.setText("");
+        
+        jdt_E_Fecha.setDate(null);
+        jdt_S_Fecha.setDate(null);
 
     }//GEN-LAST:event_btn_R_NuevoActionPerformed
 
@@ -1758,46 +1768,52 @@ public class main extends javax.swing.JFrame {
         Date fentrada=jdt_E_Fecha.getDate();
         Date fsalida=jdt_S_Fecha.getDate();
 
-        if(fentrada.before(actual) || fentrada.equals(actual) && fsalida.before(actual) || fsalida.equals(actual)){
-                try {
-                rep = new reparaciones();
-                rep.setId_re(Integer.parseInt(txt_R_IdReparacion.getText()));
+        if((fentrada.before(actual) || fentrada.equals(actual)) && (fsalida.before(actual) || fsalida.equals(actual))){
+            if(fsalida.after(fentrada)){
+                 try {
+                    rep = new reparaciones();
+                    rep.setId_re(Integer.parseInt(txt_R_IdReparacion.getText()));
 
-                if (ban_reparaciones != true && rf.BuscarReparacion(rep) != null) {
-                    JOptionPane.showMessageDialog(null, "Ese Id de reparacion ya existe");
-                    return;
-                }
-
-                rep.setId_ve(Integer.parseInt(cmb_R_IdVehiculo.getSelectedItem().toString()));
-                rep.setId_pi(Integer.parseInt(cmb_R_IdPieza.getSelectedItem().toString()));
-                rep.setFalla(txt_R_Falla.getText());
-                rep.setId_contrl(Integer.parseInt(txt_R_ControlPiezas.getText()));
-                rep.setFecha_e(fecha_E);
-                rep.setFecha_s(fecha_S);
-
-                if (ban_reparaciones != true) {
-                    rf.Guardar(rep);
-                    JOptionPane.showMessageDialog(null, "Guardado con Éxito");
-                } else {
-                    ban_reparaciones = false;
-                    try {
-                        rf.Editar(rep);
-                        JOptionPane.showMessageDialog(null, "Editado con Éxito");
-                        System.out.println("SI");
-                    } catch (IOException ex) {
-
+                    if (ban_reparaciones != true && rf.BuscarReparacion(rep) != null) {
+                        JOptionPane.showMessageDialog(null, "Ese Id de reparacion ya existe");
+                        return;
                     }
+
+                    rep.setId_ve(Integer.parseInt(cmb_R_IdVehiculo.getSelectedItem().toString()));
+                    rep.setId_pi(Integer.parseInt(cmb_R_IdPieza.getSelectedItem().toString()));
+                    rep.setFalla(txt_R_Falla.getText());
+                    rep.setId_contrl(Integer.parseInt(txt_R_ControlPiezas.getText()));
+                    rep.setFecha_e(fecha_E);
+                    rep.setFecha_s(fecha_S);
+
+                    if (ban_reparaciones != true) {
+                        rf.Guardar(rep);
+                        JOptionPane.showMessageDialog(null, "Guardado con Éxito");
+                    } else {
+                        ban_reparaciones = false;
+                        try {
+                            rf.Editar(rep);
+                            JOptionPane.showMessageDialog(null, "Editado con Éxito");
+                            System.out.println("SI");
+                        } catch (IOException ex) {
+
+                        }
+                    }
+                    btn_R_Guardar.setEnabled(false);
+                    btn_R_Nuevo.setEnabled(true);
+                    btn_R_Editar.setEnabled(false);
+                    btn_R_Eliminar.setEnabled(false);
+                    btn_R_Cancelar.setEnabled(false);
+
+                    //band=true;
+                } catch (FileNotFoundException ex) {
+
                 }
-                btn_R_Guardar.setEnabled(false);
-                btn_R_Nuevo.setEnabled(true);
-                btn_R_Editar.setEnabled(false);
-                btn_R_Eliminar.setEnabled(false);
-                btn_R_Cancelar.setEnabled(false);
-
-                //band=true;
-            } catch (FileNotFoundException ex) {
-
             }
+            else{
+                 JOptionPane.showMessageDialog(null, "La Fecha de Entrada tiene que ser anterior a la Fecha de Salida");
+            }
+               
         }
           else{
             JOptionPane.showMessageDialog(null, "Elija una fecha posible");
@@ -2225,6 +2241,8 @@ public class main extends javax.swing.JFrame {
 
     private void btn_R_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_CancelarActionPerformed
         reparaciones_Deshabilitar();
+        jdt_V_Fecha.setDate(null);
+        
         btn_R_Guardar.setEnabled(false);
         btn_R_Nuevo.setEnabled(true);
         btn_R_Editar.setEnabled(false);
