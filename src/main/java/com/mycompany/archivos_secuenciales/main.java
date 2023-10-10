@@ -124,18 +124,18 @@ public class main extends javax.swing.JFrame {
         String vl = "C:\\Proyecto\\vehiculos.txt";
         cmb_R_IdVehiculo.removeAllItems();
         cmb_R_IdVehiculo.addItem("Seleccione");
-        int i, id;
-        String item = "", cl = "";
+        int id;
+        String item = "", cl = "", mat = "", marc = "", mo = "", fe = "";;
         try {
             read = new DataInputStream(new FileInputStream(vl));
             while (true) {
-                i = 4;
                 cl = read.readUTF();
                 id = read.readInt();
-                while (i != 0) {
-                    cl = read.readUTF();
-                    i--;
-                }
+                mat = read.readUTF();
+                marc = read.readUTF();
+                mo = read.readUTF();
+                fe = read.readUTF();
+
                 item = String.valueOf(id);
                 cmb_R_IdVehiculo.addItem(item);
             }
@@ -220,6 +220,9 @@ public class main extends javax.swing.JFrame {
 
         jdt_S_Fecha.setDate(null);
         jdt_S_Fecha.cleanup();
+        
+        int maxID = rf.getMax();
+        txt_R_IdReparacion.setText(String.valueOf(maxID));
 
         txt_R_Falla.setText("");
         txt_R_IdReparacion.setText("");
@@ -1007,6 +1010,8 @@ public class main extends javax.swing.JFrame {
             }
         });
 
+        txt_R_IdReparacion.setEditable(false);
+
         txt_R_Falla.setEditable(false);
         txt_R_Falla.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1764,6 +1769,8 @@ public class main extends javax.swing.JFrame {
     private void btn_R_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_NuevoActionPerformed
         Reparaciones_Habilitar();
         cb_R_vehiculos();
+        
+        int maxID = rf.getMax();
 
         btn_R_Guardar.setEnabled(true);
         btn_R_Nuevo.setEnabled(false);
@@ -1773,7 +1780,7 @@ public class main extends javax.swing.JFrame {
 
         cmb_R_IdVehiculo.setSelectedItem("");
         cmb_R_IdPieza.setSelectedItem("");
-        txt_R_IdReparacion.setText("");
+        txt_R_IdReparacion.setText(String.valueOf(maxID));
         txt_R_Falla.setText("");
         txt_R_ControlPiezas.setText("");
 

@@ -1,8 +1,8 @@
-
 package com.mycompany.archivos_secuenciales;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -12,7 +12,6 @@ import java.io.IOException;
  *
  * @author brand
  */
-
 public class reparaciones_File {
 
     private DataOutputStream write;
@@ -42,7 +41,7 @@ public class reparaciones_File {
 
     public reparaciones BuscarReparacion(reparaciones rep) throws FileNotFoundException {
         reparaciones aux = null;
-        int id_ve = 0, id_pi = 0,id_re = 0, id_contrl = 0;
+        int id_ve = 0, id_pi = 0, id_re = 0, id_contrl = 0;
         String falla = "", fecha_e = "", fecha_s = "";
         try {
             read = new DataInputStream(new FileInputStream(path));
@@ -54,8 +53,8 @@ public class reparaciones_File {
                 id_contrl = read.readInt();
                 fecha_e = read.readUTF();
                 fecha_s = read.readUTF();
-                    
-                if (rep.getId_re() == id_re){
+
+                if (rep.getId_re() == id_re) {
                     aux = new reparaciones();
                     aux.setId_ve(id_ve);
                     aux.setId_pi(id_pi);
@@ -121,7 +120,7 @@ public class reparaciones_File {
         }
 
         i = 0;
-        
+
         try {
             write = new DataOutputStream(new FileOutputStream(path));
             while (i < z) {
@@ -149,6 +148,79 @@ public class reparaciones_File {
         }
     }
 
+    public int getMax() {
+        int maxId = -1; 
+        int id = 0, idVe = 0, idPi = 0, con = 0;
+        String falla = "", fechE = "", fechS = "";
+        try {
+            read = new DataInputStream(new FileInputStream(path));
+            while (true) {
+                idVe = read.readInt();
+                idPi = read.readInt();
+                id = read.readInt();
+                falla = read.readUTF();
+                con = read.readInt();
+                fechE = read.readUTF();
+                fechS = read.readUTF();
+
+                if (id > maxId) {
+                    maxId = id;
+                }
+            }
+        } catch (EOFException e) {
+            // Fin del archivo, no se hace nada aquí
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo de reparaciones");
+        } finally {
+            try {
+                if (read != null) {
+                    read.close();
+                }
+            } catch (IOException e) {
+                System.out.println("Error al cerrar el archivo de reparaciones");
+            }
+        }
+
+        // Verificar si hay IDs sin asignar desde 0 al máximo encontrado
+        for (int i = 0; i <= maxId; i++) {
+            boolean idEncontrado = false;
+
+            try {
+                read = new DataInputStream(new FileInputStream(path));
+                while (true) {
+                    idVe = read.readInt();
+                    idPi = read.readInt();
+                    id = read.readInt();
+                    falla = read.readUTF();
+                    con = read.readInt();
+                    fechE = read.readUTF();
+                    fechS = read.readUTF();
+
+                    if (id == i) {
+                        idEncontrado = true;
+                        break;
+                    }
+                }
+            } catch (EOFException e) {
+                // Fin del archivo, no se hace nada aquí
+            } catch (IOException e) {
+                System.out.println("Error al leer el archivo de reparaciones");
+            } finally {
+                try {
+                    if (read != null) {
+                        read.close();
+                    }
+                } catch (IOException e) {
+                    System.out.println("Error al cerrar el archivo de reparaciones");
+                }
+            }
+            if (!idEncontrado) {
+                return i;
+            }
+        }
+        return maxId + 1;
+    }
+
     public void Eliminar_Reparacion(reparaciones rep) throws IOException {
         int i = 0;
         int z = 0;
@@ -172,13 +244,13 @@ public class reparaciones_File {
                 eliminar[4][i] = read.readInt();
                 eliminar[5][i] = read.readUTF();
                 eliminar[6][i] = read.readUTF();
-                               
+
                 System.out.println("ELIMINAR");
                 System.out.println(eliminar[0][i]);
                 System.out.println(eliminar[1][i]);
                 System.out.println(eliminar[2][i]);
                 System.out.println(eliminar[5][i]);
-                
+
                 i++;
             }
         } catch (IOException ex) {
@@ -209,10 +281,10 @@ public class reparaciones_File {
             write = new DataOutputStream(new FileOutputStream(path));
             while (i < j) {
                 write.writeInt((int) datos[0][i]);
-                write.writeInt((int)datos[1][i]);
-                write.writeInt((int)datos[2][i]);
+                write.writeInt((int) datos[1][i]);
+                write.writeInt((int) datos[2][i]);
                 write.writeUTF(datos[3][i].toString());
-                write.writeInt((int)datos[4][i]);
+                write.writeInt((int) datos[4][i]);
                 write.writeUTF(datos[5][i].toString());
                 write.writeUTF(datos[6][i].toString());
                 i++;
