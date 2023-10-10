@@ -73,9 +73,6 @@ public class reparaciones_File {
         } catch (IOException ex) {
 
         }
-        if (aux != null) {
-            System.out.println(aux.getId_re());
-        }
 
         return aux;
     }

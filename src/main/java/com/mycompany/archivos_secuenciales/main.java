@@ -189,12 +189,8 @@ public class main extends javax.swing.JFrame {
 
     }
 
-    public void reparaciones_Habilitar() {
-        cmb_R_IdVehiculo.setEditable(true);
-        cmb_R_IdPieza.setEditable(true);
-        txt_R_IdReparacion.setEditable(true);
+    public void Reparaciones_Habilitar() {
         txt_R_Falla.setEditable(true);
-        txt_R_ControlPiezas.setEditable(true);
         jdt_E_Fecha.setEnabled(true);
         jdt_S_Fecha.setEnabled(true);
     }
@@ -214,19 +210,19 @@ public class main extends javax.swing.JFrame {
         txt_V_Modelo.setText("");
     }
 
-    public void reparaciones_Deshabilitar() {
-        cmb_R_IdVehiculo.setEditable(false);
-        cmb_R_IdPieza.setEditable(false);
-        txt_R_IdReparacion.setEditable(false);
+    public void Reparaciones_Deshabilitar() {
         txt_R_Falla.setEditable(false);
-        txt_R_ControlPiezas.setEditable(false);
         jdt_E_Fecha.setEnabled(false);
         jdt_S_Fecha.setEnabled(false);
 
-        cmb_R_IdVehiculo.setSelectedItem("");
-        cmb_R_IdPieza.setSelectedItem("");
-        txt_R_IdReparacion.setText("");
+        jdt_E_Fecha.setDate(null);
+        jdt_E_Fecha.cleanup();
+
+        jdt_S_Fecha.setDate(null);
+        jdt_S_Fecha.cleanup();
+
         txt_R_Falla.setText("");
+        txt_R_IdReparacion.setText("");
         txt_R_ControlPiezas.setText("");
     }
 
@@ -1763,9 +1759,8 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_P_SalirActionPerformed
 
     private void btn_R_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_NuevoActionPerformed
-        reparaciones_Habilitar();
+        Reparaciones_Habilitar();
         cb_R_vehiculos();
-        jdt_V_Fecha.setDate(null);
 
         btn_R_Guardar.setEnabled(true);
         btn_R_Nuevo.setEnabled(false);
@@ -1781,6 +1776,9 @@ public class main extends javax.swing.JFrame {
 
         jdt_E_Fecha.setDate(null);
         jdt_S_Fecha.setDate(null);
+
+        //int maxID = v.getMax();
+        //txt_V_IdVehiculo.setText(String.valueOf(maxID));
 
     }//GEN-LAST:event_btn_R_NuevoActionPerformed
 
@@ -2249,7 +2247,7 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_C_IdClienteActionPerformed
 
     private void btn_R_EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_EditarActionPerformed
-        reparaciones_Habilitar();
+        Reparaciones_Habilitar();
         btn_R_Guardar.setEnabled(true);
         btn_R_Nuevo.setEnabled(false);
         btn_R_Editar.setEnabled(false);
@@ -2260,7 +2258,7 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_R_EditarActionPerformed
 
     private void btn_R_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_CancelarActionPerformed
-        reparaciones_Deshabilitar();
+        Reparaciones_Deshabilitar();
         cb_R_vehiculos();
         jdt_V_Fecha.setDate(null);
 
@@ -2298,7 +2296,7 @@ public class main extends javax.swing.JFrame {
 
         }
 
-        reparaciones_Habilitar();
+        Reparaciones_Habilitar();
         cb_R_vehiculos();
 
         cmb_R_IdVehiculo.setSelectedItem("");
@@ -2315,14 +2313,17 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_R_EliminarActionPerformed
 
     private void btn_R_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_BuscarActionPerformed
+        Reparaciones_Deshabilitar();
         try {
             rep = new reparaciones();
-            rep.setId_re(Integer.parseInt((txt_R_Id.getText())));
+            rep.setId_re(Integer.parseInt(txt_R_Id.getText()));
             rep = rf.BuscarReparacion(rep);
 
             if (rep != null) {
-                cmb_R_IdVehiculo.setSelectedItem(rep.getId_ve());
+                cmb_R_IdVehiculo.setSelectedItem(String.valueOf(rep.getId_ve()));
+                System.out.println(rep.getId_ve());
                 cmb_R_IdPieza.setSelectedItem(rep.getId_pi());
+                System.out.println(rep.getId_pi());
                 txt_R_IdReparacion.setText(String.valueOf(rep.getId_re()));
                 txt_R_Falla.setText(rep.getFalla());
                 txt_R_ControlPiezas.setText(String.valueOf(rep.getId_contrl()));
@@ -2343,19 +2344,28 @@ public class main extends javax.swing.JFrame {
 
                 jdt_S_Fecha.setDate(formato);
 
+                btn_R_Guardar.setEnabled(false);
+                btn_R_Nuevo.setEnabled(true);
+                btn_R_Editar.setEnabled(true);
+                btn_R_Eliminar.setEnabled(true);
+                btn_R_Cancelar.setEnabled(false);
+
             } else {
                 JOptionPane.showMessageDialog(null, "No existe ese ID");
+
+                btn_R_Guardar.setEnabled(false);
+                btn_R_Nuevo.setEnabled(true);
+                btn_R_Editar.setEnabled(false);
+                btn_R_Eliminar.setEnabled(false);
+                btn_R_Cancelar.setEnabled(false);
             }
-            btn_R_Guardar.setEnabled(false);
-            btn_R_Nuevo.setEnabled(true);
-            btn_R_Editar.setEnabled(true);
-            btn_R_Eliminar.setEnabled(true);
-            btn_R_Cancelar.setEnabled(false);
+
         } catch (FileNotFoundException ex) {
 
         }
 
         txt_R_Id.setText("");
+
     }//GEN-LAST:event_btn_R_BuscarActionPerformed
 
     private void txt_R_FallaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_R_FallaActionPerformed
