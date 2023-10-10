@@ -1,7 +1,5 @@
 package com.mycompany.archivos_secuenciales;
 
-
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
@@ -16,30 +14,31 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-
 public class main extends javax.swing.JFrame {
+
     DataOutputStream write;
     DataInputStream read;
     String path = "C:\\Proyecto\\vc.txt";
+    String pz = "C:\\Proyecto\\piezas.txt";
 
     Files f;
     contacto cto;
     contacto admin;
-    
+
     reparaciones_File rf;
     reparaciones rep;
-    
+
     Vehiculos_Files v;
     Vehiculos vcs;
-    
+
     VC_File vcf;
     vehiculo_cliente vc;
-    
+
     Cliente_File fc;
     cliente c;
 
     String IdUs;
-    
+
     boolean ban = false;
     boolean ban_vehiculos = false;
     boolean ban_reparaciones = false;
@@ -48,12 +47,11 @@ public class main extends javax.swing.JFrame {
         initComponents();
         f = new Files();
         rf = new reparaciones_File();
-        fc= new Cliente_File();
-        v=new Vehiculos_Files();
-        vcf=new VC_File();
-        
-      
-        admin=new contacto();
+        fc = new Cliente_File();
+        v = new Vehiculos_Files();
+        vcf = new VC_File();
+
+        admin = new contacto();
         admin.setId(0);
         admin.setNombre("Admi");
         admin.setPaterno("Nistra");
@@ -69,19 +67,19 @@ public class main extends javax.swing.JFrame {
         btn_V_Editar.setEnabled(false);
         btn_V_Eliminar.setEnabled(false);
         btn_V_Cancelar.setEnabled(false);
-        
+
         btn_C_Guardar.setEnabled(false);
         btn_C_Nuevo.setEnabled(true);
         btn_C_Editar.setEnabled(false);
         btn_C_Eliminar.setEnabled(false);
         btn_C_Cancelar.setEnabled(false);
-        
+
         btn_R_Guardar.setEnabled(false);
         btn_R_Nuevo.setEnabled(true);
         btn_R_Editar.setEnabled(false);
         btn_R_Eliminar.setEnabled(false);
         btn_R_Cancelar.setEnabled(false);
-        
+
         try {
             if (f.BuscarContacto(admin) == null) {
                 f.Guardar(admin);
@@ -96,8 +94,8 @@ public class main extends javax.swing.JFrame {
         tpane.setEnabledAt(5, false);
 
     }
-    
-    public void cb_vehiculos(){
+
+    public void cb_vehiculos() {
         cb_V_SeleccioneCliente.removeAllItems();
         cb_V_SeleccioneCliente.addItem("Seleccione");
         String us = "", cl = "";
@@ -110,6 +108,36 @@ public class main extends javax.swing.JFrame {
                 if (us.equals(IdUs) || "0".equals(IdUs)) {
                     cb_V_SeleccioneCliente.addItem(cl);
                 }
+            }
+        } catch (FileNotFoundException ex) {
+
+        } catch (IOException ex) {
+        }
+        try {
+            read.close();
+        } catch (IOException ex) {
+
+        }
+    }
+
+    public void cb_R_vehiculos() {
+        String vl = "C:\\Proyecto\\vehiculos.txt";
+        cmb_R_IdVehiculo.removeAllItems();
+        cmb_R_IdVehiculo.addItem("Seleccione");
+        int i, id;
+        String item = "", cl = "";
+        try {
+            read = new DataInputStream(new FileInputStream(vl));
+            while (true) {
+                i = 4;
+                cl = read.readUTF();
+                id = read.readInt();
+                while (i != 0) {
+                    cl = read.readUTF();
+                    i--;
+                }
+                item = String.valueOf(id);
+                cmb_R_IdVehiculo.addItem(item);
             }
         } catch (FileNotFoundException ex) {
 
@@ -158,7 +186,7 @@ public class main extends javax.swing.JFrame {
         txt_V_Marca.setEditable(true);
         txt_V_Modelo.setEditable(true);
         jdt_V_Fecha.setEnabled(true);
-        
+
     }
 
     public void reparaciones_Habilitar() {
@@ -176,10 +204,10 @@ public class main extends javax.swing.JFrame {
         txt_V_Marca.setEditable(false);
         txt_V_Modelo.setEditable(false);
         jdt_V_Fecha.setEnabled(false);
-        
+
         jdt_V_Fecha.setDate(null);
         jdt_V_Fecha.cleanup();
-        int maxID=v.getMax();
+        int maxID = v.getMax();
         txt_V_IdVehiculo.setText(String.valueOf(maxID));
         txt_V_Matricula.setText("");
         txt_V_Marca.setText("");
@@ -972,7 +1000,7 @@ public class main extends javax.swing.JFrame {
 
         lbl_R_FechaSalida.setText("Fecha Salida");
 
-        cmb_R_IdVehiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
+        cmb_R_IdVehiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
 
         cmb_R_IdPieza.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05" }));
 
@@ -1265,7 +1293,7 @@ public class main extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tpane, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+            .addComponent(tpane)
         );
 
         pack();
@@ -1442,8 +1470,7 @@ public class main extends javax.swing.JFrame {
     private void btnAutentificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutentificarActionPerformed
         cto = new contacto();
         cto.setUsername(txtUsuario.getText());
-       
-        
+
         String pw;
         pw = String.valueOf(txtPassword.getPassword());
 
@@ -1454,14 +1481,15 @@ public class main extends javax.swing.JFrame {
         }
         if (cto != null) {
             if (cto.getPassword().equals(pw)) {
-                
-                IdUs=String.valueOf(cto.getId());
+
+                IdUs = String.valueOf(cto.getId());
                 txt_C_IdUsuario.setText(IdUs);
-                
-                int maxID=v.getMax();
+
+                int maxID = v.getMax();
                 txt_V_IdVehiculo.setText(String.valueOf(maxID));
                 cb_vehiculos();
-        
+                cb_R_vehiculos();
+
                 txtUsuario.setText("");
                 txtPassword.setText("");
 
@@ -1480,19 +1508,19 @@ public class main extends javax.swing.JFrame {
                     btnEditar.setEnabled(false);
                     btnRemover.setEnabled(false);
                     btnCancelar.setEnabled(false);
-                    
+
                     btn_C_Nuevo.setVisible(true);
                     btn_C_Guardar.setVisible(true);
                     btn_C_Cancelar.setVisible(true);
                     btn_C_Editar.setVisible(true);
                     btn_C_Eliminar.setVisible(true);
-                    
+
                     btn_V_Nuevo.setVisible(true);
                     btn_V_Guardar.setVisible(true);
                     btn_V_Cancelar.setVisible(true);
                     btn_V_Editar.setVisible(true);
                     btn_V_Eliminar.setVisible(true);
-                    
+
                     btn_R_Nuevo.setVisible(true);
                     btn_R_Guardar.setVisible(true);
                     btn_R_Cancelar.setVisible(true);
@@ -1507,13 +1535,13 @@ public class main extends javax.swing.JFrame {
                     tpane.setEnabledAt(3, false);
                     tpane.setEnabledAt(4, true);
                     tpane.setEnabledAt(5, false);
-                   
+
                     btn_C_Nuevo.setVisible(true);
                     btn_C_Guardar.setVisible(true);
                     btn_C_Cancelar.setVisible(true);
                     btn_C_Editar.setVisible(false);
                     btn_C_Eliminar.setVisible(false);
-                    
+
                     btn_R_Nuevo.setVisible(false);
                     btn_R_Guardar.setVisible(true);
                     btn_R_Cancelar.setVisible(true);
@@ -1530,13 +1558,13 @@ public class main extends javax.swing.JFrame {
                     tpane.setEnabledAt(3, true);
                     tpane.setEnabledAt(4, false);
                     tpane.setEnabledAt(5, false);
-                    
+
                     btn_C_Nuevo.setVisible(true);
                     btn_C_Guardar.setVisible(true);
                     btn_C_Cancelar.setVisible(true);
                     btn_C_Editar.setVisible(false);
                     btn_C_Eliminar.setVisible(false);
-                    
+
                     btn_V_Nuevo.setVisible(true);
                     btn_V_Guardar.setVisible(true);
                     btn_V_Cancelar.setVisible(true);
@@ -1553,7 +1581,7 @@ public class main extends javax.swing.JFrame {
                     tpane.setEnabledAt(3, false);
                     tpane.setEnabledAt(4, true);
                     tpane.setEnabledAt(5, false);
-                    
+
                     btn_R_Nuevo.setVisible(true);
                     btn_R_Guardar.setVisible(true);
                     btn_R_Cancelar.setVisible(true);
@@ -1608,9 +1636,9 @@ public class main extends javax.swing.JFrame {
         txtDireccion.setText("");
 
         Deshabilitar();
-        
+
         Vehiculos_Deshabilitar();
-    
+
         txt_C_IdUsuario.setEditable(false);
         txt_C_IdCliente.setEditable(false);
         txt_C_Nombre.setEditable(false);
@@ -1626,8 +1654,8 @@ public class main extends javax.swing.JFrame {
         txt_C_IdCliente.setText(String.valueOf(maxId));
         txt_C_Nombre.setText("");
         txt_C_ApellidoPaterno.setText("");
-        txt_C_ApellidoMaterno.setText("");   
-         btn_V_Guardar.setEnabled(false);
+        txt_C_ApellidoMaterno.setText("");
+        btn_V_Guardar.setEnabled(false);
         btn_V_Nuevo.setEnabled(true);
         btn_V_Editar.setEnabled(false);
         btn_V_Eliminar.setEnabled(false);
@@ -1671,46 +1699,45 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIDActionPerformed
 
     private void btn_C_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_SalirActionPerformed
-    tpane.setSelectedIndex(0);
-    
-    Vehiculos_Deshabilitar();
-    
-    txt_C_IdUsuario.setEditable(false);
-    txt_C_IdCliente.setEditable(false);
-    txt_C_Nombre.setEditable(false);
-    txt_C_ApellidoPaterno.setEditable(false);
-    txt_C_ApellidoMaterno.setEditable(false);
-    
-    cb_V_SeleccioneCliente.removeAllItems();
-    
-    int maxId = fc.getMaxId();
-        
-    txt_C_Buscar.setText("");
-    txt_C_IdUsuario.setText(IdUs);
-    txt_C_IdCliente.setText(String.valueOf(maxId));
-    txt_C_Nombre.setText("");
-    txt_C_ApellidoPaterno.setText("");
-    txt_C_ApellidoMaterno.setText("");   
-    
+        tpane.setSelectedIndex(0);
 
-    tpane.setEnabledAt(0, true);
-    tpane.setEnabledAt(1, false);
-    tpane.setEnabledAt(2, false);
-    tpane.setEnabledAt(3, false);
-    tpane.setEnabledAt(4, false);
-    tpane.setEnabledAt(5, false);
+        Vehiculos_Deshabilitar();
 
-    btn_V_Guardar.setEnabled(false);
-    btn_V_Nuevo.setEnabled(true);
-    btn_V_Editar.setEnabled(false);
-    btn_V_Eliminar.setEnabled(false);
-    btn_V_Cancelar.setEnabled(false);
-    
-    btn_C_Guardar.setEnabled(false);
-    btn_C_Nuevo.setEnabled(true);
-    btn_C_Editar.setEnabled(false);
-    btn_C_Eliminar.setEnabled(false);
-    btn_C_Cancelar.setEnabled(false);
+        txt_C_IdUsuario.setEditable(false);
+        txt_C_IdCliente.setEditable(false);
+        txt_C_Nombre.setEditable(false);
+        txt_C_ApellidoPaterno.setEditable(false);
+        txt_C_ApellidoMaterno.setEditable(false);
+
+        cb_V_SeleccioneCliente.removeAllItems();
+
+        int maxId = fc.getMaxId();
+
+        txt_C_Buscar.setText("");
+        txt_C_IdUsuario.setText(IdUs);
+        txt_C_IdCliente.setText(String.valueOf(maxId));
+        txt_C_Nombre.setText("");
+        txt_C_ApellidoPaterno.setText("");
+        txt_C_ApellidoMaterno.setText("");
+
+        tpane.setEnabledAt(0, true);
+        tpane.setEnabledAt(1, false);
+        tpane.setEnabledAt(2, false);
+        tpane.setEnabledAt(3, false);
+        tpane.setEnabledAt(4, false);
+        tpane.setEnabledAt(5, false);
+
+        btn_V_Guardar.setEnabled(false);
+        btn_V_Nuevo.setEnabled(true);
+        btn_V_Editar.setEnabled(false);
+        btn_V_Eliminar.setEnabled(false);
+        btn_V_Cancelar.setEnabled(false);
+
+        btn_C_Guardar.setEnabled(false);
+        btn_C_Nuevo.setEnabled(true);
+        btn_C_Editar.setEnabled(false);
+        btn_C_Eliminar.setEnabled(false);
+        btn_C_Cancelar.setEnabled(false);
     }//GEN-LAST:event_btn_C_SalirActionPerformed
 
     private void btn_R_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_SalirActionPerformed
@@ -1737,6 +1764,7 @@ public class main extends javax.swing.JFrame {
 
     private void btn_R_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_NuevoActionPerformed
         reparaciones_Habilitar();
+        cb_R_vehiculos();
         jdt_V_Fecha.setDate(null);
 
         btn_R_Guardar.setEnabled(true);
@@ -1750,7 +1778,7 @@ public class main extends javax.swing.JFrame {
         txt_R_IdReparacion.setText("");
         txt_R_Falla.setText("");
         txt_R_ControlPiezas.setText("");
-        
+
         jdt_E_Fecha.setDate(null);
         jdt_S_Fecha.setDate(null);
 
@@ -1760,14 +1788,14 @@ public class main extends javax.swing.JFrame {
         SimpleDateFormat fecha = new SimpleDateFormat("dd-MM-yyyy");
         String fecha_E = fecha.format(jdt_E_Fecha.getDate());
         String fecha_S = fecha.format(jdt_S_Fecha.getDate());
-        
-        Date actual = new Date();
-        Date fentrada=jdt_E_Fecha.getDate();
-        Date fsalida=jdt_S_Fecha.getDate();
 
-        if((fentrada.before(actual) || fentrada.equals(actual)) && (fsalida.before(actual) || fsalida.equals(actual))){
-            if(fsalida.after(fentrada)){
-                 try {
+        Date actual = new Date();
+        Date fentrada = jdt_E_Fecha.getDate();
+        Date fsalida = jdt_S_Fecha.getDate();
+
+        if ((fentrada.before(actual) || fentrada.equals(actual)) && (fsalida.before(actual) || fsalida.equals(actual))) {
+            if (fsalida.after(fentrada)) {
+                try {
                     rep = new reparaciones();
                     rep.setId_re(Integer.parseInt(txt_R_IdReparacion.getText()));
 
@@ -1806,26 +1834,24 @@ public class main extends javax.swing.JFrame {
                 } catch (FileNotFoundException ex) {
 
                 }
+            } else {
+                JOptionPane.showMessageDialog(null, "La Fecha de Entrada tiene que ser anterior a la Fecha de Salida");
             }
-            else{
-                 JOptionPane.showMessageDialog(null, "La Fecha de Entrada tiene que ser anterior a la Fecha de Salida");
-            }
-               
-        }
-          else{
+
+        } else {
             JOptionPane.showMessageDialog(null, "Elija una fecha posible");
         }
+        cb_R_vehiculos();
 
-        
     }//GEN-LAST:event_btn_R_GuardarActionPerformed
 
     private void btn_V_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_V_NuevoActionPerformed
         Vehiculos_Habilitar();
         jdt_V_Fecha.setDate(null);
         cb_vehiculos();
-        
-        int maxID=v.getMax();
-        
+
+        int maxID = v.getMax();
+
         btn_V_Guardar.setEnabled(true);
         btn_V_Nuevo.setEnabled(false);
         btn_V_Editar.setEnabled(false);
@@ -1851,13 +1877,13 @@ public class main extends javax.swing.JFrame {
         SimpleDateFormat dformat = new SimpleDateFormat("dd-MM-YYYY");
         String date = dformat.format(jdt_V_Fecha.getDate());
         vcs.setFecha(date);
-        
+
         System.out.println(vcs.getFecha());
-        
+
         Date fa = new Date();
-        Date s=jdt_V_Fecha.getDate();
-        
-        if(s.before(fa) || s.equals(fa)){
+        Date s = jdt_V_Fecha.getDate();
+
+        if (s.before(fa) || s.equals(fa)) {
             if (ban_vehiculos == false) {
                 try {
                     v.Guardar(vcs);
@@ -1881,8 +1907,7 @@ public class main extends javax.swing.JFrame {
             btn_V_Editar.setEnabled(false);
             btn_V_Eliminar.setEnabled(false);
             btn_V_Cancelar.setEnabled(false);
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "Elija una fecha posible");
         }
 
@@ -1930,7 +1955,7 @@ public class main extends javax.swing.JFrame {
 
         Vehiculos_Deshabilitar();
         cb_vehiculos();
-        
+
         btn_V_Guardar.setEnabled(false);
         btn_V_Nuevo.setEnabled(true);
         btn_V_Editar.setEnabled(false);
@@ -1946,7 +1971,7 @@ public class main extends javax.swing.JFrame {
             vcs = v.BuscarIdVehiculo(vcs);
 
             if (vcs != null) {
-                
+
                 cb_V_SeleccioneCliente.setSelectedItem(vcs.getCliente());
                 txt_V_IdVehiculo.setText(String.valueOf(vcs.getId_vehiculo()));
                 txt_V_Matricula.setText(vcs.getMatricula());
@@ -1960,7 +1985,7 @@ public class main extends javax.swing.JFrame {
                 } catch (ParseException ex) {
                 }
                 jdt_V_Fecha.setDate(formato);
-                
+
                 btn_V_Guardar.setEnabled(false);
                 btn_V_Nuevo.setEnabled(true);
                 btn_V_Editar.setEnabled(true);
@@ -1968,7 +1993,7 @@ public class main extends javax.swing.JFrame {
                 btn_V_Cancelar.setEnabled(false);
             } else {
                 JOptionPane.showMessageDialog(null, "No existe ese ID");
-                
+
                 btn_V_Guardar.setEnabled(false);
                 btn_V_Nuevo.setEnabled(true);
                 btn_V_Editar.setEnabled(false);
@@ -1976,7 +2001,6 @@ public class main extends javax.swing.JFrame {
                 btn_V_Cancelar.setEnabled(false);
             }
 
-            
         } catch (FileNotFoundException ex) {
 
         }
@@ -1986,9 +2010,8 @@ public class main extends javax.swing.JFrame {
 
     private void btn_C_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_GuardarActionPerformed
         //Verificar que el campo txt_C_IdCliente no este vacio
-  
-        
-        if(txt_C_IdCliente.getText().equals("")){
+
+        if (txt_C_IdCliente.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese el ID del cliente");
             return;
         }
@@ -2015,8 +2038,8 @@ public class main extends javax.swing.JFrame {
         c.setNombre(txt_C_Nombre.getText());
         c.setApellidoPaterno(txt_C_ApellidoPaterno.getText());
         c.setApellidoMaterno(txt_C_ApellidoMaterno.getText());
-        
-        vc=new vehiculo_cliente();
+
+        vc = new vehiculo_cliente();
         vc.setIdUsuario(txt_C_IdUsuario.getText());
         vc.setIdCliente(txt_C_IdCliente.getText());
         //Se crea un objeto de tipo archivoCliente
@@ -2043,14 +2066,14 @@ public class main extends javax.swing.JFrame {
     private void btn_C_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_NuevoActionPerformed
         //Cliente_File clienteFile = new Cliente_File();
         int maxId = fc.getMaxId();
-        
+
         txt_C_Buscar.setText("");
         txt_C_IdUsuario.setText(IdUs);
         txt_C_IdCliente.setText(String.valueOf(maxId));
         txt_C_Nombre.setText("");
         txt_C_ApellidoPaterno.setText("");
         txt_C_ApellidoMaterno.setText("");
-        
+
         txt_C_IdUsuario.setEditable(true);
         txt_C_IdCliente.setEditable(true);
         txt_C_Nombre.setEditable(true);
@@ -2072,7 +2095,7 @@ public class main extends javax.swing.JFrame {
         txt_C_Nombre.setText("");
         txt_C_ApellidoPaterno.setText("");
         txt_C_ApellidoMaterno.setText("");
-        
+
         btn_C_Guardar.setEnabled(false);
         btn_C_Nuevo.setEnabled(true);
         btn_C_Editar.setEnabled(false);
@@ -2082,7 +2105,7 @@ public class main extends javax.swing.JFrame {
 
     private void btn_C_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_BuscarActionPerformed
         //Verificar que el campo txt_C_Id no este vacio
-        if(txt_C_Buscar.getText().equals("")){
+        if (txt_C_Buscar.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese el ID del cliente");
             return;
         }
@@ -2091,89 +2114,89 @@ public class main extends javax.swing.JFrame {
         int id = Integer.parseInt(txt_C_Buscar.getText());
 
         // validar que el id si exista
-        c=new cliente();
+        c = new cliente();
         c = fc.buscar(id);
-        if(c!=null){
-        txt_C_Buscar.setText("");
-        txt_C_IdUsuario.setText(String.valueOf(c.getIdUsuario()));   
-             // Mostrar los datos del cliente
-        
-        txt_C_IdCliente.setText(String.valueOf(c.getId()));
-        txt_C_Nombre.setText(c.getNombre());
-        txt_C_ApellidoPaterno.setText(c.getApellidoPaterno());
-        txt_C_ApellidoMaterno.setText(c.getApellidoMaterno());
-        }else{
+        if (c != null) {
+            txt_C_Buscar.setText("");
+            txt_C_IdUsuario.setText(String.valueOf(c.getIdUsuario()));
+            // Mostrar los datos del cliente
+
+            txt_C_IdCliente.setText(String.valueOf(c.getId()));
+            txt_C_Nombre.setText(c.getNombre());
+            txt_C_ApellidoPaterno.setText(c.getApellidoPaterno());
+            txt_C_ApellidoMaterno.setText(c.getApellidoMaterno());
+        } else {
             JOptionPane.showMessageDialog(null, "No existe el cliente");
             txt_C_Buscar.setText("");
         }
-        
+
         btn_C_Guardar.setEnabled(false);
         btn_C_Nuevo.setEnabled(false);
         btn_C_Editar.setEnabled(true);
         btn_C_Eliminar.setEnabled(true);
         btn_C_Cancelar.setEnabled(true);
-        
+
         txt_C_IdUsuario.setEditable(true);
         txt_C_IdCliente.setEditable(true);
         txt_C_Nombre.setEditable(true);
         txt_C_ApellidoPaterno.setEditable(true);
         txt_C_ApellidoMaterno.setEditable(true);
-        
+
     }//GEN-LAST:event_btn_C_BuscarActionPerformed
 
     private void btn_C_EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_EditarActionPerformed
-       //Boton para editar
-            //Verificar que el campo txt_C_IdCliente no este vacio
-            
-            if(txt_C_IdCliente.getText().equals("")){
-                JOptionPane.showMessageDialog(null, "Ingrese el ID del cliente");
-                return;
-            }
-            //Verificar que el campo txt_C_Nombre no este vacio
-            if(txt_C_Nombre.getText().equals("")){
-                JOptionPane.showMessageDialog(null, "Ingrese el nombre del cliente");
-                return;
-            }
-            //Verificar que el campo txt_C_ApellidoPaterno no este vacio
-            if(txt_C_ApellidoPaterno.getText().equals("")){
-                JOptionPane.showMessageDialog(null, "Ingrese el apellido paterno del cliente");
-                return;
-            }
-            //Verificar que el campo txt_C_ApellidoMaterno no este vacio
-            if(txt_C_ApellidoMaterno.getText().equals("")){
-                JOptionPane.showMessageDialog(null, "Ingrese el apellido materno del cliente");
-                return;
-            }
-            //Se crea un objeto de tipo cliente
-            c = new cliente();
-            //Se le asignan los valores a los atributos del objeto
-            c.setId(Integer.parseInt(txt_C_IdCliente.getText()));
-            c.setNombre(txt_C_Nombre.getText());
-            c.setApellidoPaterno(txt_C_ApellidoPaterno.getText());
-            c.setApellidoMaterno(txt_C_ApellidoMaterno.getText());
-       
-            vc=new vehiculo_cliente();
-            vc.setIdUsuario(txt_C_IdUsuario.getText());
-            vc.setIdCliente(txt_C_IdCliente.getText());
-            //Se crea un objeto de tipo archivoCliente
-            //Cliente_File ac = new Cliente_File();
-            //Se llama al metodo guardarCliente y se le pasa como parametro el objeto cliente
-            fc.editar(c);
-            vcf.editar(vc);
-            //Se muestra un mensaje de que se guardo correctamente
-            JOptionPane.showMessageDialog(null, "Editado correctamente");
-            //Se limpian los campos de texto
-            txt_C_IdUsuario.setText(IdUs);
-            txt_C_IdCliente.setText("");
-            txt_C_Nombre.setText("");
-            txt_C_ApellidoPaterno.setText("");
-            txt_C_ApellidoMaterno.setText("");  
-            
-            btn_C_Guardar.setEnabled(false);
-            btn_C_Nuevo.setEnabled(true);
-            btn_C_Editar.setEnabled(false);
-            btn_C_Eliminar.setEnabled(false);
-            btn_C_Cancelar.setEnabled(false);
+        //Boton para editar
+        //Verificar que el campo txt_C_IdCliente no este vacio
+
+        if (txt_C_IdCliente.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese el ID del cliente");
+            return;
+        }
+        //Verificar que el campo txt_C_Nombre no este vacio
+        if (txt_C_Nombre.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese el nombre del cliente");
+            return;
+        }
+        //Verificar que el campo txt_C_ApellidoPaterno no este vacio
+        if (txt_C_ApellidoPaterno.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese el apellido paterno del cliente");
+            return;
+        }
+        //Verificar que el campo txt_C_ApellidoMaterno no este vacio
+        if (txt_C_ApellidoMaterno.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese el apellido materno del cliente");
+            return;
+        }
+        //Se crea un objeto de tipo cliente
+        c = new cliente();
+        //Se le asignan los valores a los atributos del objeto
+        c.setId(Integer.parseInt(txt_C_IdCliente.getText()));
+        c.setNombre(txt_C_Nombre.getText());
+        c.setApellidoPaterno(txt_C_ApellidoPaterno.getText());
+        c.setApellidoMaterno(txt_C_ApellidoMaterno.getText());
+
+        vc = new vehiculo_cliente();
+        vc.setIdUsuario(txt_C_IdUsuario.getText());
+        vc.setIdCliente(txt_C_IdCliente.getText());
+        //Se crea un objeto de tipo archivoCliente
+        //Cliente_File ac = new Cliente_File();
+        //Se llama al metodo guardarCliente y se le pasa como parametro el objeto cliente
+        fc.editar(c);
+        vcf.editar(vc);
+        //Se muestra un mensaje de que se guardo correctamente
+        JOptionPane.showMessageDialog(null, "Editado correctamente");
+        //Se limpian los campos de texto
+        txt_C_IdUsuario.setText(IdUs);
+        txt_C_IdCliente.setText("");
+        txt_C_Nombre.setText("");
+        txt_C_ApellidoPaterno.setText("");
+        txt_C_ApellidoMaterno.setText("");
+
+        btn_C_Guardar.setEnabled(false);
+        btn_C_Nuevo.setEnabled(true);
+        btn_C_Editar.setEnabled(false);
+        btn_C_Eliminar.setEnabled(false);
+        btn_C_Cancelar.setEnabled(false);
     }//GEN-LAST:event_btn_C_EditarActionPerformed
 
     private void btn_C_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_EliminarActionPerformed
@@ -2192,20 +2215,20 @@ public class main extends javax.swing.JFrame {
         // Eliminar el cliente
         fc.eliminar(c);
         JOptionPane.showMessageDialog(null, "Eliminado correctamente");
-        
-        vc=new vehiculo_cliente();
+
+        vc = new vehiculo_cliente();
         vc.setIdUsuario(txt_C_IdUsuario.getText());
         vc.setIdCliente(txt_C_IdCliente.getText());
-        
+
         vcf.eliminar(vc);
         cb_vehiculos();
-        
+
         txt_C_IdUsuario.setText(IdUs);
         txt_C_IdCliente.setText("");
         txt_C_Nombre.setText("");
         txt_C_ApellidoPaterno.setText("");
         txt_C_ApellidoMaterno.setText("");
-        
+
         btn_C_Guardar.setEnabled(false);
         btn_C_Nuevo.setEnabled(true);
         btn_C_Editar.setEnabled(false);
@@ -2214,11 +2237,11 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_C_EliminarActionPerformed
 
     private void cb_V_SeleccioneClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_V_SeleccioneClienteActionPerformed
-       
+
     }//GEN-LAST:event_cb_V_SeleccioneClienteActionPerformed
 
     private void cb_V_SeleccioneClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cb_V_SeleccioneClienteMouseClicked
-        
+
     }//GEN-LAST:event_cb_V_SeleccioneClienteMouseClicked
 
     private void txt_C_IdClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_C_IdClienteActionPerformed
@@ -2238,8 +2261,9 @@ public class main extends javax.swing.JFrame {
 
     private void btn_R_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_CancelarActionPerformed
         reparaciones_Deshabilitar();
+        cb_R_vehiculos();
         jdt_V_Fecha.setDate(null);
-        
+
         btn_R_Guardar.setEnabled(false);
         btn_R_Nuevo.setEnabled(true);
         btn_R_Editar.setEnabled(false);
@@ -2254,17 +2278,17 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_R_CancelarActionPerformed
 
     private void btn_R_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_EliminarActionPerformed
-        
+
         rep.setId_ve(Integer.parseInt(cmb_R_IdVehiculo.getSelectedItem().toString()));
         rep.setId_pi(Integer.parseInt(cmb_R_IdPieza.getSelectedItem().toString()));
         rep.setId_re(Integer.parseInt(txt_R_IdReparacion.getText()));
         rep.setFalla(txt_R_Falla.getText());
-        rep.setId_contrl(Integer.parseInt(txt_R_ControlPiezas.getText())); 
+        rep.setId_contrl(Integer.parseInt(txt_R_ControlPiezas.getText()));
 
         SimpleDateFormat dformat = new SimpleDateFormat("dd-MM-yyyy");
         String date = dformat.format(jdt_E_Fecha.getDate());
         rep.setFecha_e(date);
-        
+
         date = dformat.format(jdt_S_Fecha.getDate());
         rep.setFecha_s(date);
 
@@ -2275,6 +2299,7 @@ public class main extends javax.swing.JFrame {
         }
 
         reparaciones_Habilitar();
+        cb_R_vehiculos();
 
         cmb_R_IdVehiculo.setSelectedItem("");
         cmb_R_IdPieza.setSelectedItem("");
