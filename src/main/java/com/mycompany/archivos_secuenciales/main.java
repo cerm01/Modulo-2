@@ -1783,6 +1783,22 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_R_NuevoActionPerformed
 
     private void btn_R_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_GuardarActionPerformed
+
+        if ("Seleccione".equals(cmb_R_IdVehiculo.getSelectedItem().toString())) {
+            JOptionPane.showMessageDialog(null, "Eliga el Id del Vehiculo");
+            return;
+        }
+        
+        if ("".equals(txt_R_Falla.getText())) {
+            JOptionPane.showMessageDialog(null, "Agregue una descripcion de la falla");
+            return;
+        }
+
+        if (jdt_E_Fecha.getDate() == null || jdt_S_Fecha.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Escoja una fecha del calendario");
+            return;
+        }
+
         SimpleDateFormat fecha = new SimpleDateFormat("dd-MM-yyyy");
         String fecha_E = fecha.format(jdt_E_Fecha.getDate());
         String fecha_S = fecha.format(jdt_S_Fecha.getDate());
@@ -1822,24 +1838,26 @@ public class main extends javax.swing.JFrame {
 
                         }
                     }
+
+                    Reparaciones_Deshabilitar();
+
                     btn_R_Guardar.setEnabled(false);
                     btn_R_Nuevo.setEnabled(true);
                     btn_R_Editar.setEnabled(false);
                     btn_R_Eliminar.setEnabled(false);
                     btn_R_Cancelar.setEnabled(false);
 
-                    //band=true;
+                    cb_R_vehiculos();
+
                 } catch (FileNotFoundException ex) {
 
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "La Fecha de Entrada tiene que ser anterior a la Fecha de Salida");
             }
-
         } else {
             JOptionPane.showMessageDialog(null, "Elija una fecha posible");
         }
-        cb_R_vehiculos();
 
     }//GEN-LAST:event_btn_R_GuardarActionPerformed
 
