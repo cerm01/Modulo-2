@@ -1308,13 +1308,13 @@
                       <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                       <Component id="btn_P_Nuevo" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jButton9" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="btn_P_Guardar" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jButton10" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="btn_P_Cancelar" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jButton11" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="btn_P_Editar" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jButton13" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="btn_P_Eliminar" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -1349,10 +1349,10 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btn_P_Nuevo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="jButton9" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="jButton10" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="jButton11" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="jButton13" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="btn_P_Guardar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="btn_P_Cancelar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="btn_P_Editar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="btn_P_Eliminar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                   </Group>
@@ -1393,22 +1393,22 @@
             </Component>
             <Component class="javax.swing.JTextField" name="txt_P_Stock">
             </Component>
-            <Component class="javax.swing.JButton" name="jButton9">
+            <Component class="javax.swing.JButton" name="btn_P_Guardar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Guardar"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton10">
+            <Component class="javax.swing.JButton" name="btn_P_Cancelar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cancelar"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton11">
+            <Component class="javax.swing.JButton" name="btn_P_Editar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Editar"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton13">
+            <Component class="javax.swing.JButton" name="btn_P_Eliminar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Eliminar"/>
               </Properties>

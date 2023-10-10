@@ -351,10 +351,10 @@ public class main extends javax.swing.JFrame {
         txt_P_IdPieza = new javax.swing.JTextField();
         txt_P_Descripcion = new javax.swing.JTextField();
         txt_P_Stock = new javax.swing.JTextField();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
+        btn_P_Guardar = new javax.swing.JButton();
+        btn_P_Cancelar = new javax.swing.JButton();
+        btn_P_Editar = new javax.swing.JButton();
+        btn_P_Eliminar = new javax.swing.JButton();
         btn_P_Buscar = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JSeparator();
         btn_P_Salir = new javax.swing.JButton();
@@ -1192,13 +1192,13 @@ public class main extends javax.swing.JFrame {
 
         btn_P_Nuevo.setText("Nuevo");
 
-        jButton9.setText("Guardar");
+        btn_P_Guardar.setText("Guardar");
 
-        jButton10.setText("Cancelar");
+        btn_P_Cancelar.setText("Cancelar");
 
-        jButton11.setText("Editar");
+        btn_P_Editar.setText("Editar");
 
-        jButton13.setText("Eliminar");
+        btn_P_Eliminar.setText("Eliminar");
 
         btn_P_Buscar.setText("Buscar");
 
@@ -1245,13 +1245,13 @@ public class main extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addComponent(btn_P_Nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_P_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_P_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_P_Editar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_P_Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         pnlPiezasLayout.setVerticalGroup(
@@ -1280,10 +1280,10 @@ public class main extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(pnlPiezasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_P_Nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_P_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_P_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_P_Editar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_P_Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(44, 44, 44))
         );
 
@@ -2475,6 +2475,10 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JButton btn_C_Nuevo;
     private javax.swing.JButton btn_C_Salir;
     private javax.swing.JButton btn_P_Buscar;
+    private javax.swing.JButton btn_P_Cancelar;
+    private javax.swing.JButton btn_P_Editar;
+    private javax.swing.JButton btn_P_Eliminar;
+    private javax.swing.JButton btn_P_Guardar;
     private javax.swing.JButton btn_P_Nuevo;
     private javax.swing.JButton btn_P_Salir;
     private javax.swing.JButton btn_R_Buscar;
@@ -2494,14 +2498,10 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cb_V_SeleccioneCliente;
     private javax.swing.JComboBox<String> cmb_R_IdPieza;
     private javax.swing.JComboBox<String> cmb_R_IdVehiculo;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
