@@ -1182,6 +1182,9 @@
             <Component class="javax.swing.JTextField" name="txt_R_IdReparacion">
             </Component>
             <Component class="javax.swing.JTextField" name="txt_R_Falla">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_R_FallaActionPerformed"/>
               </Events>
@@ -1239,11 +1242,13 @@
             <Component class="com.toedter.calendar.JDateChooser" name="jdt_E_Fecha">
               <Properties>
                 <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yyyy"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="jdt_S_Fecha">
               <Properties>
                 <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yyyy"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
           </SubComponents>

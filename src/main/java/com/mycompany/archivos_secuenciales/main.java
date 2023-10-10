@@ -1007,6 +1007,7 @@ public class main extends javax.swing.JFrame {
             }
         });
 
+        txt_R_Falla.setEditable(false);
         txt_R_Falla.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_R_FallaActionPerformed(evt);
@@ -1056,8 +1057,10 @@ public class main extends javax.swing.JFrame {
         });
 
         jdt_E_Fecha.setDateFormatString("dd-MM-yyyy");
+        jdt_E_Fecha.setEnabled(false);
 
         jdt_S_Fecha.setDateFormatString("dd-MM-yyyy");
+        jdt_S_Fecha.setEnabled(false);
 
         javax.swing.GroupLayout pnlReparacionesLayout = new javax.swing.GroupLayout(pnlReparaciones);
         pnlReparaciones.setLayout(pnlReparacionesLayout);
@@ -1790,7 +1793,7 @@ public class main extends javax.swing.JFrame {
         }
         
         if ("".equals(txt_R_Falla.getText())) {
-            JOptionPane.showMessageDialog(null, "Agregue una descripcion de la falla");
+            JOptionPane.showMessageDialog(null, "Ingrese la falla");
             return;
         }
 
@@ -1882,6 +1885,22 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_V_NuevoActionPerformed
 
     private void btn_V_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_V_GuardarActionPerformed
+        
+        if ("Seleccione".equals(cb_V_SeleccioneCliente.getSelectedItem().toString())) {
+            JOptionPane.showMessageDialog(null, "Eliga el cliente");
+            return;
+        }
+        
+        if ("".equals(txt_V_Matricula.getText()) || "".equals(txt_V_Marca.getText()) || "".equals(txt_V_Modelo.getText())) {
+            JOptionPane.showMessageDialog(null, "Rellene los textos faltantes");
+            return;
+        }
+
+        if (jdt_V_Fecha.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Escoja una fecha del calendario");
+            return;
+        }
+        
         vcs = new Vehiculos();
 
         vcs.setCliente(cb_V_SeleccioneCliente.getSelectedItem().toString());
