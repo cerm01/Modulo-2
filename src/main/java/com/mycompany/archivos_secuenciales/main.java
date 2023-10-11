@@ -24,7 +24,7 @@ public class main extends javax.swing.JFrame {
     Files f;
     contacto cto;
     contacto admin;
-    
+
     piezas_File pf;
     piezas pi;
 
@@ -84,7 +84,7 @@ public class main extends javax.swing.JFrame {
         btn_R_Editar.setEnabled(false);
         btn_R_Eliminar.setEnabled(false);
         btn_R_Cancelar.setEnabled(false);
-        
+
         btn_P_Guardar.setEnabled(false);
         btn_P_Nuevo.setEnabled(true);
         btn_P_Editar.setEnabled(false);
@@ -205,7 +205,7 @@ public class main extends javax.swing.JFrame {
         jdt_E_Fecha.setEnabled(true);
         jdt_S_Fecha.setEnabled(true);
     }
-    
+
     public void Piezas_Habilitar() {
         txt_P_Descripcion.setEditable(true);
         txt_P_Stock.setEditable(true);
@@ -236,7 +236,7 @@ public class main extends javax.swing.JFrame {
 
         jdt_S_Fecha.setDate(null);
         jdt_S_Fecha.cleanup();
-        
+
         int maxID = rf.getMax();
         txt_R_IdReparacion.setText(String.valueOf(maxID));
 
@@ -244,11 +244,11 @@ public class main extends javax.swing.JFrame {
         txt_R_IdReparacion.setText("");
         txt_R_ControlPiezas.setText("");
     }
-    
+
     public void Piezas_Deshabilitar() {
         txt_P_Descripcion.setEditable(false);
         txt_P_Stock.setEditable(false);
-        
+
         int maxID = pf.getMax();
         txt_P_IdPieza.setText(String.valueOf(maxID));
 
@@ -1182,12 +1182,32 @@ public class main extends javax.swing.JFrame {
         txt_P_Stock.setEditable(false);
 
         btn_P_Guardar.setText("Guardar");
+        btn_P_Guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_P_GuardarActionPerformed(evt);
+            }
+        });
 
         btn_P_Cancelar.setText("Cancelar");
+        btn_P_Cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_P_CancelarActionPerformed(evt);
+            }
+        });
 
         btn_P_Editar.setText("Editar");
+        btn_P_Editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_P_EditarActionPerformed(evt);
+            }
+        });
 
         btn_P_Eliminar.setText("Eliminar");
+        btn_P_Eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_P_EliminarActionPerformed(evt);
+            }
+        });
 
         btn_P_Buscar.setText("Buscar");
 
@@ -1742,7 +1762,7 @@ public class main extends javax.swing.JFrame {
     private void btn_R_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_NuevoActionPerformed
         Reparaciones_Habilitar();
         cb_R_vehiculos();
-        
+
         int maxID = rf.getMax();
 
         btn_R_Guardar.setEnabled(true);
@@ -1768,7 +1788,7 @@ public class main extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Eliga el Id del Vehiculo");
             return;
         }
-        
+
         if ("".equals(txt_R_Falla.getText())) {
             JOptionPane.showMessageDialog(null, "Ingrese la falla");
             return;
@@ -1862,12 +1882,12 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_V_NuevoActionPerformed
 
     private void btn_V_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_V_GuardarActionPerformed
-        
+
         if ("Seleccione".equals(cb_V_SeleccioneCliente.getSelectedItem().toString())) {
             JOptionPane.showMessageDialog(null, "Eliga el cliente");
             return;
         }
-        
+
         if ("".equals(txt_V_Matricula.getText()) || "".equals(txt_V_Marca.getText()) || "".equals(txt_V_Modelo.getText())) {
             JOptionPane.showMessageDialog(null, "Rellene los textos faltantes");
             return;
@@ -1877,7 +1897,7 @@ public class main extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Escoja una fecha del calendario");
             return;
         }
-        
+
         vcs = new Vehiculos();
 
         vcs.setCliente(cb_V_SeleccioneCliente.getSelectedItem().toString());
@@ -2371,8 +2391,125 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_R_BuscarActionPerformed
 
     private void btn_P_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_P_NuevoActionPerformed
-        // TODO
+        Piezas_Habilitar();
+
+        int maxID = pf.getMax();
+
+        btn_P_Guardar.setEnabled(true);
+        btn_P_Nuevo.setEnabled(false);
+        btn_P_Editar.setEnabled(false);
+        btn_P_Eliminar.setEnabled(false);
+        btn_P_Cancelar.setEnabled(true);
+
+        txt_P_IdPieza.setText(String.valueOf(maxID));
+        txt_P_Descripcion.setText("");
+        txt_P_Stock.setText("");
+
     }//GEN-LAST:event_btn_P_NuevoActionPerformed
+
+    private void btn_P_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_P_GuardarActionPerformed
+
+        if ("".equals(txt_P_Descripcion.getText())) {
+            JOptionPane.showMessageDialog(null, "Ingrese la descripcion de la pieza");
+            return;
+        }
+
+        if ("".equals(txt_P_Stock.getText())) {
+            JOptionPane.showMessageDialog(null, "Indique la cantidad disponible");
+            return;
+        }
+
+        try {
+            pi = new piezas();
+            pi.SetPiz(Integer.parseInt(txt_P_IdPieza.getText()));
+
+            if (ban_piezas != true && pf.BuscarPiezas(pi) != null) {
+                JOptionPane.showMessageDialog(null, "Ese Id de pieza ya existe");
+                return;
+            }
+
+            pi.SetPiz(Integer.parseInt(txt_P_IdPieza.getText()));
+            pi.SetDescrp(txt_P_Descripcion.getText());
+            pi.SetStock(Integer.parseInt(txt_P_Stock.getText()));
+
+            if (ban_piezas != true) {
+                pf.Guardar(pi);
+                JOptionPane.showMessageDialog(null, "Guardado con Éxito");
+            } else {
+                ban_piezas = false;
+                try {
+                    pf.Editar(pi);
+                    JOptionPane.showMessageDialog(null, "Editado con Éxito");
+                    System.out.println("SI");
+                } catch (IOException ex) {
+
+                }
+            }
+
+            Piezas_Deshabilitar();
+
+            btn_P_Guardar.setEnabled(false);
+            btn_P_Nuevo.setEnabled(true);
+            btn_P_Editar.setEnabled(false);
+            btn_P_Eliminar.setEnabled(false);
+            btn_P_Cancelar.setEnabled(false);
+
+        } catch (FileNotFoundException ex) {
+
+        }
+
+    }//GEN-LAST:event_btn_P_GuardarActionPerformed
+
+    private void btn_P_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_P_CancelarActionPerformed
+        Piezas_Deshabilitar();
+
+        btn_P_Guardar.setEnabled(false);
+        btn_P_Nuevo.setEnabled(true);
+        btn_P_Editar.setEnabled(false);
+        btn_P_Eliminar.setEnabled(false);
+        btn_P_Cancelar.setEnabled(false);
+
+        ban_piezas = false;
+
+    }//GEN-LAST:event_btn_P_CancelarActionPerformed
+
+    private void btn_P_EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_P_EditarActionPerformed
+        Piezas_Habilitar();
+
+        btn_P_Guardar.setEnabled(true);
+        btn_P_Nuevo.setEnabled(false);
+        btn_P_Editar.setEnabled(false);
+        btn_P_Eliminar.setEnabled(false);
+        btn_P_Cancelar.setEnabled(true);
+
+        ban_piezas = true;
+    }//GEN-LAST:event_btn_P_EditarActionPerformed
+
+    private void btn_P_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_P_EliminarActionPerformed
+
+        pi.SetPiz(Integer.parseInt(txt_P_IdPieza.getText()));
+        pi.SetDescrp(txt_P_Descripcion.getText());
+        pi.SetStock(Integer.parseInt(txt_P_Stock.getText()));
+
+        try {
+            pf.Eliminar_Piezas(pi);
+        } catch (IOException ex) {
+
+        }
+
+        Piezas_Habilitar();
+        
+        txt_P_IdPieza.setText("");
+        txt_P_Descripcion.setText("");
+        txt_P_Stock.setText("");
+
+        btn_P_Guardar.setEnabled(false);
+        btn_P_Nuevo.setEnabled(true);
+        btn_P_Editar.setEnabled(false);
+        btn_P_Eliminar.setEnabled(false);
+        btn_P_Cancelar.setEnabled(false);
+        
+    }//GEN-LAST:event_btn_P_EliminarActionPerformed
 
     /**
      * @param args the command line arguments
