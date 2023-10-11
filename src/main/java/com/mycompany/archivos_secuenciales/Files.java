@@ -3,10 +3,12 @@ package com.mycompany.archivos_secuenciales;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.invoke.StringConcatException;
 
 
 public class Files {
@@ -17,6 +19,73 @@ public class Files {
      Object [][] datos= new Object[9][100];
      Object [][] eliminar= new Object[9][100];
     //private String path="archivo.txt";
+     
+     
+    public int getMaxId() {
+        int maxId = -1; // Inicializar con un valor negativo para manejar el caso de archivo vacío
+        
+        try {
+            read = new DataInputStream(new FileInputStream(path));
+            
+            while (true) {
+                int id = read.readInt();
+                
+                                
+                if (id > maxId) {
+                    maxId = id;
+                }
+            }
+        } catch (EOFException e) {
+            // Fin del archivo, no se hace nada aquí
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo de clientes");
+        } finally {
+            try {
+                if (read != null) {
+                    read.close();
+                }
+            } catch (IOException e) {
+                System.out.println("Error al cerrar el archivo de lectura");
+            }
+        }
+        
+        // Verificar si hay IDs sin asignar desde 0 al máximo encontrado
+        for (int i = 0; i <= maxId; i++) {
+            boolean idEncontrado = false;
+            
+            try {
+                read = new DataInputStream(new FileInputStream(path));
+                
+                while (true) {
+                    int id = read.readInt();
+                    
+                    
+                    if (id == i) {
+                        idEncontrado = true;
+                        break;
+                    }
+                }
+            } catch (EOFException e) {
+                // Fin del archivo, no se hace nada aquí
+            } catch (IOException e) {
+                System.out.println("Error al leer el archivo de clientes");
+            } finally {
+                try {
+                    if (read != null) {
+                        read.close();
+                    }
+                } catch (IOException e) {
+                    System.out.println("Error al cerrar el archivo de lectura");
+                }
+            }
+            
+            if (!idEncontrado) {
+                return i; // Devolver el primer ID sin asignar encontrado
+            }
+        }
+        
+        return maxId + 1; // Todos los IDs están asignados, asignar el siguiente número
+    }
             
             
     public void Guardar(contacto cto) throws FileNotFoundException{
