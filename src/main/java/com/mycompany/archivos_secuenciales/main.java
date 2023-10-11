@@ -1210,6 +1210,11 @@ public class main extends javax.swing.JFrame {
         });
 
         btn_P_Buscar.setText("Buscar");
+        btn_P_Buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_P_BuscarActionPerformed(evt);
+            }
+        });
 
         btn_P_Salir.setText("Salir");
         btn_P_Salir.addActionListener(new java.awt.event.ActionListener() {
@@ -2510,6 +2515,42 @@ public class main extends javax.swing.JFrame {
         btn_P_Cancelar.setEnabled(false);
         
     }//GEN-LAST:event_btn_P_EliminarActionPerformed
+
+    private void btn_P_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_P_BuscarActionPerformed
+        Piezas_Deshabilitar();
+        try {
+            pi = new piezas();
+            pi.SetPiz(Integer.parseInt(txt_P_Id.getText()));
+            pi = pf.BuscarPiezas(pi);
+
+            if (pi != null) {
+                txt_P_IdPieza.setText(String.valueOf(pi.getPiz()));
+                txt_P_Descripcion.setText(pi.getDescrp());
+                txt_P_Stock.setText(String.valueOf(pi.getStock()));
+
+                btn_P_Guardar.setEnabled(false);
+                btn_P_Nuevo.setEnabled(true);
+                btn_P_Editar.setEnabled(true);
+                btn_P_Eliminar.setEnabled(true);
+                btn_P_Cancelar.setEnabled(false);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe ese ID");
+
+                btn_P_Guardar.setEnabled(false);
+                btn_P_Nuevo.setEnabled(true);
+                btn_P_Editar.setEnabled(false);
+                btn_P_Eliminar.setEnabled(false);
+                btn_P_Cancelar.setEnabled(false);
+            }
+
+        } catch (FileNotFoundException ex) {
+
+        }
+
+        txt_P_Id.setText("");
+
+    }//GEN-LAST:event_btn_P_BuscarActionPerformed
 
     /**
      * @param args the command line arguments
