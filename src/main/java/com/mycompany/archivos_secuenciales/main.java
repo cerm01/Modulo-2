@@ -289,9 +289,9 @@ public class main extends javax.swing.JFrame {
         txt_P_Descripcion.setEditable(false);
         txt_P_Stock.setEditable(false);
 
-        int maxID = pf.getMax();
-        txt_P_IdPieza.setText(String.valueOf(maxID));
-
+        //int maxID = pf.getMax();
+        //txt_P_IdPieza.setText(String.valueOf(maxID));
+        txt_P_IdPieza.setText("");
         txt_P_Descripcion.setText("");
         txt_P_Stock.setText("");
     }
@@ -2682,10 +2682,10 @@ public class main extends javax.swing.JFrame {
                 txt_P_Stock.setText(String.valueOf(pi.getStock()));
 
                 btn_P_Guardar.setEnabled(false);
-                btn_P_Nuevo.setEnabled(true);
+                btn_P_Nuevo.setEnabled(false);
                 btn_P_Editar.setEnabled(true);
                 btn_P_Eliminar.setEnabled(true);
-                btn_P_Cancelar.setEnabled(false);
+                btn_P_Cancelar.setEnabled(true);
 
             } else {
                 JOptionPane.showMessageDialog(null, "No existe ese ID");
