@@ -19,7 +19,6 @@ public class main extends javax.swing.JFrame {
     DataOutputStream write;
     DataInputStream read;
     String path = "C:\\Proyecto\\vc.txt";
-    String pz = "C:\\Proyecto\\piezas.txt";
 
     Files f;
     contacto cto;
@@ -149,6 +148,33 @@ public class main extends javax.swing.JFrame {
 
                 item = String.valueOf(id);
                 cmb_R_IdVehiculo.addItem(item);
+            }
+        } catch (FileNotFoundException ex) {
+
+        } catch (IOException ex) {
+        }
+        try {
+            read.close();
+        } catch (IOException ex) {
+
+        }
+    }
+
+    public void cb_R_Pieza() {
+        String pz = "C:\\Proyecto\\piezas.txt";
+        cmb_R_IdPieza.removeAllItems();
+        cmb_R_IdPieza.addItem("Seleccione");
+        int id = 0, stock = 0;
+        String item = "", des = "";
+        try {
+            read = new DataInputStream(new FileInputStream(pz));
+            while (true) {
+                id = read.readInt();
+                des = read.readUTF();
+                stock = read.readInt();
+
+                item = String.valueOf(id);
+                cmb_R_IdPieza.addItem(item);
             }
         } catch (FileNotFoundException ex) {
 
@@ -984,7 +1010,7 @@ public class main extends javax.swing.JFrame {
 
         cmb_R_IdVehiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
 
-        cmb_R_IdPieza.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05" }));
+        cmb_R_IdPieza.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
 
         btn_R_Nuevo.setText("Nuevo");
         btn_R_Nuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -1499,6 +1525,7 @@ public class main extends javax.swing.JFrame {
                 txt_V_IdVehiculo.setText(String.valueOf(maxID));
                 cb_vehiculos();
                 cb_R_vehiculos();
+                cb_R_Pieza();
 
                 txtUsuario.setText("");
                 txtPassword.setText("");
@@ -1767,6 +1794,7 @@ public class main extends javax.swing.JFrame {
     private void btn_R_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_NuevoActionPerformed
         Reparaciones_Habilitar();
         cb_R_vehiculos();
+        cb_R_Pieza();
 
         int maxID = rf.getMax();
 
@@ -1791,6 +1819,11 @@ public class main extends javax.swing.JFrame {
 
         if ("Seleccione".equals(cmb_R_IdVehiculo.getSelectedItem().toString())) {
             JOptionPane.showMessageDialog(null, "Eliga el Id del Vehiculo");
+            return;
+        }
+
+        if ("Seleccione".equals(cmb_R_IdPieza.getSelectedItem().toString())) {
+            JOptionPane.showMessageDialog(null, "Eliga el Id de la pieza a usar");
             return;
         }
 
@@ -1853,6 +1886,7 @@ public class main extends javax.swing.JFrame {
                     btn_R_Cancelar.setEnabled(false);
 
                     cb_R_vehiculos();
+                    cb_R_Pieza();
 
                 } catch (FileNotFoundException ex) {
 
@@ -2287,6 +2321,7 @@ public class main extends javax.swing.JFrame {
     private void btn_R_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_CancelarActionPerformed
         Reparaciones_Deshabilitar();
         cb_R_vehiculos();
+        cb_R_Pieza();
         jdt_V_Fecha.setDate(null);
 
         btn_R_Guardar.setEnabled(false);
@@ -2325,6 +2360,7 @@ public class main extends javax.swing.JFrame {
 
         Reparaciones_Habilitar();
         cb_R_vehiculos();
+        cb_R_Pieza();
 
         cmb_R_IdVehiculo.setSelectedItem("");
         cmb_R_IdPieza.setSelectedItem("");
@@ -2348,9 +2384,7 @@ public class main extends javax.swing.JFrame {
 
             if (rep != null) {
                 cmb_R_IdVehiculo.setSelectedItem(String.valueOf(rep.getId_ve()));
-                System.out.println(rep.getId_ve());
-                cmb_R_IdPieza.setSelectedItem(rep.getId_pi());
-                System.out.println(rep.getId_pi());
+                cmb_R_IdPieza.setSelectedItem(String.valueOf(rep.getId_pi()));
                 txt_R_IdReparacion.setText(String.valueOf(rep.getId_re()));
                 txt_R_Falla.setText(rep.getFalla());
                 txt_R_ControlPiezas.setText(String.valueOf(rep.getId_contrl()));
@@ -2503,7 +2537,7 @@ public class main extends javax.swing.JFrame {
         }
 
         Piezas_Habilitar();
-        
+
         txt_P_IdPieza.setText("");
         txt_P_Descripcion.setText("");
         txt_P_Stock.setText("");
@@ -2513,7 +2547,7 @@ public class main extends javax.swing.JFrame {
         btn_P_Editar.setEnabled(false);
         btn_P_Eliminar.setEnabled(false);
         btn_P_Cancelar.setEnabled(false);
-        
+
     }//GEN-LAST:event_btn_P_EliminarActionPerformed
 
     private void btn_P_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_P_BuscarActionPerformed
