@@ -2509,11 +2509,36 @@ public class main extends javax.swing.JFrame {
     private void btn_R_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_BuscarActionPerformed
         if (txt_R_Id.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese el ID de la reparacion");
+            txt_R_Id.setText("");
+            cb_R_IdVehiculo.setEditable(true);
+            cb_R_IdPieza.setEditable(true);
+            cb_R_IdVehiculo.setSelectedItem("Seleccione");
+            cb_R_IdPieza.setSelectedItem("Seleccione");
+            cb_R_IdPieza.setEditable(false);
+            cb_R_IdVehiculo.setEditable(false);
+            txt_R_IdReparacion.setText("");
+            txt_R_Falla.setText("");
+            txt_R_ControlPiezas.setText("");
+            jdt_E_Fecha.setDate(null);
+            jdt_S_Fecha.setDate(null);
+
             return;
         }
         
         if (!ValidaNum(txt_R_Id.getText().trim())) {
             JOptionPane.showMessageDialog(null, "Ingrese un ID valido");
+            txt_R_Id.setText("");
+            cb_R_IdVehiculo.setEditable(true);
+            cb_R_IdPieza.setEditable(true);
+            cb_R_IdVehiculo.setSelectedItem("Seleccione");
+            cb_R_IdPieza.setSelectedItem("Seleccione");
+            cb_R_IdPieza.setEditable(false);
+            cb_R_IdVehiculo.setEditable(false);
+            txt_R_IdReparacion.setText("");
+            txt_R_Falla.setText("");
+            txt_R_ControlPiezas.setText("");
+            jdt_E_Fecha.setDate(null);
+            jdt_S_Fecha.setDate(null);
             return;
         }
 
@@ -2560,6 +2585,20 @@ public class main extends javax.swing.JFrame {
                 btn_R_Editar.setEnabled(false);
                 btn_R_Eliminar.setEnabled(false);
                 btn_R_Cancelar.setEnabled(false);
+
+                txt_R_Id.setText("");
+                cb_R_IdVehiculo.setEditable(true);
+                cb_R_IdPieza.setEditable(true);
+                cb_R_IdVehiculo.setSelectedItem("Seleccione");
+                cb_R_IdPieza.setSelectedItem("Seleccione");
+                cb_R_IdPieza.setEditable(false);
+                cb_R_IdVehiculo.setEditable(false);
+                txt_R_IdReparacion.setText("");
+                txt_R_Falla.setText("");
+                txt_R_ControlPiezas.setText("");
+                jdt_E_Fecha.setDate(null);
+                jdt_S_Fecha.setDate(null);
+
             }
 
         } catch (FileNotFoundException ex) {
