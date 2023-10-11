@@ -2733,11 +2733,19 @@ public class main extends javax.swing.JFrame {
     private void btn_P_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_P_BuscarActionPerformed
         if (txt_P_Id.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese el ID de la pieza");
+            txt_P_Id.setText("");
+            txt_P_IdPieza.setText("");
+            txt_P_Descripcion.setText("");
+            txt_P_Stock.setText("");
             return;
         }
         
         if (!ValidaNum(txt_P_Id.getText().trim())) {
             JOptionPane.showMessageDialog(null, "Ingrese un ID valido");
+            txt_P_Id.setText("");
+            txt_P_IdPieza.setText("");
+            txt_P_Descripcion.setText("");
+            txt_P_Stock.setText("");
             return;
         }
 
@@ -2766,6 +2774,11 @@ public class main extends javax.swing.JFrame {
                 btn_P_Editar.setEnabled(false);
                 btn_P_Eliminar.setEnabled(false);
                 btn_P_Cancelar.setEnabled(false);
+
+                txt_P_Id.setText("");
+                txt_P_IdPieza.setText("");
+                txt_P_Descripcion.setText("");
+                txt_P_Stock.setText("");
             }
 
         } catch (FileNotFoundException ex) {
