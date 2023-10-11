@@ -1249,6 +1249,15 @@ public class main extends javax.swing.JFrame {
             if (ban != true) {
                 cto.setPassword(txtPsw.getText());
                 f.Guardar(cto);
+                txtID.setText("");
+                txtNombre.setText("");
+                txtTelefono.setText("");
+                txtPaterno.setText("");
+                txtMaterno.setText("");
+                txtUsername.setText("");
+                cbPerfil.setSelectedItem("");
+                txtDireccion.setText("");
+
                 JOptionPane.showMessageDialog(null, "Guardado con Éxito");
             } else {
                 ban = false;

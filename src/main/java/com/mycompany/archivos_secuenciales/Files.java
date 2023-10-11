@@ -21,66 +21,70 @@ public class Files {
     //private String path="archivo.txt";
      
      
-    public int getMaxId(){
-        int maxId = -1;
-        try{
+    public int getMaxId() {
+        int maxId = -1; // Inicializar con un valor negativo para manejar el caso de archivo vacío
+        
+        try {
             read = new DataInputStream(new FileInputStream(path));
-
-            while(true){
+            
+            while (true) {
                 int id = read.readInt();
-
-                if (id > maxId){
+                
+                                
+                if (id > maxId) {
                     maxId = id;
                 }
             }
-        } catch (EOFException e){
-            // fin del archivo
-        } catch (IOException e){
-            System.out.println("Error al leer el archivo");
+        } catch (EOFException e) {
+            // Fin del archivo, no se hace nada aquí
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo de clientes");
         } finally {
             try {
-                if (read != null){
+                if (read != null) {
                     read.close();
                 }
-            } catch (IOException e){
-                System.out.println("Error al cerrar el archivo");
+            } catch (IOException e) {
+                System.out.println("Error al cerrar el archivo de lectura");
             }
         }
-
-        // Verificar si hay IDs sin asignar desde 0 al maximo encontrado
-        for (int i = 0; i <= maxId; i++){
+        
+        // Verificar si hay IDs sin asignar desde 0 al máximo encontrado
+        for (int i = 0; i <= maxId; i++) {
             boolean idEncontrado = false;
-
-            try{
+            
+            try {
                 read = new DataInputStream(new FileInputStream(path));
-
-                while(true){
+                
+                while (true) {
                     int id = read.readInt();
-
-                    if (id == i){
+                    
+                    
+                    if (id == i) {
                         idEncontrado = true;
                         break;
                     }
-                }    
-            }catch(EOFException e){
-                // fin del archivo
-            } catch (IOException e){
-                System.out.println("Error al leer el archivo");
+                }
+            } catch (EOFException e) {
+                // Fin del archivo, no se hace nada aquí
+            } catch (IOException e) {
+                System.out.println("Error al leer el archivo de clientes");
             } finally {
                 try {
-                    if (read != null){
+                    if (read != null) {
                         read.close();
                     }
-                } catch (IOException e){
-                    System.out.println("Error al cerrar el archivo");
+                } catch (IOException e) {
+                    System.out.println("Error al cerrar el archivo de lectura");
                 }
             }
-
-            if (!idEncontrado){
-                return i;
+            
+            if (!idEncontrado) {
+                return i; // Devolver el primer ID sin asignar encontrado
             }
         }
-        return maxId + 1;
+        
+        return maxId + 1; // Todos los IDs están asignados, asignar el siguiente número
     }
             
             
