@@ -2122,11 +2122,25 @@ public class main extends javax.swing.JFrame {
     private void btn_V_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_V_BuscarActionPerformed
         if (txt_V_Buscar.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese el ID del vehiculo");
+            txt_V_Buscar.setText("");
+            cb_V_SeleccioneCliente.setSelectedItem("Seleccione");
+            txt_V_IdVehiculo.setText("");
+            txt_V_Matricula.setText("");
+            txt_V_Marca.setText("");
+            txt_V_Modelo.setText("");
+            jdt_V_Fecha.setDate(null);
             return;
         }
 
         if (!ValidaNum(txt_V_Buscar.getText().trim())) {
             JOptionPane.showMessageDialog(null, "Ingrese un ID valido");
+            txt_V_Buscar.setText("");
+            cb_V_SeleccioneCliente.setSelectedItem("Seleccione");
+            txt_V_IdVehiculo.setText("");
+            txt_V_Matricula.setText("");
+            txt_V_Marca.setText("");
+            txt_V_Modelo.setText("");
+            jdt_V_Fecha.setDate(null);
             return;
         }
 
