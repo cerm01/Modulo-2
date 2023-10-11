@@ -103,7 +103,7 @@ public class main extends javax.swing.JFrame {
     }
 
     public boolean ValidaNum(String dato) {
-        return dato.matches("[0-101]");
+        return dato.matches("[0-9]*");
     }
 
     public void cb_vehiculos() {
