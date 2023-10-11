@@ -2271,11 +2271,24 @@ public class main extends javax.swing.JFrame {
         //Verificar que el campo txt_C_Id no este vacio
         if (txt_C_Buscar.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese el ID del cliente");
+            txt_C_Buscar.setText("");
+            txt_C_IdUsuario.setText(IdUs);
+            txt_C_IdCliente.setText("");
+            txt_C_Nombre.setText("");
+            txt_C_ApellidoPaterno.setText("");
+            txt_C_ApellidoMaterno.setText("");
+
             return;
         }
 
         if (!ValidaNum(txt_C_Buscar.getText().trim())) {
             JOptionPane.showMessageDialog(null, "Ingrese un ID valido");
+            txt_C_Buscar.setText("");
+            txt_C_IdUsuario.setText(IdUs);
+            txt_C_IdCliente.setText("");
+            txt_C_Nombre.setText("");
+            txt_C_ApellidoPaterno.setText("");
+            txt_C_ApellidoMaterno.setText("");
             return;
         }
 
@@ -2297,6 +2310,11 @@ public class main extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "No existe el cliente");
             txt_C_Buscar.setText("");
+            txt_C_IdUsuario.setText(IdUs);
+            txt_C_IdCliente.setText("");
+            txt_C_Nombre.setText("");
+            txt_C_ApellidoPaterno.setText("");
+            txt_C_ApellidoMaterno.setText("");
 
         }
 
