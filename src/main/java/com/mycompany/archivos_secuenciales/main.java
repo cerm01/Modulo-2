@@ -258,8 +258,9 @@ public class main extends javax.swing.JFrame {
 
         jdt_V_Fecha.setDate(null);
         jdt_V_Fecha.cleanup();
-        int maxID = v.getMax();
-        txt_V_IdVehiculo.setText(String.valueOf(maxID));
+        //int maxID = v.getMax();
+        //txt_V_IdVehiculo.setText(""String.valueOf(maxID)"");
+        txt_V_IdVehiculo.setText("");
         txt_V_Matricula.setText("");
         txt_V_Marca.setText("");
         txt_V_Modelo.setText("");
