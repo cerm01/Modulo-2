@@ -947,7 +947,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="lbl_R_IdVehiculo" min="-2" pref="100" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="cmb_R_IdVehiculo" min="-2" pref="200" max="-2" attributes="0"/>
+                                      <Component id="cb_R_IdVehiculo" min="-2" pref="200" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="lbl_R_Id_Reparacion" min="-2" pref="100" max="-2" attributes="0"/>
@@ -957,7 +957,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="lbl_R_IdPieza" min="-2" pref="100" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="cmb_R_IdPieza" min="-2" pref="200" max="-2" attributes="0"/>
+                                      <Component id="cb_R_IdPieza" min="-2" pref="200" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="lbl_R_Falla" min="-2" pref="100" max="-2" attributes="0"/>
@@ -1026,12 +1026,12 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lbl_R_IdVehiculo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="cmb_R_IdVehiculo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="cb_R_IdVehiculo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lbl_R_IdPieza" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="cmb_R_IdPieza" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="cb_R_IdPieza" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -1114,7 +1114,7 @@
                 <Property name="text" type="java.lang.String" value="Fecha Salida"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="cmb_R_IdVehiculo">
+            <Component class="javax.swing.JComboBox" name="cb_R_IdVehiculo">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="1">
@@ -1126,7 +1126,7 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JComboBox" name="cmb_R_IdPieza">
+            <Component class="javax.swing.JComboBox" name="cb_R_IdPieza">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="1">
@@ -1135,7 +1135,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmb_R_IdPiezaActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cb_R_IdPiezaActionPerformed"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>

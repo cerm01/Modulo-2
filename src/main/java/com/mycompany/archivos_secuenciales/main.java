@@ -105,6 +105,10 @@ public class main extends javax.swing.JFrame {
 
     }
 
+    public boolean ValidaNum(String dato) {
+        return dato.matches("[0-101]");
+    }
+
     public void cb_vehiculos() {
         cb_V_SeleccioneCliente.removeAllItems();
         cb_V_SeleccioneCliente.addItem("Seleccione");
@@ -132,8 +136,8 @@ public class main extends javax.swing.JFrame {
 
     public void cb_R_vehiculos() {
         String vl = "C:\\Proyecto\\vehiculos.txt";
-        cmb_R_IdVehiculo.removeAllItems();
-        cmb_R_IdVehiculo.addItem("Seleccione");
+        cb_R_IdVehiculo.removeAllItems();
+        cb_R_IdVehiculo.addItem("Seleccione");
         int id;
         String item = "", cl = "", mat = "", marc = "", mo = "", fe = "";;
         try {
@@ -147,7 +151,7 @@ public class main extends javax.swing.JFrame {
                 fe = read.readUTF();
 
                 item = String.valueOf(id);
-                cmb_R_IdVehiculo.addItem(item);
+                cb_R_IdVehiculo.addItem(item);
             }
         } catch (FileNotFoundException ex) {
 
@@ -162,8 +166,8 @@ public class main extends javax.swing.JFrame {
 
     public void cb_R_Pieza() {
         String pz = "C:\\Proyecto\\piezas.txt";
-        cmb_R_IdPieza.removeAllItems();
-        cmb_R_IdPieza.addItem("Seleccione");
+        cb_R_IdPieza.removeAllItems();
+        cb_R_IdPieza.addItem("Seleccione");
         int id = 0, stock = 0;
         String item = "", des = "";
         try {
@@ -174,7 +178,7 @@ public class main extends javax.swing.JFrame {
                 stock = read.readInt();
 
                 item = String.valueOf(id);
-                cmb_R_IdPieza.addItem(item);
+                cb_R_IdPieza.addItem(item);
             }
         } catch (FileNotFoundException ex) {
 
@@ -190,7 +194,7 @@ public class main extends javax.swing.JFrame {
     public void cb_R_Control() {
         try {
             pi = new piezas();
-            pi.SetPiz(Integer.parseInt(cmb_R_IdPieza.getSelectedItem().toString()));
+            pi.SetPiz(Integer.parseInt(cb_R_IdPieza.getSelectedItem().toString()));
             pi = pf.BuscarPiezas(pi);
 
             txt_R_ControlPiezas.setText(String.valueOf(pi.getStock()));
@@ -391,8 +395,8 @@ public class main extends javax.swing.JFrame {
         lbl_R_ControlPiezas = new javax.swing.JLabel();
         lbl_R_FechaEntrada = new javax.swing.JLabel();
         lbl_R_FechaSalida = new javax.swing.JLabel();
-        cmb_R_IdVehiculo = new javax.swing.JComboBox<>();
-        cmb_R_IdPieza = new javax.swing.JComboBox<>();
+        cb_R_IdVehiculo = new javax.swing.JComboBox<>();
+        cb_R_IdPieza = new javax.swing.JComboBox<>();
         btn_R_Nuevo = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
         txt_R_Id = new javax.swing.JTextField();
@@ -1021,12 +1025,12 @@ public class main extends javax.swing.JFrame {
 
         lbl_R_FechaSalida.setText("Fecha Salida");
 
-        cmb_R_IdVehiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
+        cb_R_IdVehiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
 
-        cmb_R_IdPieza.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
-        cmb_R_IdPieza.addActionListener(new java.awt.event.ActionListener() {
+        cb_R_IdPieza.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
+        cb_R_IdPieza.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmb_R_IdPiezaActionPerformed(evt);
+                cb_R_IdPiezaActionPerformed(evt);
             }
         });
 
@@ -1103,7 +1107,7 @@ public class main extends javax.swing.JFrame {
                             .addGroup(pnlReparacionesLayout.createSequentialGroup()
                                 .addComponent(lbl_R_IdVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(cmb_R_IdVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cb_R_IdVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnlReparacionesLayout.createSequentialGroup()
                                 .addComponent(lbl_R_Id_Reparacion, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -1111,7 +1115,7 @@ public class main extends javax.swing.JFrame {
                             .addGroup(pnlReparacionesLayout.createSequentialGroup()
                                 .addComponent(lbl_R_IdPieza, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(cmb_R_IdPieza, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cb_R_IdPieza, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnlReparacionesLayout.createSequentialGroup()
                                 .addComponent(lbl_R_Falla, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -1165,11 +1169,11 @@ public class main extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlReparacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_R_IdVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmb_R_IdVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cb_R_IdVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addGroup(pnlReparacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_R_IdPieza, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmb_R_IdPieza, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cb_R_IdPieza, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlReparacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_R_Id_Reparacion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1366,6 +1370,11 @@ public class main extends javax.swing.JFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         if (txtBuscar.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese el ID del usuario");
+            return;
+        }
+
+        if (!ValidaNum(txtBuscar.getText().trim())) {
+            JOptionPane.showMessageDialog(null, "Ingrese un ID valido");
             return;
         }
 
@@ -1829,8 +1838,8 @@ public class main extends javax.swing.JFrame {
         btn_R_Eliminar.setEnabled(false);
         btn_R_Cancelar.setEnabled(true);
 
-        cmb_R_IdVehiculo.setSelectedItem("");
-        cmb_R_IdPieza.setSelectedItem("");
+        cb_R_IdVehiculo.setSelectedItem("");
+        cb_R_IdPieza.setSelectedItem("");
         txt_R_IdReparacion.setText(String.valueOf(maxID));
         txt_R_Falla.setText("");
         txt_R_ControlPiezas.setText("");
@@ -1842,12 +1851,12 @@ public class main extends javax.swing.JFrame {
 
     private void btn_R_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_GuardarActionPerformed
 
-        if ("Seleccione".equals(cmb_R_IdVehiculo.getSelectedItem().toString())) {
+        if ("Seleccione".equals(cb_R_IdVehiculo.getSelectedItem().toString())) {
             JOptionPane.showMessageDialog(null, "Eliga el Id del Vehiculo");
             return;
         }
 
-        if ("Seleccione".equals(cmb_R_IdPieza.getSelectedItem().toString())) {
+        if ("Seleccione".equals(cb_R_IdPieza.getSelectedItem().toString())) {
             JOptionPane.showMessageDialog(null, "Eliga el Id de la pieza a usar");
             return;
         }
@@ -1881,8 +1890,8 @@ public class main extends javax.swing.JFrame {
                         return;
                     }
 
-                    rep.setId_ve(Integer.parseInt(cmb_R_IdVehiculo.getSelectedItem().toString()));
-                    rep.setId_pi(Integer.parseInt(cmb_R_IdPieza.getSelectedItem().toString()));
+                    rep.setId_ve(Integer.parseInt(cb_R_IdVehiculo.getSelectedItem().toString()));
+                    rep.setId_pi(Integer.parseInt(cb_R_IdPieza.getSelectedItem().toString()));
                     rep.setFalla(txt_R_Falla.getText());
                     rep.setId_contrl(Integer.parseInt(txt_R_ControlPiezas.getText()));
                     rep.setFecha_e(fecha_E);
@@ -2065,6 +2074,11 @@ public class main extends javax.swing.JFrame {
             return;
         }
 
+        if (!ValidaNum(txt_V_Buscar.getText().trim())) {
+            JOptionPane.showMessageDialog(null, "Ingrese un ID valido");
+            return;
+        }
+
         Vehiculos_Deshabilitar();
         try {
             vcs = new Vehiculos();
@@ -2206,6 +2220,11 @@ public class main extends javax.swing.JFrame {
         //Verificar que el campo txt_C_Id no este vacio
         if (txt_C_Buscar.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese el ID del cliente");
+            return;
+        }
+
+        if (!ValidaNum(txt_C_Buscar.getText().trim())) {
+            JOptionPane.showMessageDialog(null, "Ingrese un ID valido");
             return;
         }
 
@@ -2367,8 +2386,8 @@ public class main extends javax.swing.JFrame {
 
     private void btn_R_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_EliminarActionPerformed
 
-        rep.setId_ve(Integer.parseInt(cmb_R_IdVehiculo.getSelectedItem().toString()));
-        rep.setId_pi(Integer.parseInt(cmb_R_IdPieza.getSelectedItem().toString()));
+        rep.setId_ve(Integer.parseInt(cb_R_IdVehiculo.getSelectedItem().toString()));
+        rep.setId_pi(Integer.parseInt(cb_R_IdPieza.getSelectedItem().toString()));
         rep.setId_re(Integer.parseInt(txt_R_IdReparacion.getText()));
         rep.setFalla(txt_R_Falla.getText());
         rep.setId_contrl(Integer.parseInt(txt_R_ControlPiezas.getText()));
@@ -2390,8 +2409,8 @@ public class main extends javax.swing.JFrame {
         cb_R_vehiculos();
         cb_R_Pieza();
 
-        cmb_R_IdVehiculo.setSelectedItem("");
-        cmb_R_IdPieza.setSelectedItem("");
+        cb_R_IdVehiculo.setSelectedItem("");
+        cb_R_IdPieza.setSelectedItem("");
         txt_R_IdReparacion.setText("");
         txt_R_Falla.setText("");
         txt_R_ControlPiezas.setText("");
@@ -2408,6 +2427,11 @@ public class main extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Ingrese el ID de la reparacion");
             return;
         }
+        
+        if (!ValidaNum(txt_R_Id.getText().trim())) {
+            JOptionPane.showMessageDialog(null, "Ingrese un ID valido");
+            return;
+        }
 
         Reparaciones_Deshabilitar();
         try {
@@ -2416,8 +2440,8 @@ public class main extends javax.swing.JFrame {
             rep = rf.BuscarReparacion(rep);
 
             if (rep != null) {
-                cmb_R_IdVehiculo.setSelectedItem(String.valueOf(rep.getId_ve()));
-                cmb_R_IdPieza.setSelectedItem(String.valueOf(rep.getId_pi()));
+                cb_R_IdVehiculo.setSelectedItem(String.valueOf(rep.getId_ve()));
+                cb_R_IdPieza.setSelectedItem(String.valueOf(rep.getId_pi()));
                 txt_R_IdReparacion.setText(String.valueOf(rep.getId_re()));
                 txt_R_Falla.setText(rep.getFalla());
                 txt_R_ControlPiezas.setText(String.valueOf(rep.getId_contrl()));
@@ -2588,6 +2612,11 @@ public class main extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Ingrese el ID de la pieza");
             return;
         }
+        
+        if (!ValidaNum(txt_P_Id.getText().trim())) {
+            JOptionPane.showMessageDialog(null, "Ingrese un ID valido");
+            return;
+        }
 
         Piezas_Deshabilitar();
         try {
@@ -2624,17 +2653,17 @@ public class main extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btn_P_BuscarActionPerformed
 
-    private void cmb_R_IdPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_R_IdPiezaActionPerformed
+    private void cb_R_IdPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_R_IdPiezaActionPerformed
 
-        if (cmb_R_IdPieza.getSelectedItem() != null) {
-            if ("Seleccione".equals(cmb_R_IdPieza.getSelectedItem().toString())) {
+        if (cb_R_IdPieza.getSelectedItem() != null) {
+            if ("Seleccione".equals(cb_R_IdPieza.getSelectedItem().toString())) {
                 txt_R_ControlPiezas.setText("");
-            } else if (!"Seleccione".equals(cmb_R_IdPieza.getSelectedItem().toString())) {
+            } else if (!"Seleccione".equals(cb_R_IdPieza.getSelectedItem().toString())) {
                 cb_R_Control();
             }
         }
 
-    }//GEN-LAST:event_cmb_R_IdPiezaActionPerformed
+    }//GEN-LAST:event_cb_R_IdPiezaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2711,9 +2740,9 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JButton btn_V_Guardar;
     private javax.swing.JButton btn_V_Nuevo;
     private javax.swing.JComboBox<String> cbPerfil;
+    private javax.swing.JComboBox<String> cb_R_IdPieza;
+    private javax.swing.JComboBox<String> cb_R_IdVehiculo;
     private javax.swing.JComboBox<String> cb_V_SeleccioneCliente;
-    private javax.swing.JComboBox<String> cmb_R_IdPieza;
-    private javax.swing.JComboBox<String> cmb_R_IdVehiculo;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton3;
