@@ -2303,8 +2303,8 @@ public class main extends javax.swing.JFrame {
         btn_C_Eliminar.setEnabled(true);
         btn_C_Cancelar.setEnabled(true);
 
-        txt_C_IdUsuario.setEditable(true);
-        txt_C_IdCliente.setEditable(true);
+        txt_C_IdUsuario.setEditable(false);
+        txt_C_IdCliente.setEditable(false);
         txt_C_Nombre.setEditable(true);
         txt_C_ApellidoPaterno.setEditable(true);
         txt_C_ApellidoMaterno.setEditable(true);
