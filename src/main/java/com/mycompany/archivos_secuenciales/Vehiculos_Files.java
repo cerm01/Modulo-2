@@ -308,7 +308,8 @@ public class Vehiculos_Files {
                 return i; // Devolver el primer ID sin asignar encontrado
             }
         }
-        
+        System.out.println("MAXID");
+        System.out.println(maxId);
         return maxId + 1; // Todos los IDs están asignados, asignar el siguiente número
     }
       

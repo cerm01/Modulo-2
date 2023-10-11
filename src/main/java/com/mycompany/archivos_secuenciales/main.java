@@ -2144,9 +2144,7 @@ public class main extends javax.swing.JFrame {
         txt_C_Nombre.setText("");
         txt_C_ApellidoPaterno.setText("");
         txt_C_ApellidoMaterno.setText("");
-
-        txt_C_IdUsuario.setEditable(true);
-        txt_C_IdCliente.setEditable(true);
+        
         txt_C_Nombre.setEditable(true);
         txt_C_ApellidoPaterno.setEditable(true);
         txt_C_ApellidoMaterno.setEditable(true);
