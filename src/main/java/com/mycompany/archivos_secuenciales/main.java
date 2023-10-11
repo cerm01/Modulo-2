@@ -2150,10 +2150,10 @@ public class main extends javax.swing.JFrame {
                 jdt_V_Fecha.setDate(formato);
 
                 btn_V_Guardar.setEnabled(false);
-                btn_V_Nuevo.setEnabled(true);
+                btn_V_Nuevo.setEnabled(false);
                 btn_V_Editar.setEnabled(true);
                 btn_V_Eliminar.setEnabled(true);
-                btn_V_Cancelar.setEnabled(false);
+                btn_V_Cancelar.setEnabled(true);
             } else {
                 JOptionPane.showMessageDialog(null, "No existe ese ID");
 
@@ -2161,7 +2161,7 @@ public class main extends javax.swing.JFrame {
                 btn_V_Nuevo.setEnabled(true);
                 btn_V_Editar.setEnabled(false);
                 btn_V_Eliminar.setEnabled(false);
-                btn_V_Cancelar.setEnabled(false);
+                btn_V_Cancelar.setEnabled(true);
             }
 
         } catch (FileNotFoundException ex) {
