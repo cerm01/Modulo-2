@@ -1364,6 +1364,11 @@ public class main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        if (txtBuscar.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese el ID del usuario");
+            return;
+        }
+
         try {
             cto = new contacto();
             cto.setId(Integer.parseInt(txtBuscar.getText()));
@@ -1543,13 +1548,9 @@ public class main extends javax.swing.JFrame {
 
                 int maxID = v.getMax();
                 txt_V_IdVehiculo.setText(String.valueOf(maxID));
-                System.out.println("SIP");
                 cb_vehiculos();
-                System.out.println("funciuona");
                 cb_R_vehiculos();
-                System.out.println("ovio");
                 cb_R_Pieza();
-                System.out.println("aqui no es");
 
                 txtUsuario.setText("");
                 txtPassword.setText("");
@@ -2059,6 +2060,11 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_V_EliminarActionPerformed
 
     private void btn_V_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_V_BuscarActionPerformed
+        if (txt_V_Buscar.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese el ID del vehiculo");
+            return;
+        }
+
         Vehiculos_Deshabilitar();
         try {
             vcs = new Vehiculos();
@@ -2398,6 +2404,11 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_R_EliminarActionPerformed
 
     private void btn_R_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_BuscarActionPerformed
+        if (txt_R_Id.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese el ID de la reparacion");
+            return;
+        }
+
         Reparaciones_Deshabilitar();
         try {
             rep = new reparaciones();
@@ -2573,6 +2584,11 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_P_EliminarActionPerformed
 
     private void btn_P_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_P_BuscarActionPerformed
+        if (txt_P_Id.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese el ID de la pieza");
+            return;
+        }
+
         Piezas_Deshabilitar();
         try {
             pi = new piezas();
@@ -2609,7 +2625,7 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_P_BuscarActionPerformed
 
     private void cmb_R_IdPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_R_IdPiezaActionPerformed
-        
+
         if (cmb_R_IdPieza.getSelectedItem() != null) {
             if ("Seleccione".equals(cmb_R_IdPieza.getSelectedItem().toString())) {
                 txt_R_ControlPiezas.setText("");
