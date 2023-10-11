@@ -2572,10 +2572,10 @@ public class main extends javax.swing.JFrame {
                 jdt_S_Fecha.setDate(formato);
 
                 btn_R_Guardar.setEnabled(false);
-                btn_R_Nuevo.setEnabled(true);
+                btn_R_Nuevo.setEnabled(false);
                 btn_R_Editar.setEnabled(true);
                 btn_R_Eliminar.setEnabled(true);
-                btn_R_Cancelar.setEnabled(false);
+                btn_R_Cancelar.setEnabled(true);
 
             } else {
                 JOptionPane.showMessageDialog(null, "No existe ese ID");
