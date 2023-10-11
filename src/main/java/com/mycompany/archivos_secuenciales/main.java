@@ -1604,7 +1604,7 @@ public class main extends javax.swing.JFrame {
                 txt_C_IdUsuario.setText(IdUs);
 
                 int maxID = v.getMax();
-                txt_V_IdVehiculo.setText(String.valueOf(maxID));
+                //txt_V_IdVehiculo.setText(String.valueOf(maxID));
                 cb_vehiculos();
                 cb_R_vehiculos();
                 cb_R_Pieza();
@@ -2060,6 +2060,8 @@ public class main extends javax.swing.JFrame {
             btn_V_Editar.setEnabled(false);
             btn_V_Eliminar.setEnabled(false);
             btn_V_Cancelar.setEnabled(false);
+
+            txt_V_IdVehiculo.setText("");
         } else {
             JOptionPane.showMessageDialog(null, "Elija una fecha posible");
         }
