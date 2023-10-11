@@ -187,6 +187,19 @@ public class main extends javax.swing.JFrame {
         }
     }
 
+    public void cb_R_Control() {
+        try {
+            pi = new piezas();
+            pi.SetPiz(Integer.parseInt(cmb_R_IdPieza.getSelectedItem().toString()));
+            pi = pf.BuscarPiezas(pi);
+
+            txt_R_ControlPiezas.setText(String.valueOf(pi.getStock()));
+
+        } catch (FileNotFoundException ex) {
+
+        }
+    }
+
     public void Habilitar() {
         txtNombre.setEditable(true);
         txtPaterno.setEditable(true);
@@ -1011,6 +1024,11 @@ public class main extends javax.swing.JFrame {
         cmb_R_IdVehiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
 
         cmb_R_IdPieza.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
+        cmb_R_IdPieza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmb_R_IdPiezaActionPerformed(evt);
+            }
+        });
 
         btn_R_Nuevo.setText("Nuevo");
         btn_R_Nuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -1022,6 +1040,8 @@ public class main extends javax.swing.JFrame {
         txt_R_IdReparacion.setEditable(false);
 
         txt_R_Falla.setEditable(false);
+
+        txt_R_ControlPiezas.setEditable(false);
 
         btn_R_Guardar.setText("Guardar");
         btn_R_Guardar.addActionListener(new java.awt.event.ActionListener() {
@@ -1523,9 +1543,13 @@ public class main extends javax.swing.JFrame {
 
                 int maxID = v.getMax();
                 txt_V_IdVehiculo.setText(String.valueOf(maxID));
+                System.out.println("SIP");
                 cb_vehiculos();
+                System.out.println("funciuona");
                 cb_R_vehiculos();
+                System.out.println("ovio");
                 cb_R_Pieza();
+                System.out.println("aqui no es");
 
                 txtUsuario.setText("");
                 txtPassword.setText("");
@@ -2144,7 +2168,7 @@ public class main extends javax.swing.JFrame {
         txt_C_Nombre.setText("");
         txt_C_ApellidoPaterno.setText("");
         txt_C_ApellidoMaterno.setText("");
-        
+
         txt_C_Nombre.setEditable(true);
         txt_C_ApellidoPaterno.setEditable(true);
         txt_C_ApellidoMaterno.setEditable(true);
@@ -2583,6 +2607,18 @@ public class main extends javax.swing.JFrame {
         txt_P_Id.setText("");
 
     }//GEN-LAST:event_btn_P_BuscarActionPerformed
+
+    private void cmb_R_IdPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_R_IdPiezaActionPerformed
+        
+        if (cmb_R_IdPieza.getSelectedItem() != null) {
+            if ("Seleccione".equals(cmb_R_IdPieza.getSelectedItem().toString())) {
+                txt_R_ControlPiezas.setText("");
+            } else if (!"Seleccione".equals(cmb_R_IdPieza.getSelectedItem().toString())) {
+                cb_R_Control();
+            }
+        }
+
+    }//GEN-LAST:event_cmb_R_IdPiezaActionPerformed
 
     /**
      * @param args the command line arguments
