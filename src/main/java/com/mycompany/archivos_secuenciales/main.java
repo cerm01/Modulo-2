@@ -24,6 +24,9 @@ public class main extends javax.swing.JFrame {
     Files f;
     contacto cto;
     contacto admin;
+    
+    piezas_File pf;
+    piezas pi;
 
     reparaciones_File rf;
     reparaciones rep;
@@ -42,10 +45,12 @@ public class main extends javax.swing.JFrame {
     boolean ban = false;
     boolean ban_vehiculos = false;
     boolean ban_reparaciones = false;
+    boolean ban_piezas = false;
 
     public main() throws IOException {
         initComponents();
         f = new Files();
+        pf = new piezas_File();
         rf = new reparaciones_File();
         fc = new Cliente_File();
         v = new Vehiculos_Files();
@@ -79,6 +84,12 @@ public class main extends javax.swing.JFrame {
         btn_R_Editar.setEnabled(false);
         btn_R_Eliminar.setEnabled(false);
         btn_R_Cancelar.setEnabled(false);
+        
+        btn_P_Guardar.setEnabled(false);
+        btn_P_Nuevo.setEnabled(true);
+        btn_P_Editar.setEnabled(false);
+        btn_P_Eliminar.setEnabled(false);
+        btn_P_Cancelar.setEnabled(false);
 
         try {
             if (f.BuscarContacto(admin) == null) {
@@ -194,6 +205,11 @@ public class main extends javax.swing.JFrame {
         jdt_E_Fecha.setEnabled(true);
         jdt_S_Fecha.setEnabled(true);
     }
+    
+    public void Piezas_Habilitar() {
+        txt_P_Descripcion.setEditable(true);
+        txt_P_Stock.setEditable(true);
+    }
 
     public void Vehiculos_Deshabilitar() {
         txt_V_Matricula.setEditable(false);
@@ -227,6 +243,17 @@ public class main extends javax.swing.JFrame {
         txt_R_Falla.setText("");
         txt_R_IdReparacion.setText("");
         txt_R_ControlPiezas.setText("");
+    }
+    
+    public void Piezas_Deshabilitar() {
+        txt_P_Descripcion.setEditable(false);
+        txt_P_Stock.setEditable(false);
+        
+        int maxID = pf.getMax();
+        txt_P_IdPieza.setText(String.valueOf(maxID));
+
+        txt_P_Descripcion.setText("");
+        txt_P_Stock.setText("");
     }
 
     @SuppressWarnings("unchecked")
@@ -417,12 +444,6 @@ public class main extends javax.swing.JFrame {
 
         tpane.addTab("Login", pnlLogin);
 
-        txtID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIDActionPerformed(evt);
-            }
-        });
-
         btnNuevo.setText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -451,23 +472,11 @@ public class main extends javax.swing.JFrame {
             }
         });
 
-        txtNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreActionPerformed(evt);
-            }
-        });
-
         jLabel3.setText("Apellido Paterno");
 
         jLabel4.setText("Apellido Materno");
 
         jLabel5.setText("Username:");
-
-        txtMaterno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMaternoActionPerformed(evt);
-            }
-        });
 
         cbPerfil.setEditable(true);
         cbPerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Gerente", "Secretaria", "Mecánico" }));
@@ -502,12 +511,6 @@ public class main extends javax.swing.JFrame {
         jLabel8.setText("ID");
 
         jLabel9.setText("Nombre");
-
-        txtPaterno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPaternoActionPerformed(evt);
-            }
-        });
 
         jLabel10.setText("Telefono");
 
@@ -643,11 +646,6 @@ public class main extends javax.swing.JFrame {
         lbl_C_ApellidoMaterno.setText("Apellido Materno");
 
         txt_C_IdCliente.setEditable(false);
-        txt_C_IdCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_C_IdClienteActionPerformed(evt);
-            }
-        });
 
         txt_C_Nombre.setEditable(false);
 
@@ -816,11 +814,6 @@ public class main extends javax.swing.JFrame {
         lbl_V_Fecha.setText("Fecha");
 
         txt_V_IdVehiculo.setEditable(false);
-        txt_V_IdVehiculo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_V_IdVehiculoActionPerformed(evt);
-            }
-        });
 
         txt_V_Matricula.setEditable(false);
 
@@ -829,16 +822,6 @@ public class main extends javax.swing.JFrame {
         txt_V_Modelo.setEditable(false);
 
         cb_V_SeleccioneCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
-        cb_V_SeleccioneCliente.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cb_V_SeleccioneClienteMouseClicked(evt);
-            }
-        });
-        cb_V_SeleccioneCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cb_V_SeleccioneClienteActionPerformed(evt);
-            }
-        });
 
         btn_V_Nuevo.setText("Nuevo");
         btn_V_Nuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -1013,11 +996,6 @@ public class main extends javax.swing.JFrame {
         txt_R_IdReparacion.setEditable(false);
 
         txt_R_Falla.setEditable(false);
-        txt_R_Falla.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_R_FallaActionPerformed(evt);
-            }
-        });
 
         btn_R_Guardar.setText("Guardar");
         btn_R_Guardar.addActionListener(new java.awt.event.ActionListener() {
@@ -1191,6 +1169,17 @@ public class main extends javax.swing.JFrame {
         lbl_P_Stock.setText("Stock");
 
         btn_P_Nuevo.setText("Nuevo");
+        btn_P_Nuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_P_NuevoActionPerformed(evt);
+            }
+        });
+
+        txt_P_IdPieza.setEditable(false);
+
+        txt_P_Descripcion.setEditable(false);
+
+        txt_P_Stock.setEditable(false);
 
         btn_P_Guardar.setText("Guardar");
 
@@ -1302,10 +1291,6 @@ public class main extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         try {
@@ -1427,10 +1412,6 @@ public class main extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnSalvarActionPerformed
-
-    private void txtMaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaternoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMaternoActionPerformed
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
         try {
@@ -1694,14 +1675,6 @@ public class main extends javax.swing.JFrame {
         ban = false;
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void txtPaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPaternoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPaternoActionPerformed
-
-    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIDActionPerformed
-
     private void btn_C_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_C_SalirActionPerformed
         tpane.setSelectedIndex(0);
 
@@ -1786,9 +1759,6 @@ public class main extends javax.swing.JFrame {
 
         jdt_E_Fecha.setDate(null);
         jdt_S_Fecha.setDate(null);
-
-        //int maxID = v.getMax();
-        //txt_V_IdVehiculo.setText(String.valueOf(maxID));
 
     }//GEN-LAST:event_btn_R_NuevoActionPerformed
 
@@ -2278,18 +2248,6 @@ public class main extends javax.swing.JFrame {
         btn_C_Cancelar.setEnabled(false);
     }//GEN-LAST:event_btn_C_EliminarActionPerformed
 
-    private void cb_V_SeleccioneClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_V_SeleccioneClienteActionPerformed
-
-    }//GEN-LAST:event_cb_V_SeleccioneClienteActionPerformed
-
-    private void cb_V_SeleccioneClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cb_V_SeleccioneClienteMouseClicked
-
-    }//GEN-LAST:event_cb_V_SeleccioneClienteMouseClicked
-
-    private void txt_C_IdClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_C_IdClienteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_C_IdClienteActionPerformed
-
     private void btn_R_EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_R_EditarActionPerformed
         Reparaciones_Habilitar();
         btn_R_Guardar.setEnabled(true);
@@ -2412,13 +2370,9 @@ public class main extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btn_R_BuscarActionPerformed
 
-    private void txt_R_FallaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_R_FallaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_R_FallaActionPerformed
-
-    private void txt_V_IdVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_V_IdVehiculoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_V_IdVehiculoActionPerformed
+    private void btn_P_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_P_NuevoActionPerformed
+        // TODO
+    }//GEN-LAST:event_btn_P_NuevoActionPerformed
 
     /**
      * @param args the command line arguments
