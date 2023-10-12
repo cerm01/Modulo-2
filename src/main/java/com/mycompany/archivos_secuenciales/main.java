@@ -1922,7 +1922,7 @@ public class main extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Ingrese una cantidad posible, o en su defecto, escoja una pieza disponible");
             return;
         }
-                
+
         if (jdt_E_Fecha.getDate() == null || jdt_S_Fecha.getDate() == null) {
             JOptionPane.showMessageDialog(null, "Escoja una fecha del calendario");
             return;
@@ -2043,8 +2043,21 @@ public class main extends javax.swing.JFrame {
             return;
         }
 
-        vcs = new Vehiculos();
+        try {
+            vcs = new Vehiculos();
+            vcs.setMatricula(txt_V_Matricula.getText());
+            vcs = v.BuscarMatricula(vcs);
 
+            if (vcs != null) {
+                JOptionPane.showMessageDialog(null, "Esa matricula ya existe");
+                return;
+            }
+        } catch (FileNotFoundException ex) {
+
+        }
+
+        vcs = new Vehiculos();
+        vcs.setMatricula(txt_V_Matricula.getText());
         vcs.setCliente(cb_V_SeleccioneCliente.getSelectedItem().toString());
         vcs.setId_vehiculo(Integer.parseInt(txt_V_IdVehiculo.getText()));
         vcs.setMatricula(txt_V_Matricula.getText());
