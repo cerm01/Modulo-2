@@ -187,17 +187,19 @@ public class main extends javax.swing.JFrame {
         }
     }
 
-    public void cb_R_Control() {
+    public boolean txt_R_Control() {
+        boolean ban = false;
         try {
             pi = new piezas();
             pi.SetPiz(Integer.parseInt(cb_R_IdPieza.getSelectedItem().toString()));
             pi = pf.BuscarPiezas(pi);
-
-            txt_R_ControlPiezas.setText(String.valueOf(pi.getStock()));
-
+            if (Integer.parseInt(txt_R_ControlPiezas.getText()) <= pi.getStock() && Integer.parseInt(txt_R_ControlPiezas.getText()) != 0) {
+                ban = true;
+            }
+//pi.SetStock(Integer.parseInt(txt_R_ControlPiezas.getText()));
         } catch (FileNotFoundException ex) {
-
         }
+        return ban;
     }
 
     public void Habilitar() {
@@ -241,6 +243,7 @@ public class main extends javax.swing.JFrame {
 
     public void Reparaciones_Habilitar() {
         txt_R_Falla.setEditable(true);
+        txt_R_ControlPiezas.setEditable(true);
         jdt_E_Fecha.setEnabled(true);
         jdt_S_Fecha.setEnabled(true);
     }
@@ -1027,11 +1030,6 @@ public class main extends javax.swing.JFrame {
         cb_R_IdVehiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
 
         cb_R_IdPieza.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
-        cb_R_IdPieza.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cb_R_IdPiezaActionPerformed(evt);
-            }
-        });
 
         btn_R_Nuevo.setText("Nuevo");
         btn_R_Nuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -1380,7 +1378,7 @@ public class main extends javax.swing.JFrame {
             cbPerfil.setSelectedItem("");
             cbPerfil.setEditable(false);
             txtDireccion.setText("");
-            
+
             return;
         }
 
@@ -1455,12 +1453,12 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        
+
         try {
             txtID.setText(String.valueOf(f.Id()));
         } catch (FileNotFoundException ex) {
         }
-        
+
         Habilitar();
         txtPsw.setVisible(true);
         lblPassword.setVisible(true);
@@ -1915,6 +1913,16 @@ public class main extends javax.swing.JFrame {
             return;
         }
 
+        if ("".equals(txt_R_ControlPiezas.getText()) || !ValidaNum(txt_R_ControlPiezas.getText().trim())) {
+            JOptionPane.showMessageDialog(null, "Ingrese la cantidad de piezas a usar");
+            return;
+        }
+
+        if (!txt_R_Control()) {
+            JOptionPane.showMessageDialog(null, "Ingrese una cantidad posible, o en su defecto, escoja una pieza disponible");
+            return;
+        }
+                
         if (jdt_E_Fecha.getDate() == null || jdt_S_Fecha.getDate() == null) {
             JOptionPane.showMessageDialog(null, "Escoja una fecha del calendario");
             return;
@@ -1939,6 +1947,20 @@ public class main extends javax.swing.JFrame {
                         return;
                     }
 
+                    int aux = Integer.parseInt(txt_R_ControlPiezas.getText());
+
+                    pi = new piezas();
+                    pi.SetPiz(Integer.parseInt(cb_R_IdPieza.getSelectedItem().toString()));
+                    pi = pf.BuscarPiezas(pi);
+                    aux = (pi.getStock() - aux);
+                    pi.SetStock(aux);
+
+                    try {
+                        pf.Editar(pi);
+                    } catch (IOException ex) {
+
+                    }
+
                     rep.setId_ve(Integer.parseInt(cb_R_IdVehiculo.getSelectedItem().toString()));
                     rep.setId_pi(Integer.parseInt(cb_R_IdPieza.getSelectedItem().toString()));
                     rep.setFalla(txt_R_Falla.getText());
@@ -1953,6 +1975,7 @@ public class main extends javax.swing.JFrame {
                         ban_reparaciones = false;
                         try {
                             rf.Editar(rep);
+
                             JOptionPane.showMessageDialog(null, "Editado con Éxito");
                             System.out.println("SI");
                         } catch (IOException ex) {
@@ -2453,7 +2476,6 @@ public class main extends javax.swing.JFrame {
         Reparaciones_Deshabilitar();
         cb_R_vehiculos();
         cb_R_Pieza();
-        jdt_V_Fecha.setDate(null);
 
         btn_R_Guardar.setEnabled(false);
         btn_R_Nuevo.setEnabled(true);
@@ -2524,7 +2546,7 @@ public class main extends javax.swing.JFrame {
 
             return;
         }
-        
+
         if (!ValidaNum(txt_R_Id.getText().trim())) {
             JOptionPane.showMessageDialog(null, "Ingrese un ID valido");
             txt_R_Id.setText("");
@@ -2739,7 +2761,7 @@ public class main extends javax.swing.JFrame {
             txt_P_Stock.setText("");
             return;
         }
-        
+
         if (!ValidaNum(txt_P_Id.getText().trim())) {
             JOptionPane.showMessageDialog(null, "Ingrese un ID valido");
             txt_P_Id.setText("");
@@ -2788,18 +2810,6 @@ public class main extends javax.swing.JFrame {
         txt_P_Id.setText("");
 
     }//GEN-LAST:event_btn_P_BuscarActionPerformed
-
-    private void cb_R_IdPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_R_IdPiezaActionPerformed
-
-        if (cb_R_IdPieza.getSelectedItem() != null) {
-            if ("Seleccione".equals(cb_R_IdPieza.getSelectedItem().toString())) {
-                txt_R_ControlPiezas.setText("");
-            } else if (!"Seleccione".equals(cb_R_IdPieza.getSelectedItem().toString())) {
-                cb_R_Control();
-            }
-        }
-
-    }//GEN-LAST:event_cb_R_IdPiezaActionPerformed
 
     /**
      * @param args the command line arguments
